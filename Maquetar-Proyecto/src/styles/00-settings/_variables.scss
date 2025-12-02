@@ -16,4 +16,25 @@ root {
   --color-neutral1: #FFFFFF;
   --color-neutral2: #E0E0E0;
   --color-neutral3: #AAAAAA;
+
+  --font-base: 1rem;
+  --font-pequeño: 0.75rem;
+  --font-secundario: 0.85rem;
+  --font-h3: 1.25rem;
+  --font-h2: 1.5rem;
+  --font-h1: 2rem;
+
+  --space-base: 1rem;
+  --space-pequeño: 0.25rem;
+  --space-secundario: 0.5rem;
+  --space-h3: 2rem;
+  --space-h2: 3rem;
+  --space-h1: 4rem;
+
+  --bp-desktop: 64rem;
+  --bp-movile: 40rem;
+  --bp-tablet: 48rem;
+  --bp-bigdesktop: 80rem;
+
+  --shadow-sm:rgba()
 }
