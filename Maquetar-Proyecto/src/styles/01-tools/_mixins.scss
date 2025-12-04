@@ -1,0 +1,48 @@
+// @mixin button-base($bg, $color: #fff) {
+//  display: inline-flex;
+//  align-items: center;
+//  justify-content: center;
+//  padding: 0.5rem 1rem;
+//  border-radius: var(--radius-md);
+//  border: none;
+//  background-color: $bg;
+//  color: $color;
+//  cursor: pointer;
+//  transition: all var(--transition-normal);
+//}
+//
+//// Uso
+//.btn-primary {
+//  @include button-base(#1976d2);
+//}
+//
+//.btn-danger {
+//  @include button-base(#d32f2f);
+//}
+
+//@mixin flex-center {
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//}
+//
+//// Uso
+//.card {
+//  @include flex-center;
+//}
+
+//@mixin from-tablet {
+//  @media (min-width: 64rem) {  // 1024px
+//    @content;
+//  }
+//}
+//
+//// Uso
+//.container {
+//  padding: var(--space-sm);
+//
+//  @include from-tablet {
+//    padding: var(--space-lg);
+//    display: grid;
+//  }
+//}
