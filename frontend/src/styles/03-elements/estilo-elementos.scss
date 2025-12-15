@@ -9,9 +9,20 @@ p {
 }
 
 a {
-  color: var(--color-primary);
   text-decoration: none;
 }
-article{}
-h2{}
+
+article{
+  background-color: var(--color-primary3);
+}
+
+h2{
+  font-size: var(--font-xxl);
+  margin-bottom: var(--space-md);
+}
+
 h3{}
+
+header{
+  background-color: var(--color-primary0);
+}
