@@ -1,44 +1,151 @@
- @mixin button-base($bg, $color: #fff) {
- display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
-  border: none;
-  background-color: $bg;
-  color: $color;
- cursor: pointer;
-  transition: all var(--transition-normal);
+// ============================================
+// MIXINS Y FUNCIONES REUTILIZABLES
+// ============================================
+
+// ----------------
+// MIXIN: Responsive Breakpoints
+// ----------------
+// Simplifica el uso de media queries
+// Uso: @include respond-to('md') { ... }
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == 'sm' {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == 'md' {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg' {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == 'xl' {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  } @else if $breakpoint == '2xl' {
+    @media (min-width: $breakpoint-2xl) {
+      @content;
+    }
+  }
 }
 
-.btn-primary {
-  @include button-base(#1976d2);
-}
-
-.btn-danger {
-  @include button-base(#d32f2f);
-}
+// ----------------
+// MIXIN: Flex Center
+// ----------------
+// Centra contenido usando flexbox
+// Uso: @include flex-center;
 
 @mixin flex-center {
   display: flex;
- justify-content: center;
+  justify-content: center;
   align-items: center;
 }
-.card {
-  @include flex-center;
-}
 
-@mixin from-tablet {
-  @media (min-width: 64rem) {  // 1024px
-    @content;
+// ----------------
+// MIXIN: Button Base
+// ----------------
+// Estilos base para botones reutilizables
+// Uso: @include button-base($color-primary-0, $color-neutral-1000);
+
+@mixin button-base($bg-color, $text-color: $color-neutral-1000, $padding: $spacing-3 $spacing-6) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $padding;
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  border-radius: $radius-md;
+  font-weight: $font-weight-medium;
+  font-family: $font-primary;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
   }
 }
 
-.container {
-  padding: var(--space-sm);
+// ----------------
+// MIXIN: Card Container
+// ----------------
+// Estilos base para tarjetas
+// Uso: @include card-container;
 
-  @include from-tablet {
-    padding: var(--space-lg);
-    display: grid;
+@mixin card-container($padding: $spacing-6, $shadow: $shadow-sm) {
+  background-color: $color-neutral-1000;
+  border-radius: $radius-lg;
+  padding: $padding;
+  box-shadow: $shadow;
+  transition: box-shadow $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
   }
+}
+
+// ----------------
+// MIXIN: Truncate Text
+// ----------------
+// Trunca texto con ellipsis
+// Uso: @include truncate-text; o @include truncate-text(3);
+
+@mixin truncate-text($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// ----------------
+// MIXIN: Visually Hidden
+// ----------------
+// Oculta visualmente pero mantiene accesibilidad
+// Uso: @include visually-hidden;
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// ----------------
+// FUNCIÓN: Spacing
+// ----------------
+// Calcula espaciado basado en la unidad base
+// Uso: margin: spacing(4); // 1rem
+
+@function spacing($multiplier) {
+  @return $spacing-1 * $multiplier;
 }

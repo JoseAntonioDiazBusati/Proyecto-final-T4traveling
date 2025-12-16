@@ -1,4 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================
+   ESTILOS GLOBALES - T4 TRAVELING
+   Organización ITCSS (Inverted Triangle CSS)
+   ============================================ */
+
+// 00-SETTINGS: Variables globales y configuración
 @import 'styles/00-settings/variables';
+
+// 01-TOOLS: Mixins y funciones
 @import 'styles/01-tools/mixins';
+
+// 02-GENERIC: Reset y normalize
 @import 'styles/02-generic/reset';
+
+// 03-ELEMENTS: Estilos base de elementos HTML
+@import 'styles/03-elements/estilo-elementos';
+
+// 04-LAYOUT: Sistema de grid y layout
+@import 'styles/04-layout/layout';
+

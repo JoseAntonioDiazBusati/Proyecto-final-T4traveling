@@ -1,0 +1,279 @@
+// ============================================
+// SISTEMA DE LAYOUT Y GRID
+// ============================================
+
+// ----------------
+// CONTENEDOR PRINCIPAL
+// ----------------
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $spacing-4;
+  padding-right: $spacing-4;
+
+  @include respond-to('md') {
+    padding-left: $spacing-6;
+    padding-right: $spacing-6;
+  }
+
+  @include respond-to('lg') {
+    padding-left: $spacing-8;
+    padding-right: $spacing-8;
+  }
+
+  // Variante ancha
+  &--wide {
+    max-width: 1536px;
+  }
+
+  // Variante estrecha
+  &--narrow {
+    max-width: 768px;
+  }
+}
+
+// ----------------
+// SISTEMA DE GRID
+// ----------------
+
+.grid {
+  display: grid;
+  gap: $spacing-6;
+
+  // Grid de 2 columnas
+  &--2 {
+    grid-template-columns: 1fr;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  // Grid de 3 columnas
+  &--3 {
+    grid-template-columns: 1fr;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // Grid de 4 columnas
+  &--4 {
+    grid-template-columns: 1fr;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  // Grid automático (ajusta columnas según contenido)
+  &--auto {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  // Modificadores de gap
+  &--gap-sm {
+    gap: $spacing-3;
+  }
+
+  &--gap-md {
+    gap: $spacing-6;
+  }
+
+  &--gap-lg {
+    gap: $spacing-10;
+  }
+}
+
+// ----------------
+// SISTEMA FLEXBOX
+// ----------------
+
+.flex {
+  display: flex;
+
+  // Dirección
+  &--row {
+    flex-direction: row;
+  }
+
+  &--column {
+    flex-direction: column;
+  }
+
+  &--row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  &--column-reverse {
+    flex-direction: column-reverse;
+  }
+
+  // Justificación
+  &--justify-start {
+    justify-content: flex-start;
+  }
+
+  &--justify-center {
+    justify-content: center;
+  }
+
+  &--justify-end {
+    justify-content: flex-end;
+  }
+
+  &--justify-between {
+    justify-content: space-between;
+  }
+
+  &--justify-around {
+    justify-content: space-around;
+  }
+
+  // Alineación
+  &--items-start {
+    align-items: flex-start;
+  }
+
+  &--items-center {
+    align-items: center;
+  }
+
+  &--items-end {
+    align-items: flex-end;
+  }
+
+  &--items-stretch {
+    align-items: stretch;
+  }
+
+  // Wrap
+  &--wrap {
+    flex-wrap: wrap;
+  }
+
+  &--nowrap {
+    flex-wrap: nowrap;
+  }
+
+  // Gap
+  &--gap-sm {
+    gap: $spacing-3;
+  }
+
+  &--gap-md {
+    gap: $spacing-6;
+  }
+
+  &--gap-lg {
+    gap: $spacing-10;
+  }
+}
+
+// ----------------
+// UTILIDADES DE ESPACIADO
+// ----------------
+
+// Márgenes
+.m-0 { margin: 0; }
+.m-1 { margin: $spacing-1; }
+.m-2 { margin: $spacing-2; }
+.m-3 { margin: $spacing-3; }
+.m-4 { margin: $spacing-4; }
+.m-5 { margin: $spacing-5; }
+.m-6 { margin: $spacing-6; }
+.m-8 { margin: $spacing-8; }
+
+// Margin auto
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Padding
+.p-0 { padding: 0; }
+.p-1 { padding: $spacing-1; }
+.p-2 { padding: $spacing-2; }
+.p-3 { padding: $spacing-3; }
+.p-4 { padding: $spacing-4; }
+.p-5 { padding: $spacing-5; }
+.p-6 { padding: $spacing-6; }
+.p-8 { padding: $spacing-8; }
+
+// ----------------
+// SECCIONES
+// ----------------
+
+.section {
+  padding-top: $spacing-12;
+  padding-bottom: $spacing-12;
+
+  @include respond-to('lg') {
+    padding-top: $spacing-16;
+    padding-bottom: $spacing-16;
+  }
+
+  &--sm {
+    padding-top: $spacing-8;
+    padding-bottom: $spacing-8;
+  }
+
+  &--lg {
+    padding-top: $spacing-20;
+    padding-bottom: $spacing-20;
+  }
+}
+
+// ----------------
+// UTILIDADES DE VISUALIZACIÓN
+// ----------------
+
+.hidden {
+  display: none !important;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+// Utilidades responsive
+@include respond-to('md') {
+  .hidden-md {
+    display: none !important;
+  }
+
+  .block-md {
+    display: block;
+  }
+}
+
+@include respond-to('lg') {
+  .hidden-lg {
+    display: none !important;
+  }
+
+  .block-lg {
+    display: block;
+  }
+}
+
