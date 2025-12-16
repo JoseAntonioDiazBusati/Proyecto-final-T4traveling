@@ -1,0 +1,162 @@
+// ============================================
+// CSS CUSTOM PROPERTIES (Variables CSS)
+// ============================================
+// Para temas dinámicos y personalización en runtime
+
+:root {
+  // ----------------
+  // COLORES DE FONDO
+  // ----------------
+  --bg-primary: #{$color-primary-0};
+  --bg-secondary: #{$color-secondary-0};
+  --bg-body: #{$color-neutral-900};
+  --bg-surface: #{$color-neutral-1000};
+  --bg-hover: #{$color-neutral-800};
+
+  // ----------------
+  // COLORES DE TEXTO
+  // ----------------
+  --text-primary: #{$color-neutral-0};
+  --text-secondary: #{$color-neutral-400};
+  --text-tertiary: #{$color-neutral-600};
+  --text-inverse: #{$color-neutral-1000};
+  --text-link: #{$color-primary-0};
+  --text-link-hover: #{$color-primary-1};
+
+  // ----------------
+  // COLORES DE BORDE
+  // ----------------
+  --border-color: #{$color-neutral-700};
+  --border-color-light: #{$color-neutral-800};
+  --border-color-dark: #{$color-neutral-500};
+
+  // ----------------
+  // COLORES SEMÁNTICOS
+  // ----------------
+  --color-success: #{$color-success};
+  --color-error: #{$color-error};
+  --color-warning: #{$color-warning};
+  --color-info: #{$color-info};
+
+  // ----------------
+  // SOMBRAS
+  // ----------------
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+
+  // ----------------
+  // ESPACIADO (algunos valores clave)
+  // ----------------
+  --spacing-xs: #{$spacing-1};
+  --spacing-sm: #{$spacing-2};
+  --spacing-md: #{$spacing-4};
+  --spacing-lg: #{$spacing-6};
+  --spacing-xl: #{$spacing-8};
+
+  // ----------------
+  // TIPOGRAFÍA
+  // ----------------
+  --font-primary: #{$font-primary};
+  --font-secondary: #{$font-secondary};
+  --font-size-base: #{$font-base};
+  --font-size-sm: #{$font-sm};
+  --font-size-lg: #{$font-lg};
+
+  // ----------------
+  // TRANSICIONES
+  // ----------------
+  --transition-fast: #{$transition-fast};
+  --transition-base: #{$transition-base};
+  --transition-slow: #{$transition-slow};
+
+  // ----------------
+  // RADIOS
+  // ----------------
+  --radius-sm: #{$radius-sm};
+  --radius-md: #{$radius-md};
+  --radius-lg: #{$radius-lg};
+  --radius-full: #{$radius-full};
+}
+
+// ============================================
+// TEMA OSCURO (Opcional - para futuras fases)
+// ============================================
+
+[data-theme="dark"] {
+  --bg-body: #{$color-neutral-0};
+  --bg-surface: #{$color-neutral-50};
+  --bg-hover: #{$color-neutral-100};
+
+  --text-primary: #{$color-neutral-1000};
+  --text-secondary: #{$color-neutral-700};
+  --text-tertiary: #{$color-neutral-600};
+  --text-inverse: #{$color-neutral-0};
+
+  --border-color: #{$color-neutral-300};
+  --border-color-light: #{$color-neutral-200};
+  --border-color-dark: #{$color-neutral-400};
+
+  --shadow-sm: 0 1px 3px rgba(255, 255, 255, 0.12), 0 1px 2px rgba(255, 255, 255, 0.24);
+  --shadow-md: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
+  --shadow-lg: 0 14px 28px rgba(255, 255, 255, 0.25), 0 10px 10px rgba(255, 255, 255, 0.22);
+  --shadow-xl: 0 19px 38px rgba(255, 255, 255, 0.30), 0 15px 12px rgba(255, 255, 255, 0.22);
+}
+
+// ============================================
+// UTILIDADES CON VARIABLES CSS
+// ============================================
+
+// Estas clases pueden usarse directamente en el HTML
+// y respetarán el tema activo
+
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-surface {
+  background-color: var(--bg-surface);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-inverse {
+  color: var(--text-inverse);
+}
+
+.border-default {
+  border-color: var(--border-color);
+}
+
+// ============================================
+// NOTAS DE USO
+// ============================================
+//
+// Cuándo usar variables SCSS ($variable):
+// - Para cálculos y operaciones matemáticas
+// - Para valores que no cambiarán en runtime
+// - En mixins y funciones
+//
+// Cuándo usar CSS Custom Properties (--variable):
+// - Para temas que cambian dinámicamente
+// - Para valores que se personalizan por componente
+// - Cuando necesitas cambiar valores con JavaScript
+// - Para cascada de valores en componentes anidados
+//
+// Ejemplo de uso combinado:
+// .elemento {
+//   padding: $spacing-4;           // SCSS: valor fijo
+//   background: var(--bg-primary); // CSS: puede cambiar con tema
+// }
+

@@ -1,0 +1,165 @@
+<!-- Formulario de contacto estructurado y semántico -->
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form" novalidate>
+  <h2 class="contact-form__title">Formulario de Contacto</h2>
+  <p class="contact-form__description">
+    ¿Tienes alguna pregunta o necesitas ayuda? Completa el formulario y nos pondremos en contacto contigo lo antes posible.
+  </p>
+
+  <!-- Fieldset: Información Personal -->
+  <fieldset class="contact-form__fieldset">
+    <legend class="contact-form__legend">Información Personal</legend>
+
+    <div class="contact-form__row">
+      <app-form-input
+        id="nombre"
+        label="Nombre"
+        type="text"
+        name="nombre"
+        placeholder="Juan"
+        [required]="true"
+        [errorMessage]="getErrorMessage('nombre')"
+        helpText="Ingresa tu nombre"
+        autocomplete="given-name"
+        [formControl]="$any(contactForm.get('nombre'))"
+      ></app-form-input>
+
+      <app-form-input
+        id="apellidos"
+        label="Apellidos"
+        type="text"
+        name="apellidos"
+        placeholder="García López"
+        [required]="true"
+        [errorMessage]="getErrorMessage('apellidos')"
+        helpText="Ingresa tus apellidos"
+        autocomplete="family-name"
+        [formControl]="$any(contactForm.get('apellidos'))"
+      ></app-form-input>
+    </div>
+  </fieldset>
+
+  <!-- Fieldset: Información de Contacto -->
+  <fieldset class="contact-form__fieldset">
+    <legend class="contact-form__legend">Información de Contacto</legend>
+
+    <div class="contact-form__row">
+      <app-form-input
+        id="email"
+        label="Correo Electrónico"
+        type="email"
+        name="email"
+        placeholder="tu@email.com"
+        [required]="true"
+        [errorMessage]="getErrorMessage('email')"
+        helpText="Usaremos este email para responderte"
+        autocomplete="email"
+        [formControl]="$any(contactForm.get('email'))"
+      ></app-form-input>
+
+      <app-form-input
+        id="telefono"
+        label="Teléfono"
+        type="tel"
+        name="telefono"
+        placeholder="612345678"
+        [required]="true"
+        [errorMessage]="getErrorMessage('telefono')"
+        helpText="9 dígitos sin espacios"
+        autocomplete="tel"
+        [formControl]="$any(contactForm.get('telefono'))"
+      ></app-form-input>
+    </div>
+  </fieldset>
+
+  <!-- Fieldset: Mensaje -->
+  <fieldset class="contact-form__fieldset">
+    <legend class="contact-form__legend">Tu Mensaje</legend>
+
+    <app-form-input
+      id="asunto"
+      label="Asunto"
+      type="text"
+      name="asunto"
+      placeholder="¿En qué podemos ayudarte?"
+      [required]="true"
+      [errorMessage]="getErrorMessage('asunto')"
+      helpText="Resumen breve de tu consulta"
+      [formControl]="$any(contactForm.get('asunto'))"
+    ></app-form-input>
+
+    <!-- Textarea (sin usar app-form-input) -->
+    <div class="contact-form__textarea-wrapper">
+      <label for="mensaje" class="contact-form__label">
+        Mensaje
+        <span class="contact-form__required" aria-label="campo requerido">*</span>
+      </label>
+      <textarea
+        id="mensaje"
+        name="mensaje"
+        formControlName="mensaje"
+        rows="6"
+        placeholder="Cuéntanos en detalle..."
+        class="contact-form__textarea"
+        [class.contact-form__textarea--error]="isFieldInvalid('mensaje')"
+        required
+        aria-required="true"
+        [attr.aria-invalid]="isFieldInvalid('mensaje')"
+        [attr.aria-describedby]="isFieldInvalid('mensaje') ? 'mensaje-error' : 'mensaje-help'"
+      ></textarea>
+      <p *ngIf="!isFieldInvalid('mensaje')" id="mensaje-help" class="contact-form__help">
+        Describe tu consulta con el mayor detalle posible
+      </p>
+      <p *ngIf="isFieldInvalid('mensaje')" id="mensaje-error" class="contact-form__error" role="alert">
+        <svg class="contact-form__error-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        {{ getErrorMessage('mensaje') }}
+      </p>
+    </div>
+  </fieldset>
+
+  <!-- Botones de acción -->
+  <div class="contact-form__actions">
+    <button
+      type="submit"
+      class="contact-form__submit"
+      [disabled]="isSubmitting"
+      [class.contact-form__submit--loading]="isSubmitting"
+    >
+      <span *ngIf="!isSubmitting">Enviar Mensaje</span>
+      <span *ngIf="isSubmitting" class="contact-form__loading">
+        <svg class="contact-form__spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" opacity="0.25"></circle>
+          <path d="M12 2a10 10 0 0 1 10 10" opacity="0.75"></path>
+        </svg>
+        Enviando...
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="contact-form__reset"
+      (click)="contactForm.reset()"
+      [disabled]="isSubmitting"
+    >
+      Limpiar Formulario
+    </button>
+  </div>
+
+  <!-- Mensaje de éxito -->
+  <div *ngIf="isSubmitted" class="contact-form__success" role="alert">
+    <svg class="contact-form__success-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M9 12l2 2 4-4"></path>
+    </svg>
+    <div class="contact-form__success-content">
+      <h3 class="contact-form__success-title">¡Mensaje enviado con éxito!</h3>
+      <p class="contact-form__success-message">
+        Gracias por contactarnos. Te responderemos lo antes posible.
+      </p>
+    </div>
+  </div>
+</form>
+

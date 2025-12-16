@@ -1,0 +1,150 @@
+// ============================================
+// FORM INPUT COMPONENT - BEM
+// ============================================
+
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  width: 100%;
+
+  // ----------------
+  // LABEL
+  // ----------------
+  &__label {
+    font-size: $font-sm;
+    font-weight: $font-weight-medium;
+    color: $color-neutral-100;
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__required {
+    color: $color-error;
+    font-weight: $font-weight-bold;
+    font-size: $font-md;
+  }
+
+  // ----------------
+  // INPUT FIELD
+  // ----------------
+  &__field {
+    width: 100%;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-base;
+    font-family: $font-primary;
+    color: $color-neutral-0;
+    background-color: $color-neutral-1000;
+    border: $border-medium solid $color-neutral-700;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+
+    &::placeholder {
+      color: $color-neutral-500;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: $color-neutral-600;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-info;
+      box-shadow: 0 0 0 3px rgba($color-info, 0.1);
+    }
+
+    &:disabled {
+      background-color: $color-neutral-900;
+      color: $color-neutral-500;
+      cursor: not-allowed;
+    }
+  }
+
+  // ----------------
+  // HELP TEXT
+  // ----------------
+  &__help {
+    font-size: $font-xs;
+    color: $color-neutral-500;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  // ----------------
+  // ERROR MESSAGE
+  // ----------------
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-xs;
+    color: $color-error;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  &__error-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  // ----------------
+  // ESTADOS
+  // ----------------
+
+  // Estado de error
+  &--error {
+    .form-input__field {
+      border-color: $color-error;
+
+      &:focus {
+        border-color: $color-error;
+        box-shadow: 0 0 0 3px rgba($color-error, 0.1);
+      }
+    }
+
+    .form-input__label {
+      color: $color-error;
+    }
+  }
+
+  // Estado deshabilitado
+  &--disabled {
+    opacity: 0.6;
+
+    .form-input__label {
+      cursor: not-allowed;
+    }
+  }
+}
+
+// ----------------
+// VARIANTES DE TIPO
+// ----------------
+
+// Para tipos específicos podemos añadir estilos personalizados
+input[type="password"] {
+  font-family: monospace;
+}
+
+input[type="email"] {
+  text-transform: lowercase;
+}
+
+input[type="number"] {
+  // Navegadores webkit
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  // Firefox
+  -moz-appearance: textfield;
+}
+

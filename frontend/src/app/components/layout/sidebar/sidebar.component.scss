@@ -1,0 +1,45 @@
+// ============================================
+// SIDEBAR COMPONENT - BEM
+// ============================================
+
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
+.sidebar {
+  background-color: $color-neutral-1000;
+  padding: $spacing-6;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+
+  @include respond-to('lg') {
+    position: sticky;
+    top: calc(72px + #{$spacing-4}); // Header height + margen
+    max-height: calc(100vh - 72px - #{$spacing-8});
+    overflow-y: auto;
+  }
+
+  // Variante derecha
+  &--right {
+    // Modificadores específicos si es necesario
+  }
+
+  // Scrollbar personalizado
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-neutral-900;
+    border-radius: $radius-full;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-neutral-600;
+    border-radius: $radius-full;
+
+    &:hover {
+      background: $color-neutral-500;
+    }
+  }
+}
+

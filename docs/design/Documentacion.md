@@ -894,7 +894,1066 @@ docs/design/
 
 ---
 
+---
+
+## Sección 2: HTML Semántico y Estructura
+
+### 2.1 Elementos Semánticos Utilizados
+
+El uso de HTML semántico mejora la accesibilidad, el SEO y la mantenibilidad del código. A continuación se explican los elementos semánticos utilizados en T4 Traveling y su propósito específico.
+
+#### `<header>` - Encabezado Principal
+
+**Propósito:** Contiene el logo, navegación principal y utilidades del sitio.
+
+**Ubicación:** Componente `HeaderComponent` (`app-header`)
+
+**Ejemplo de implementación:**
+
+```html
+<header class="header">
+  <div class="header__container container">
+    <!-- Logo -->
+    <div class="header__logo">
+      <a routerLink="/" aria-label="Ir a la página principal">
+        <img src="/assets/images/logo.svg" alt="T4 Traveling" />
+        <span>T4 Traveling</span>
+      </a>
+    </div>
+
+    <!-- Navegación principal -->
+    <nav class="header__nav" aria-label="Navegación principal">
+      <ul class="header__nav-list">
+        <li><a routerLink="/">Inicio</a></li>
+        <li><a routerLink="/destinos">Destinos</a></li>
+        <li><a routerLink="/transportes">Transportes</a></li>
+        <li><a routerLink="/reservas">Mis Reservas</a></li>
+        <li><a routerLink="/contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <!-- Utilidades -->
+    <div class="header__utilities">
+      <button aria-label="Buscar destinos">🔍</button>
+      <button aria-label="Cuenta de usuario">👤</button>
+    </div>
+  </div>
+</header>
+```
+
+**Características clave:**
+- ✅ Etiqueta semántica `<header>`
+- ✅ Logo con enlace a home
+- ✅ `<nav>` con `aria-label` descriptivo
+- ✅ Botones con `aria-label` para accesibilidad
+- ✅ Estructura responsive con menú hamburguesa en móvil
+
+---
+
+#### `<nav>` - Navegación
+
+**Propósito:** Define una sección de navegación principal o secundaria.
+
+**Cuándo usarlo:**
+- Navegación principal del sitio (header)
+- Navegación de pie de página
+- Breadcrumbs
+- Menús de filtros
+
+**Ejemplo de navegación principal:**
+
+```html
+<nav class="header__nav" aria-label="Navegación principal">
+  <ul class="header__nav-list">
+    <li class="header__nav-item">
+      <a routerLink="/" 
+         class="header__nav-link" 
+         routerLinkActive="header__nav-link--active"
+         [routerLinkActiveOptions]="{exact: true}">
+        Inicio
+      </a>
+    </li>
+    <!-- Más items... -->
+  </ul>
+</nav>
+```
+
+**Ejemplo de navegación footer:**
+
+```html
+<nav class="footer__nav" aria-label="Enlaces rápidos">
+  <ul class="footer__nav-list">
+    <li><a routerLink="/destinos">Destinos</a></li>
+    <li><a routerLink="/transportes">Transportes</a></li>
+  </ul>
+</nav>
+```
+
+**Buenas prácticas:**
+- ✅ Siempre incluir `aria-label` descriptivo para distinguir múltiples navegaciones
+- ✅ Usar listas `<ul>` dentro de `<nav>` (mejora accesibilidad con lectores de pantalla)
+- ✅ Indicar visualmente el enlace activo con clases (`routerLinkActive`)
+
+---
+
+#### `<main>` - Contenido Principal
+
+**Propósito:** Contiene el contenido principal único de la página. Solo debe haber **UNO** por página.
+
+**Ubicación:** Componente `MainComponent` (`app-main`)
+
+**Ejemplo de implementación:**
+
+```html
+<main class="main">
+  <ng-content></ng-content>
+</main>
+```
+
+**Uso en la aplicación principal:**
+
+```html
+<!-- app.component.html -->
+<app-header></app-header>
+<app-main>
+  <!-- Aquí va el contenido específico de cada página -->
+  <router-outlet></router-outlet>
+</app-main>
+<app-footer></app-footer>
+```
+
+**Reglas importantes:**
+- ✅ Solo un `<main>` por página
+- ✅ Debe contener el contenido principal (excluye header, footer, sidebars secundarios)
+- ✅ No debe estar dentro de `<article>`, `<aside>`, `<footer>`, `<header>` o `<nav>`
+- ✅ Permite a lectores de pantalla saltar directamente al contenido principal
+
+---
+
+#### `<article>` - Contenido Independiente
+
+**Propósito:** Contenido que tiene sentido por sí mismo (puede ser distribuido independientemente).
+
+**Cuándo usarlo:**
+- Posts de blog
+- Tarjetas de destinos
+- Comentarios de usuarios
+- Noticias individuales
+
+**Ejemplo - Tarjeta de Destino:**
+
+```html
+<article class="destination-card">
+  <header class="destination-card__header">
+    <h2 class="destination-card__title">París, Francia</h2>
+    <p class="destination-card__location">Europa Occidental</p>
+  </header>
+  
+  <img src="paris.jpg" alt="Torre Eiffel en París" class="destination-card__image" />
+  
+  <div class="destination-card__content">
+    <p class="destination-card__description">
+      Descubre la ciudad del amor con sus icónicos monumentos...
+    </p>
+    <p class="destination-card__price">Desde 899€</p>
+  </div>
+  
+  <footer class="destination-card__footer">
+    <button class="destination-card__button">Ver Detalles</button>
+  </footer>
+</article>
+```
+
+**Nota:** `<article>` puede contener su propio `<header>` y `<footer>` internos (no confundir con el header/footer de página).
+
+---
+
+#### `<section>` - Sección Temática
+
+**Propósito:** Agrupa contenido temáticamente relacionado. Generalmente tiene un encabezado.
+
+**Cuándo usarlo:**
+- Secciones de la página principal (hero, destinos destacados, testimonios)
+- Capítulos de un artículo largo
+- Diferentes categorías en una página de listado
+
+**Ejemplo - Página de Inicio:**
+
+```html
+<main class="main">
+  <!-- Sección Hero -->
+  <section class="hero">
+    <h1 class="hero__title">Descubre el Mundo con T4 Traveling</h1>
+    <p class="hero__subtitle">Tu aventura comienza aquí</p>
+    <button class="hero__cta">Explorar Destinos</button>
+  </section>
+
+  <!-- Sección Destinos Destacados -->
+  <section class="featured-destinations">
+    <div class="container">
+      <h2 class="featured-destinations__heading">Destinos Destacados</h2>
+      <p class="featured-destinations__intro">Los lugares más populares</p>
+      
+      <div class="featured-destinations__grid">
+        <article class="destination-card">...</article>
+        <article class="destination-card">...</article>
+        <article class="destination-card">...</article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Cómo Funciona -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="how-it-works__heading">¿Cómo Funciona?</h2>
+      
+      <div class="how-it-works__steps">
+        <article class="step">
+          <h3 class="step__title">1. Elige tu destino</h3>
+          <p class="step__description">...</p>
+        </article>
+        <!-- Más pasos... -->
+      </div>
+    </div>
+  </section>
+</main>
+```
+
+**Regla de oro:** Si el contenido necesita un título/encabezado (`<h2>`, `<h3>`, etc.), probablemente debería estar en una `<section>`.
+
+---
+
+#### `<aside>` - Contenido Secundario
+
+**Propósito:** Contenido tangencialmente relacionado con el contenido principal.
+
+**Ubicación:** Componente `SidebarComponent` (`app-sidebar`)
+
+**Cuándo usarlo:**
+- Barras laterales con filtros
+- Publicidad
+- Widgets (artículos relacionados, enlaces destacados)
+- Navegación secundaria
+
+**Ejemplo - Sidebar de Filtros:**
+
+```html
+<div class="page-layout">
+  <aside class="sidebar">
+    <h2 class="sidebar__heading">Filtrar Destinos</h2>
+    
+    <!-- Filtro por precio -->
+    <section class="filter-group">
+      <h3 class="filter-group__title">Precio</h3>
+      <label>
+        <input type="checkbox" /> Hasta 500€
+      </label>
+      <label>
+        <input type="checkbox" /> 500€ - 1000€
+      </label>
+    </section>
+
+    <!-- Filtro por continente -->
+    <section class="filter-group">
+      <h3 class="filter-group__title">Continente</h3>
+      <label>
+        <input type="checkbox" /> Europa
+      </label>
+      <label>
+        <input type="checkbox" /> Asia
+      </label>
+    </section>
+  </aside>
+
+  <main class="main-content">
+    <!-- Listado de destinos -->
+  </main>
+</div>
+```
+
+**Implementación del componente:**
+
+```html
+<!-- sidebar.component.html -->
+<aside class="sidebar" [class.sidebar--right]="position === 'right'">
+  <ng-content></ng-content>
+</aside>
+```
+
+**Características:**
+- ✅ Position sticky para seguir al usuario al hacer scroll
+- ✅ Scrollbar personalizado si el contenido es muy largo
+- ✅ Configurable para posición izquierda o derecha
+
+---
+
+#### `<footer>` - Pie de Página
+
+**Propósito:** Información de cierre de la página (enlaces legales, contacto, copyright).
+
+**Ubicación:** Componente `FooterComponent` (`app-footer`)
+
+**Ejemplo de implementación:**
+
+```html
+<footer class="footer">
+  <div class="footer__container container">
+    <!-- Contenido principal del footer -->
+    <div class="footer__content">
+      <!-- Columna 1: Sobre nosotros -->
+      <div class="footer__column">
+        <h3 class="footer__heading">T4 Traveling</h3>
+        <p class="footer__description">
+          Tu agencia de viajes de confianza...
+        </p>
+        <!-- Redes sociales -->
+        <div class="footer__social">
+          <a href="https://facebook.com" aria-label="Facebook">📘</a>
+          <a href="https://twitter.com" aria-label="Twitter">🐦</a>
+        </div>
+      </div>
+
+      <!-- Columna 2: Enlaces rápidos -->
+      <div class="footer__column">
+        <h3 class="footer__heading">Enlaces Rápidos</h3>
+        <nav aria-label="Enlaces rápidos">
+          <ul>
+            <li><a routerLink="/">Inicio</a></li>
+            <li><a routerLink="/destinos">Destinos</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Columna 3: Legal -->
+      <div class="footer__column">
+        <h3 class="footer__heading">Legal</h3>
+        <nav aria-label="Información legal">
+          <ul>
+            <li><a routerLink="/terminos">Términos y Condiciones</a></li>
+            <li><a routerLink="/privacidad">Política de Privacidad</a></li>
+            <li><a routerLink="/cookies">Política de Cookies</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Columna 4: Contacto -->
+      <div class="footer__column">
+        <h3 class="footer__heading">Contacto</h3>
+        <address class="footer__contact">
+          <p>📍 Calle Ejemplo, 123, Madrid</p>
+          <p>📞 <a href="tel:+34912345678">+34 912 345 678</a></p>
+          <p>✉️ <a href="mailto:info@t4traveling.com">info@t4traveling.com</a></p>
+        </address>
+      </div>
+    </div>
+
+    <!-- Separador -->
+    <hr class="footer__divider" />
+
+    <!-- Copyright -->
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        &copy; 2025 T4 Traveling. Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</footer>
+```
+
+**Características del footer:**
+- ✅ Grid responsive (1 col móvil → 2 cols tablet → 4 cols desktop)
+- ✅ Navegaciones secundarias con `aria-label`
+- ✅ Etiqueta `<address>` para información de contacto
+- ✅ Enlaces a redes sociales con iconos y `aria-label`
+- ✅ Copyright dinámico con año actual
+
+---
+
+### 2.2 Jerarquía de Headings
+
+La jerarquía correcta de encabezados (`<h1>` a `<h6>`) es **crítica** para:
+- **Accesibilidad**: Lectores de pantalla navegan por encabezados
+- **SEO**: Los motores de búsqueda usan la jerarquía para entender la estructura
+- **Usabilidad**: Usuarios escanean visualmente los encabezados
+
+#### Reglas Fundamentales
+
+1. ✅ **Solo un `<h1>` por página**
+   - Representa el título principal del contenido
+   - Debe describir el propósito de la página
+
+2. ✅ **No saltar niveles**
+   - Correcto: h1 → h2 → h3
+   - ❌ Incorrecto: h1 → h3 (saltamos h2)
+
+3. ✅ **Usar niveles por jerarquía, no por tamaño visual**
+   - Si necesitas un h3 con aspecto de h1, usa CSS para cambiar el tamaño
+   - NO uses h1 solo porque quieres texto grande
+
+4. ✅ **Orden lógico descendente**
+   - h2 es subsección de h1
+   - h3 es subsección de h2
+   - Y así sucesivamente
+
+#### Diagrama de Jerarquía - T4 Traveling
+
+```
+📄 PÁGINA: Home (/)
+│
+├── <h1> Descubre el Mundo con T4 Traveling
+│
+├── <section> Hero
+│   └── [El h1 está aquí]
+│
+├── <section> Destinos Destacados
+│   ├── <h2> Destinos Destacados
+│   │
+│   ├── <article> Destino 1
+│   │   └── <h3> París, Francia
+│   │
+│   ├── <article> Destino 2
+│   │   └── <h3> Tokyo, Japón
+│   │
+│   └── <article> Destino 3
+│       └── <h3> Nueva York, EE.UU.
+│
+├── <section> Cómo Funciona
+│   ├── <h2> ¿Cómo Funciona?
+│   │
+│   ├── <article> Paso 1
+│   │   └── <h3> Elige tu Destino
+│   │
+│   ├── <article> Paso 2
+│   │   └── <h3> Selecciona tu Transporte
+│   │
+│   └── <article> Paso 3
+│       └── <h3> Confirma tu Reserva
+│
+└── <section> Testimonios
+    ├── <h2> Lo que Dicen Nuestros Clientes
+    │
+    ├── <article> Testimonio 1
+    │   ├── <h3> María González
+    │   └── <p> Comentario...
+    │
+    └── <article> Testimonio 2
+        ├── <h3> Juan Pérez
+        └── <p> Comentario...
+
+---
+
+📄 PÁGINA: Listado de Destinos (/destinos)
+│
+├── <h1> Todos los Destinos
+│
+├── <section> Filtros
+│   ├── <h2> Filtrar Resultados
+│   │
+│   ├── <h3> Por Precio
+│   ├── <h3> Por Continente
+│   └── <h3> Por Categoría
+│
+└── <section> Resultados
+    ├── <h2> 24 Destinos Encontrados
+    │
+    ├── <article> Destino
+    │   ├── <h3> Roma, Italia
+    │   └── <h4> Paquete Todo Incluido
+    │
+    └── <article> Destino
+        ├── <h3> Barcelona, España
+        └── <h4> Escapada de Fin de Semana
+
+---
+
+📄 PÁGINA: Detalle de Destino (/destinos/paris)
+│
+├── <h1> París, Francia
+│
+├── <section> Galería
+│   └── <h2> Galería de Fotos
+│
+├── <section> Descripción
+│   ├── <h2> Sobre el Destino
+│   │
+│   ├── <h3> Qué Ver
+│   │   ├── <h4> Torre Eiffel
+│   │   ├── <h4> Museo del Louvre
+│   │   └── <h4> Arco del Triunfo
+│   │
+│   └── <h3> Qué Hacer
+│       ├── <h4> Crucero por el Sena
+│       └── <h4> Tour gastronómico
+│
+├── <section> Paquetes
+│   ├── <h2> Paquetes Disponibles
+│   │
+│   ├── <article>
+│   │   ├── <h3> Paquete Básico
+│   │   └── <h4> Incluye: Vuelo + Hotel
+│   │
+│   └── <article>
+│       ├── <h3> Paquete Premium
+│       └── <h4> Incluye: Vuelo + Hotel + Tours
+│
+└── <section> Opiniones
+    ├── <h2> Opiniones de Viajeros
+    │
+    └── <article>
+        ├── <h3> María López - ⭐⭐⭐⭐⭐
+        └── <p> Experiencia increíble...
+```
+
+#### Ejemplos de Código
+
+**✅ CORRECTO - Página de inicio:**
+
+```html
+<main class="main">
+  <!-- Sección Hero con h1 -->
+  <section class="hero">
+    <h1 class="hero__title">Descubre el Mundo con T4 Traveling</h1>
+    <p class="hero__subtitle">Tu aventura comienza aquí</p>
+  </section>
+
+  <!-- Sección de destinos con h2 -->
+  <section class="featured-destinations">
+    <h2 class="section-heading">Destinos Destacados</h2>
+    
+    <div class="destinations-grid">
+      <!-- Cada destino es h3 (subsección de h2) -->
+      <article class="destination-card">
+        <h3 class="destination-card__title">París, Francia</h3>
+        <p class="destination-card__description">...</p>
+      </article>
+      
+      <article class="destination-card">
+        <h3 class="destination-card__title">Tokyo, Japón</h3>
+        <p class="destination-card__description">...</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Otra sección principal con h2 -->
+  <section class="how-it-works">
+    <h2 class="section-heading">¿Cómo Funciona?</h2>
+    
+    <!-- Pasos con h3 (subsección de h2) -->
+    <article class="step">
+      <h3 class="step__title">1. Elige tu Destino</h3>
+      <p class="step__description">...</p>
+    </article>
+
+    <article class="step">
+      <h3 class="step__title">2. Reserva tu Viaje</h3>
+      <p class="step__description">...</p>
+    </article>
+  </section>
+</main>
+```
+
+**❌ INCORRECTO - Salto de niveles:**
+
+```html
+<main>
+  <h1>Título Principal</h1>
+  
+  <!-- ❌ ERROR: Saltamos directamente de h1 a h3 -->
+  <h3>Subtítulo</h3>
+  
+  <!-- Debería ser h2 -->
+</main>
+```
+
+**❌ INCORRECTO - Múltiples h1:**
+
+```html
+<main>
+  <h1>Página de Destinos</h1>
+  
+  <section>
+    <!-- ❌ ERROR: Segundo h1 en la misma página -->
+    <h1>Destinos de Europa</h1>
+  </section>
+  
+  <!-- Debería ser h2 -->
+</main>
+```
+
+#### Ajustar Tamaño Visual con CSS
+
+Si necesitas que un `<h3>` se vea como un `<h1>`, usa CSS:
+
+```html
+<!-- HTML semántico correcto -->
+<article class="blog-post">
+  <h3 class="blog-post__title blog-post__title--large">
+    Título del Post
+  </h3>
+</article>
+```
+
+```scss
+// CSS para controlar el tamaño visual
+.blog-post__title {
+  font-size: $font-lg; // Tamaño base de h3
+  
+  // Modificador para tamaño grande (aspecto de h1)
+  &--large {
+    font-size: $font-4xl; // Tamaño visual de h1
+  }
+}
+```
+
+**Regla de oro:** El nivel de heading depende de la estructura del documento, NO del diseño visual.
+
+---
+
+### 2.3 Estructura de Formularios
+
+Los formularios accesibles y bien estructurados son fundamentales para la experiencia de usuario. T4 Traveling implementa formularios siguiendo las mejores prácticas de HTML semántico y accesibilidad.
+
+#### Elementos Fundamentales
+
+##### `<form>` - Contenedor del Formulario
+
+**Atributos importantes:**
+- `novalidate`: Desactiva validación HTML5 nativa (usamos validación de Angular)
+- `[formGroup]`: Enlaza con el FormGroup de Angular
+
+```html
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+  <!-- Campos del formulario -->
+</form>
+```
+
+##### `<fieldset>` y `<legend>` - Agrupación de Campos
+
+**Propósito:**
+- `<fieldset>`: Agrupa campos relacionados
+- `<legend>`: Describe el grupo de campos
+
+**Beneficios:**
+- Mejora accesibilidad (lectores de pantalla anuncian el grupo)
+- Organización visual clara
+- Permite deshabilitar grupos completos
+
+**Ejemplo:**
+
+```html
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <!-- Grupo 1: Información Personal -->
+  <fieldset class="contact-form__fieldset">
+    <legend class="contact-form__legend">Información Personal</legend>
+    
+    <app-form-input
+      id="nombre"
+      label="Nombre"
+      type="text"
+      [required]="true"
+    ></app-form-input>
+    
+    <app-form-input
+      id="apellidos"
+      label="Apellidos"
+      type="text"
+      [required]="true"
+    ></app-form-input>
+  </fieldset>
+
+  <!-- Grupo 2: Información de Contacto -->
+  <fieldset class="contact-form__fieldset">
+    <legend class="contact-form__legend">Información de Contacto</legend>
+    
+    <app-form-input
+      id="email"
+      label="Correo Electrónico"
+      type="email"
+      [required]="true"
+    ></app-form-input>
+    
+    <app-form-input
+      id="telefono"
+      label="Teléfono"
+      type="tel"
+      [required]="true"
+    ></app-form-input>
+  </fieldset>
+</form>
+```
+
+##### Asociación `<label>` con `<input>`
+
+**Métodos de asociación:**
+
+**1. Método explícito con `for` e `id` (RECOMENDADO):**
+
+```html
+<label for="email">Correo Electrónico</label>
+<input id="email" type="email" name="email" />
+```
+
+**2. Método implícito (label envuelve input):**
+
+```html
+<label>
+  Correo Electrónico
+  <input type="email" name="email" />
+</label>
+```
+
+**En T4 Traveling usamos el método explícito** porque:
+- ✅ Más flexible para layout complejo
+- ✅ Funciona mejor con frameworks como Angular
+- ✅ Permite separar label e input visualmente si es necesario
+
+#### Componente FormInput - Estructura Completa
+
+**Archivo:** `form-input.component.html`
+
+```html
+<div class="form-input" 
+     [class.form-input--error]="showError" 
+     [class.form-input--disabled]="disabled">
+  
+  <!-- Label con asociación explícita -->
+  <label [for]="id" class="form-input__label">
+    {{ label }}
+    <!-- Indicador de campo requerido -->
+    <span *ngIf="required" 
+          class="form-input__required" 
+          aria-label="campo requerido">*</span>
+  </label>
+
+  <!-- Input con atributos de accesibilidad -->
+  <input
+    [id]="id"
+    [type]="type"
+    [name]="name"
+    [placeholder]="placeholder"
+    [required]="required"
+    [disabled]="disabled"
+    [autocomplete]="autocomplete"
+    [value]="value"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+    class="form-input__field"
+    [attr.aria-required]="required"
+    [attr.aria-invalid]="showError"
+    [attr.aria-describedby]="helpText ? id + '-help' : (showError ? id + '-error' : null)"
+  />
+
+  <!-- Texto de ayuda (cuando no hay error) -->
+  <p *ngIf="helpText && !showError" 
+     [id]="id + '-help'" 
+     class="form-input__help">
+    {{ helpText }}
+  </p>
+
+  <!-- Mensaje de error (cuando hay error) -->
+  <p *ngIf="showError" 
+     [id]="id + '-error'" 
+     class="form-input__error" 
+     role="alert">
+    <svg class="form-input__error-icon" width="16" height="16">...</svg>
+    {{ errorMessage }}
+  </p>
+</div>
+```
+
+**Características clave:**
+
+1. **Asociación label-input:**
+   - `[for]="id"` en label
+   - `[id]="id"` en input
+   - IDs únicos pasados como Input property
+
+2. **Indicador de campo requerido:**
+   - Asterisco visual (`*`)
+   - `aria-label="campo requerido"` para lectores de pantalla
+
+3. **Atributos ARIA:**
+   - `aria-required`: Indica si el campo es obligatorio
+   - `aria-invalid`: Indica si el campo tiene error
+   - `aria-describedby`: Enlaza con mensaje de ayuda o error
+
+4. **Mensajes contextuales:**
+   - `helpText`: Instrucciones cuando el campo es válido
+   - `errorMessage`: Mensaje de error cuando el campo es inválido
+   - `role="alert"`: Anuncia errores a lectores de pantalla
+
+#### Uso del Componente FormInput
+
+**Ejemplo básico:**
+
+```html
+<app-form-input
+  id="nombre"
+  label="Nombre Completo"
+  type="text"
+  name="nombre"
+  placeholder="Juan García"
+  [required]="true"
+  helpText="Ingresa tu nombre tal como aparece en tu documento"
+  [errorMessage]="getErrorMessage('nombre')"
+  autocomplete="name"
+></app-form-input>
+```
+
+**Ejemplo con validación:**
+
+```typescript
+// En el componente TypeScript
+getErrorMessage(fieldName: string): string {
+  const control = this.form.get(fieldName);
+  
+  if (!control || !control.errors || !control.touched) {
+    return '';
+  }
+
+  if (control.errors['required']) {
+    return 'Este campo es obligatorio';
+  }
+
+  if (control.errors['minlength']) {
+    return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
+  }
+
+  if (control.errors['email']) {
+    return 'Ingrese un email válido';
+  }
+
+  return 'Campo inválido';
+}
+```
+
+#### Formulario Completo - Ejemplo ContactForm
+
+**Estructura HTML simplificada:**
+
+```html
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form" novalidate>
+  
+  <h2 class="contact-form__title">Formulario de Contacto</h2>
+  <p class="contact-form__description">
+    Completa el formulario y nos pondremos en contacto contigo.
+  </p>
+
+  <!-- FIELDSET 1: Información Personal -->
+  <fieldset class="contact-form__fieldset">
+    <legend class="contact-form__legend">Información Personal</legend>
+    
+    <div class="contact-form__row">
+      <app-form-input
+        id="nombre"
+        label="Nombre"
+        type="text"
+        name="nombre"
+        [required]="true"
+        [errorMessage]="getErrorMessage('nombre')"
+        helpText="Ingresa tu nombre"
+      ></app-form-input>
+
+      <app-form-input
+        id="apellidos"
+        label="Apellidos"
+        type="text"
+        name="apellidos"
+        [required]="true"
+        [errorMessage]="getErrorMessage('apellidos')"
+        helpText="Ingresa tus apellidos"
+      ></app-form-input>
+    </div>
+  </fieldset>
+
+  <!-- FIELDSET 2: Contacto -->
+  <fieldset class="contact-form__fieldset">
+    <legend class="contact-form__legend">Información de Contacto</legend>
+    
+    <div class="contact-form__row">
+      <app-form-input
+        id="email"
+        label="Correo Electrónico"
+        type="email"
+        name="email"
+        [required]="true"
+        [errorMessage]="getErrorMessage('email')"
+        autocomplete="email"
+      ></app-form-input>
+
+      <app-form-input
+        id="telefono"
+        label="Teléfono"
+        type="tel"
+        name="telefono"
+        [required]="true"
+        [errorMessage]="getErrorMessage('telefono')"
+        helpText="9 dígitos sin espacios"
+      ></app-form-input>
+    </div>
+  </fieldset>
+
+  <!-- FIELDSET 3: Mensaje -->
+  <fieldset class="contact-form__fieldset">
+    <legend class="contact-form__legend">Tu Mensaje</legend>
+    
+    <app-form-input
+      id="asunto"
+      label="Asunto"
+      type="text"
+      [required]="true"
+    ></app-form-input>
+
+    <!-- Textarea (campo especial) -->
+    <div class="contact-form__textarea-wrapper">
+      <label for="mensaje">
+        Mensaje
+        <span class="contact-form__required">*</span>
+      </label>
+      <textarea
+        id="mensaje"
+        name="mensaje"
+        formControlName="mensaje"
+        rows="6"
+        required
+        aria-required="true"
+      ></textarea>
+    </div>
+  </fieldset>
+
+  <!-- Botones -->
+  <div class="contact-form__actions">
+    <button type="submit" class="contact-form__submit">
+      Enviar Mensaje
+    </button>
+    <button type="button" class="contact-form__reset" (click)="contactForm.reset()">
+      Limpiar Formulario
+    </button>
+  </div>
+</form>
+```
+
+#### Atributos de Accesibilidad Implementados
+
+| Atributo | Propósito | Ejemplo |
+|----------|-----------|---------|
+| `for` / `id` | Asocia label con input | `<label for="email">` + `<input id="email">` |
+| `aria-label` | Etiqueta invisible para lectores de pantalla | `<button aria-label="Buscar">🔍</button>` |
+| `aria-required` | Indica campo obligatorio | `<input aria-required="true">` |
+| `aria-invalid` | Indica campo con error | `<input aria-invalid="true">` |
+| `aria-describedby` | Enlaza input con descripción/error | `<input aria-describedby="email-error">` |
+| `role="alert"` | Anuncia mensajes importantes | `<p role="alert">Error: ...</p>` |
+| `autocomplete` | Facilita autocompletado | `<input autocomplete="email">` |
+
+#### Validación y Estados
+
+**Estados del campo:**
+
+```scss
+.form-input {
+  // Estado normal
+  &__field {
+    border: 2px solid $color-neutral-700;
+  }
+
+  // Estado hover
+  &__field:hover:not(:disabled) {
+    border-color: $color-neutral-600;
+  }
+
+  // Estado focus (usuario interactuando)
+  &__field:focus {
+    border-color: $color-info;
+    box-shadow: 0 0 0 3px rgba($color-info, 0.1);
+  }
+
+  // Estado error
+  &--error {
+    .form-input__field {
+      border-color: $color-error;
+    }
+  }
+
+  // Estado deshabilitado
+  &--disabled {
+    opacity: 0.6;
+    .form-input__field {
+      cursor: not-allowed;
+      background-color: $color-neutral-900;
+    }
+  }
+}
+```
+
+#### Resumen de Buenas Prácticas
+
+✅ **Siempre usar `<form>`** para agrupar campos relacionados
+
+✅ **Usar `<fieldset>` y `<legend>`** para agrupar lógicamente
+
+✅ **Asociar labels con inputs** usando `for` e `id`
+
+✅ **Indicar campos requeridos** visual y semánticamente
+
+✅ **Proporcionar mensajes de error claros** con `role="alert"`
+
+✅ **Incluir texto de ayuda** para campos complejos
+
+✅ **Usar atributos `autocomplete`** apropiados
+
+✅ **Implementar estados visuales** (hover, focus, error, disabled)
+
+✅ **Validar accesibilidad** con herramientas como WAVE o Lighthouse
+
+✅ **Probar con teclado** (Tab, Enter, Esc deben funcionar)
+
+✅ **Probar con lector de pantalla** (NVDA, JAWS, VoiceOver)
+
+---
+
+## Resumen Fase 2
+
+### ✅ Componentes de Layout Creados
+
+| Componente | Etiqueta | Archivos | Estado |
+|------------|----------|----------|--------|
+| Header | `<header>` | header.component.{ts,html,scss} | ✅ |
+| Main | `<main>` | main.component.{ts,html,scss} | ✅ |
+| Footer | `<footer>` | footer.component.{ts,html,scss} | ✅ |
+| Sidebar | `<aside>` | sidebar.component.{ts,html,scss} | ✅ |
+
+### ✅ Componentes Funcionales Creados
+
+| Componente | Propósito | Archivos | Estado |
+|------------|-----------|----------|--------|
+| FormInput | Input reutilizable | form-input.component.{ts,html,scss} | ✅ |
+| ContactForm | Formulario completo | contact-form.component.{ts,html,scss} | ✅ |
+
+### ✅ Características Implementadas
+
+- ✅ HTML 100% semántico en todos los componentes
+- ✅ Navegación principal con menú responsive
+- ✅ Footer con múltiples columnas y redes sociales
+- ✅ Componente FormInput con ControlValueAccessor
+- ✅ Formulario completo con fieldset, legend y validación
+- ✅ Atributos ARIA completos en formularios
+- ✅ CSS Custom Properties para temas
+- ✅ Estilos BEM en todos los componentes
+- ✅ Documentación completa de HTML semántico
+- ✅ Diagramas de jerarquía de headings
+- ✅ Guía completa de estructura de formularios
+
+### 📊 Estadísticas
+
+- **Componentes de layout:** 4 (Header, Main, Footer, Sidebar)
+- **Componentes funcionales:** 2 (FormInput, ContactForm)
+- **Archivos creados:** 18
+- **Líneas de código:** ~2,000+
+- **Documentación:** 2,000+ palabras adicionales
+
+---
+
 **Última actualización:** 16 de diciembre de 2025
 **Autor:** T4 Traveling Development Team
-**Versión:** 1.0.0
+**Versión:** 2.0.0
 

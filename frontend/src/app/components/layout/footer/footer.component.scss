@@ -1,0 +1,249 @@
+// ============================================
+// FOOTER COMPONENT - BEM
+// ============================================
+
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
+.footer {
+  background-color: $color-neutral-100;
+  color: $color-neutral-800;
+  padding-top: $spacing-12;
+  padding-bottom: $spacing-6;
+
+  @include respond-to('md') {
+    padding-top: $spacing-16;
+  }
+
+  &__container {
+    // Ya tiene estilos de .container global
+  }
+
+  // ----------------
+  // CONTENIDO PRINCIPAL
+  // ----------------
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-8;
+    margin-bottom: $spacing-8;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $spacing-10;
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+
+  &__heading {
+    font-size: $font-lg;
+    font-weight: $font-weight-bold;
+    color: $color-neutral-1000;
+    margin-bottom: $spacing-2;
+  }
+
+  &__description {
+    font-size: $font-sm;
+    line-height: $line-height-relaxed;
+    color: $color-neutral-700;
+  }
+
+  // ----------------
+  // REDES SOCIALES
+  // ----------------
+  &__social {
+    display: flex;
+    gap: $spacing-3;
+    margin-top: $spacing-2;
+  }
+
+  &__social-link {
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba($color-neutral-1000, 0.1);
+    border-radius: $radius-md;
+    color: $color-neutral-700;
+    transition: all $transition-base;
+
+    &:hover {
+      background-color: $color-primary-0;
+      color: $color-neutral-1000;
+      transform: translateY(-3px);
+    }
+
+    &:focus {
+      outline: 2px solid $color-primary-0;
+      outline-offset: 2px;
+    }
+  }
+
+  &__social-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  // ----------------
+  // NAVEGACIÓN
+  // ----------------
+  &__nav {
+    // Nav semántico
+  }
+
+  &__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    list-style: none;
+  }
+
+  &__nav-item {
+    // Item de lista
+  }
+
+  &__nav-link {
+    display: inline-block;
+    font-size: $font-sm;
+    color: $color-neutral-700;
+    text-decoration: none;
+    transition: all $transition-base;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: $color-primary-0;
+      transition: width $transition-base;
+    }
+
+    &:hover {
+      color: $color-neutral-1000;
+      padding-left: $spacing-2;
+
+      &::after {
+        width: 100%;
+      }
+    }
+
+    &:focus {
+      outline: 2px solid $color-primary-0;
+      outline-offset: 2px;
+      border-radius: $radius-sm;
+    }
+  }
+
+  // ----------------
+  // CONTACTO
+  // ----------------
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    font-style: normal;
+  }
+
+  &__contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-3;
+    font-size: $font-sm;
+    color: $color-neutral-700;
+    line-height: $line-height-normal;
+  }
+
+  &__contact-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: $color-primary-0;
+    margin-top: 2px;
+  }
+
+  &__contact-link {
+    color: $color-neutral-700;
+    text-decoration: none;
+    transition: color $transition-base;
+
+    &:hover {
+      color: $color-primary-0;
+      text-decoration: underline;
+    }
+
+    &:focus {
+      outline: 2px solid $color-primary-0;
+      outline-offset: 2px;
+      border-radius: $radius-sm;
+    }
+  }
+
+  // ----------------
+  // SEPARADOR
+  // ----------------
+  &__divider {
+    border: none;
+    border-top: 1px solid rgba($color-neutral-1000, 0.1);
+    margin: $spacing-8 0;
+  }
+
+  // ----------------
+  // PARTE INFERIOR
+  // ----------------
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-3;
+    text-align: center;
+
+    @include respond-to('md') {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  &__copyright {
+    font-size: $font-sm;
+    color: $color-neutral-600;
+  }
+
+  &__credits {
+    font-size: $font-sm;
+    color: $color-neutral-600;
+  }
+
+  &__heart {
+    color: $color-error;
+    display: inline-block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+}
+
+// ----------------
+// ANIMACIÓN
+// ----------------
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10%, 30% {
+    transform: scale(1.1);
+  }
+  20%, 40% {
+    transform: scale(1);
+  }
+}
+

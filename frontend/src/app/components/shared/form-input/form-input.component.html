@@ -1,0 +1,42 @@
+<!-- Form Input Component - Accesible y semántico -->
+<div class="form-input" [class.form-input--error]="showError" [class.form-input--disabled]="disabled">
+  <!-- Label asociado al input -->
+  <label [for]="id" class="form-input__label">
+    {{ label }}
+    <span *ngIf="required" class="form-input__required" aria-label="campo requerido">*</span>
+  </label>
+
+  <!-- Input -->
+  <input
+    [id]="id"
+    [type]="type"
+    [name]="name"
+    [placeholder]="placeholder"
+    [required]="required"
+    [disabled]="disabled"
+    [autocomplete]="autocomplete"
+    [value]="value"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+    class="form-input__field"
+    [attr.aria-required]="required"
+    [attr.aria-invalid]="showError"
+    [attr.aria-describedby]="helpText ? id + '-help' : (showError ? id + '-error' : null)"
+  />
+
+  <!-- Mensaje de ayuda -->
+  <p *ngIf="helpText && !showError" [id]="id + '-help'" class="form-input__help">
+    {{ helpText }}
+  </p>
+
+  <!-- Mensaje de error -->
+  <p *ngIf="showError" [id]="id + '-error'" class="form-input__error" role="alert">
+    <svg class="form-input__error-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    {{ errorMessage }}
+  </p>
+</div>
+
