@@ -1,0 +1,187 @@
+// ============================================
+// BUTTON COMPONENT - BEM
+// ============================================
+
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
+.button {
+  // Base styles
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  font-family: $font-primary;
+  font-weight: $font-weight-medium;
+  text-align: center;
+  text-decoration: none;
+  border: $border-medium solid transparent;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-base;
+  white-space: nowrap;
+  user-select: none;
+
+  // Prevenir doble clic accidental
+  &:active {
+    transform: translateY(1px);
+  }
+
+  // Focus para accesibilidad
+  &:focus {
+    outline: 2px solid $color-info;
+    outline-offset: 2px;
+  }
+
+  // ----------------
+  // VARIANTES
+  // ----------------
+
+  // Primary - Acción principal
+  &--primary {
+    background-color: $color-primary-0;
+    color: $color-neutral-1000;
+    border-color: $color-primary-0;
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-1;
+      border-color: $color-primary-1;
+      box-shadow: $shadow-md;
+      transform: translateY(-2px);
+    }
+
+    &:active:not(:disabled) {
+      background-color: $color-primary-1;
+      transform: translateY(0);
+    }
+  }
+
+  // Secondary - Acción secundaria
+  &--secondary {
+    background-color: $color-secondary-1;
+    color: $color-neutral-1000;
+    border-color: $color-secondary-1;
+
+    &:hover:not(:disabled) {
+      background-color: darken($color-secondary-1, 10%);
+      border-color: darken($color-secondary-1, 10%);
+      box-shadow: $shadow-md;
+      transform: translateY(-2px);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+
+  // Ghost - Sin fondo, solo borde
+  &--ghost {
+    background-color: transparent;
+    color: $color-primary-0;
+    border-color: $color-primary-0;
+
+    &:hover:not(:disabled) {
+      background-color: rgba($color-primary-0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    &:active:not(:disabled) {
+      background-color: rgba($color-primary-0, 0.2);
+      transform: translateY(0);
+    }
+  }
+
+  // Danger - Acciones destructivas
+  &--danger {
+    background-color: $color-error;
+    color: $color-neutral-1000;
+    border-color: $color-error;
+
+    &:hover:not(:disabled) {
+      background-color: darken($color-error, 10%);
+      border-color: darken($color-error, 10%);
+      box-shadow: $shadow-md;
+      transform: translateY(-2px);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+
+  // ----------------
+  // TAMAÑOS
+  // ----------------
+
+  // Small
+  &--sm {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-sm;
+    min-height: 32px;
+  }
+
+  // Medium (default)
+  &--md {
+    padding: $spacing-3 $spacing-6;
+    font-size: $font-base;
+    min-height: 40px;
+  }
+
+  // Large
+  &--lg {
+    padding: $spacing-4 $spacing-8;
+    font-size: $font-lg;
+    min-height: 48px;
+  }
+
+  // ----------------
+  // MODIFICADORES
+  // ----------------
+
+  // Full width
+  &--full-width {
+    width: 100%;
+  }
+
+  // ----------------
+  // ESTADOS
+  // ----------------
+
+  // Disabled
+  &:disabled,
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // Loading (opcional para futuro)
+  &--loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.6s linear infinite;
+    }
+  }
+}
+
+// Animación spinner
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

@@ -1,0 +1,218 @@
+// ============================================
+// STYLE GUIDE PAGE
+// ============================================
+
+@import '../../../styles/00-settings/variables';
+@import '../../../styles/01-tools/mixins';
+
+.style-guide {
+  min-height: 100vh;
+  background-color: $color-neutral-900;
+  padding: $spacing-12 0;
+
+  &__container {
+    max-width: 1200px;
+  }
+
+  // Header
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+    padding-bottom: $spacing-8;
+    border-bottom: 2px solid $color-neutral-700;
+  }
+
+  &__title {
+    font-size: $font-4xl;
+    font-weight: $font-weight-bold;
+    color: $color-neutral-0;
+    margin-bottom: $spacing-3;
+  }
+
+  &__subtitle {
+    font-size: $font-lg;
+    color: $color-neutral-400;
+    margin: 0;
+  }
+
+  // Table of Contents
+  &__toc {
+    background-color: $color-neutral-1000;
+    padding: $spacing-6;
+    border-radius: $radius-lg;
+    margin-bottom: $spacing-10;
+  }
+
+  &__toc-title {
+    font-size: $font-xl;
+    color: $color-neutral-0;
+    margin-bottom: $spacing-4;
+  }
+
+  &__toc-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: $spacing-3;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    a {
+      color: $color-primary-0;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      transition: color $transition-base;
+
+      &:hover {
+        color: $color-primary-1;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // Sections
+  &__section {
+    margin-bottom: $spacing-16;
+  }
+
+  &__section-title {
+    font-size: $font-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-neutral-0;
+    margin-bottom: $spacing-4;
+    padding-bottom: $spacing-3;
+    border-bottom: 2px solid $color-primary-0;
+  }
+
+  &__section-intro {
+    font-size: $font-base;
+    color: $color-neutral-300;
+    margin-bottom: $spacing-8;
+    line-height: $line-height-relaxed;
+  }
+}
+
+// Demo Groups
+.demo-group {
+  background-color: $color-neutral-1000;
+  border-radius: $radius-lg;
+  padding: $spacing-8;
+  margin-bottom: $spacing-8;
+
+  &__title {
+    font-size: $font-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-neutral-0;
+    margin-bottom: $spacing-6;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
+  }
+
+  &__code {
+    background-color: $color-neutral-800;
+    border: 1px solid $color-neutral-700;
+    border-radius: $radius-md;
+    padding: $spacing-4;
+    overflow-x: auto;
+    margin: 0;
+
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: $font-sm;
+      color: $color-neutral-200;
+      white-space: pre;
+    }
+  }
+}
+
+// Grid variants
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-6;
+}
+
+// Color Palette
+.color-palette {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.color-group {
+  h3 {
+    font-size: $font-lg;
+    color: $color-neutral-0;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.color-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: $spacing-4;
+}
+
+.color-swatch {
+  aspect-ratio: 1;
+  border-radius: $radius-md;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  box-shadow: $shadow-md;
+  padding: $spacing-4;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+
+  span {
+    font-weight: $font-weight-bold;
+    font-size: $font-sm;
+  }
+
+  code {
+    font-size: $font-xs;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: $spacing-1 $spacing-2;
+    border-radius: $radius-sm;
+  }
+}
+
+// Typography Samples
+.typography-samples {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  background-color: $color-neutral-1000;
+  padding: $spacing-8;
+  border-radius: $radius-lg;
+}
+
+.typography-sample {
+  padding-bottom: $spacing-4;
+  border-bottom: 1px solid $color-neutral-700;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  h1, h2, h3, h4, p {
+    color: $color-neutral-0;
+    margin-bottom: $spacing-2;
+  }
+
+  code {
+    display: block;
+    font-size: $font-xs;
+    color: $color-neutral-500;
+    font-family: 'Courier New', monospace;
+  }
+}
+

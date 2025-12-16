@@ -1,0 +1,57 @@
+<!-- Form Select Component - Accesible y semántico -->
+<div class="form-select" [class.form-select--error]="showError" [class.form-select--disabled]="disabled">
+  <!-- Label asociado al select -->
+  <label [for]="id" class="form-select__label">
+    {{ label }}
+    <span *ngIf="required" class="form-select__required" aria-label="campo requerido">*</span>
+  </label>
+
+  <!-- Select wrapper (para custom styling) -->
+  <div class="form-select__wrapper">
+    <select
+      [id]="id"
+      [name]="name"
+      [required]="required"
+      [disabled]="disabled"
+      [value]="value"
+      (change)="onSelectChange($event)"
+      (blur)="onBlur()"
+      class="form-select__field"
+      [attr.aria-required]="required"
+      [attr.aria-invalid]="showError"
+      [attr.aria-describedby]="helpText ? id + '-help' : (showError ? id + '-error' : null)"
+    >
+      <!-- Opción placeholder -->
+      <option value="" [disabled]="required">{{ placeholder }}</option>
+
+      <!-- Opciones -->
+      <option
+        *ngFor="let option of options"
+        [value]="option.value"
+        [disabled]="option.disabled || false">
+        {{ option.label }}
+      </option>
+    </select>
+
+    <!-- Icono chevron -->
+    <svg class="form-select__icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>
+  </div>
+
+  <!-- Mensaje de ayuda -->
+  <p *ngIf="helpText && !showError" [id]="id + '-help'" class="form-select__help">
+    {{ helpText }}
+  </p>
+
+  <!-- Mensaje de error -->
+  <p *ngIf="showError" [id]="id + '-error'" class="form-select__error" role="alert">
+    <svg class="form-select__error-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    {{ errorMessage }}
+  </p>
+</div>
+

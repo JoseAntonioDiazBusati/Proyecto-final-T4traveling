@@ -1,0 +1,47 @@
+<!-- Form Textarea Component - Accesible y semántico -->
+<div class="form-textarea" [class.form-textarea--error]="showError" [class.form-textarea--disabled]="disabled">
+  <!-- Label asociado al textarea -->
+  <label [for]="id" class="form-textarea__label">
+    {{ label }}
+    <span *ngIf="required" class="form-textarea__required" aria-label="campo requerido">*</span>
+  </label>
+
+  <!-- Textarea -->
+  <textarea
+    [id]="id"
+    [name]="name"
+    [placeholder]="placeholder"
+    [required]="required"
+    [disabled]="disabled"
+    [rows]="rows"
+    [maxlength]="maxLength || undefined"
+    [value]="value"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+    class="form-textarea__field"
+    [attr.aria-required]="required"
+    [attr.aria-invalid]="showError"
+    [attr.aria-describedby]="helpText ? id + '-help' : (showError ? id + '-error' : null)"
+  ></textarea>
+
+  <!-- Contador de caracteres -->
+  <p *ngIf="characterCount" class="form-textarea__counter">
+    {{ characterCount }}
+  </p>
+
+  <!-- Mensaje de ayuda -->
+  <p *ngIf="helpText && !showError" [id]="id + '-help'" class="form-textarea__help">
+    {{ helpText }}
+  </p>
+
+  <!-- Mensaje de error -->
+  <p *ngIf="showError" [id]="id + '-error'" class="form-textarea__error" role="alert">
+    <svg class="form-textarea__error-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    {{ errorMessage }}
+  </p>
+</div>
+

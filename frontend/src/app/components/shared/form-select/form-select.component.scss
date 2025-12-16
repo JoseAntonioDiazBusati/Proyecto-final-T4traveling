@@ -1,0 +1,164 @@
+// ============================================
+// FORM SELECT COMPONENT - BEM
+// ============================================
+
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
+.form-select {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  width: 100%;
+
+  // ----------------
+  // LABEL
+  // ----------------
+  &__label {
+    font-size: $font-sm;
+    font-weight: $font-weight-medium;
+    color: $color-neutral-100;
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__required {
+    color: $color-error;
+    font-weight: $font-weight-bold;
+    font-size: $font-md;
+  }
+
+  // ----------------
+  // SELECT WRAPPER (para custom styling)
+  // ----------------
+  &__wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  &__icon {
+    position: absolute;
+    right: $spacing-4;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: $color-neutral-500;
+    transition: color $transition-base;
+  }
+
+  // ----------------
+  // SELECT FIELD
+  // ----------------
+  &__field {
+    width: 100%;
+    padding: $spacing-3 $spacing-10 $spacing-3 $spacing-4; // Extra padding right para icono
+    font-size: $font-base;
+    font-family: $font-primary;
+    color: $color-neutral-0;
+    background-color: $color-neutral-1000;
+    border: $border-medium solid $color-neutral-700;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+    cursor: pointer;
+    appearance: none; // Quitar el estilo nativo del browser
+
+    &:hover:not(:disabled) {
+      border-color: $color-neutral-600;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-info;
+      box-shadow: 0 0 0 3px rgba($color-info, 0.1);
+    }
+
+    &:disabled {
+      background-color: $color-neutral-900;
+      color: $color-neutral-500;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    // Placeholder option
+    option[value=""] {
+      color: $color-neutral-500;
+    }
+
+    // Opciones disabled
+    option:disabled {
+      color: $color-neutral-600;
+    }
+  }
+
+  // ----------------
+  // HELP TEXT
+  // ----------------
+  &__help {
+    font-size: $font-xs;
+    color: $color-neutral-500;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  // ----------------
+  // ERROR MESSAGE
+  // ----------------
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-xs;
+    color: $color-error;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  &__error-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  // ----------------
+  // ESTADOS
+  // ----------------
+
+  // Estado de error
+  &--error {
+    .form-select__field {
+      border-color: $color-error;
+
+      &:focus {
+        border-color: $color-error;
+        box-shadow: 0 0 0 3px rgba($color-error, 0.1);
+      }
+    }
+
+    .form-select__label {
+      color: $color-error;
+    }
+
+    .form-select__icon {
+      color: $color-error;
+    }
+  }
+
+  // Estado deshabilitado
+  &--disabled {
+    .form-select__label {
+      cursor: not-allowed;
+    }
+
+    .form-select__icon {
+      opacity: 0.5;
+    }
+  }
+
+  // Focus styling para el icono
+  &__field:focus ~ &__icon {
+    color: $color-info;
+  }
+}
+

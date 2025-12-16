@@ -1,0 +1,139 @@
+// ============================================
+// FORM TEXTAREA COMPONENT - BEM
+// ============================================
+
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
+.form-textarea {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  width: 100%;
+
+  // ----------------
+  // LABEL
+  // ----------------
+  &__label {
+    font-size: $font-sm;
+    font-weight: $font-weight-medium;
+    color: $color-neutral-100;
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  &__required {
+    color: $color-error;
+    font-weight: $font-weight-bold;
+    font-size: $font-md;
+  }
+
+  // ----------------
+  // TEXTAREA FIELD
+  // ----------------
+  &__field {
+    width: 100%;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-base;
+    font-family: $font-primary;
+    color: $color-neutral-0;
+    background-color: $color-neutral-1000;
+    border: $border-medium solid $color-neutral-700;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+    resize: vertical;
+    min-height: 100px;
+    line-height: $line-height-relaxed;
+
+    &::placeholder {
+      color: $color-neutral-500;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: $color-neutral-600;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-info;
+      box-shadow: 0 0 0 3px rgba($color-info, 0.1);
+    }
+
+    &:disabled {
+      background-color: $color-neutral-900;
+      color: $color-neutral-500;
+      cursor: not-allowed;
+      resize: none;
+    }
+  }
+
+  // ----------------
+  // CONTADOR
+  // ----------------
+  &__counter {
+    font-size: $font-xs;
+    color: $color-neutral-500;
+    text-align: right;
+    margin: 0;
+  }
+
+  // ----------------
+  // HELP TEXT
+  // ----------------
+  &__help {
+    font-size: $font-xs;
+    color: $color-neutral-500;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  // ----------------
+  // ERROR MESSAGE
+  // ----------------
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-xs;
+    color: $color-error;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  &__error-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  // ----------------
+  // ESTADOS
+  // ----------------
+
+  // Estado de error
+  &--error {
+    .form-textarea__field {
+      border-color: $color-error;
+
+      &:focus {
+        border-color: $color-error;
+        box-shadow: 0 0 0 3px rgba($color-error, 0.1);
+      }
+    }
+
+    .form-textarea__label {
+      color: $color-error;
+    }
+  }
+
+  // Estado deshabilitado
+  &--disabled {
+    opacity: 0.6;
+
+    .form-textarea__label {
+      cursor: not-allowed;
+    }
+  }
+}
+

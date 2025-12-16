@@ -1,0 +1,26 @@
+<article [class]="cardClasses">
+  <!-- Imagen (si se proporciona) -->
+  <div class="card__image-wrapper" *ngIf="imageSrc">
+    <img [src]="imageSrc" [alt]="imageAlt || title || 'Card image'" class="card__image" />
+  </div>
+
+  <!-- Contenido -->
+  <div class="card__content">
+    <!-- Título (si se proporciona) -->
+    <h3 class="card__title" *ngIf="title">{{ title }}</h3>
+
+    <!-- Descripción (si se proporciona) -->
+    <p class="card__description" *ngIf="description">{{ description }}</p>
+
+    <!-- Slot para contenido personalizado -->
+    <div class="card__body">
+      <ng-content></ng-content>
+    </div>
+
+    <!-- Slot para acciones/botones -->
+    <div class="card__actions">
+      <ng-content select="[slot='actions']"></ng-content>
+    </div>
+  </div>
+</article>
+

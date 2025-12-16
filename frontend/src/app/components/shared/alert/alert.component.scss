@@ -1,0 +1,183 @@
+// ============================================
+// ALERT COMPONENT - BEM
+// ============================================
+
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
+.alert {
+  display: flex;
+  gap: $spacing-4;
+  padding: $spacing-4 $spacing-5;
+  border-radius: $radius-md;
+  border: $border-medium solid transparent;
+  animation: slideInDown 0.3s ease-out;
+  position: relative;
+
+  // ----------------
+  // ICONO
+  // ----------------
+  &__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // ----------------
+  // CONTENIDO
+  // ----------------
+  &__content {
+    flex: 1;
+    min-width: 0; // Para que funcione text-overflow
+  }
+
+  &__title {
+    font-size: $font-base;
+    font-weight: $font-weight-bold;
+    margin: 0 0 $spacing-1 0;
+    line-height: $line-height-tight;
+  }
+
+  &__message {
+    font-size: $font-sm;
+    line-height: $line-height-relaxed;
+    margin: 0;
+  }
+
+  // ----------------
+  // BOTÓN CERRAR
+  // ----------------
+  &__close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: $radius-sm;
+    transition: all $transition-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    &:focus {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // ----------------
+  // VARIANTES POR TIPO
+  // ----------------
+
+  // Success - Verde
+  &--success {
+    background-color: rgba($color-success, 0.1);
+    border-color: $color-success;
+    color: darken($color-success, 20%);
+
+    .alert__icon,
+    .alert__close {
+      color: $color-success;
+    }
+
+    .alert__title {
+      color: darken($color-success, 25%);
+    }
+  }
+
+  // Error - Rojo
+  &--error {
+    background-color: rgba($color-error, 0.1);
+    border-color: $color-error;
+    color: darken($color-error, 15%);
+
+    .alert__icon,
+    .alert__close {
+      color: $color-error;
+    }
+
+    .alert__title {
+      color: darken($color-error, 20%);
+    }
+  }
+
+  // Warning - Naranja/Amarillo
+  &--warning {
+    background-color: rgba($color-warning, 0.1);
+    border-color: $color-warning;
+    color: darken($color-warning, 30%);
+
+    .alert__icon,
+    .alert__close {
+      color: $color-warning;
+    }
+
+    .alert__title {
+      color: darken($color-warning, 35%);
+    }
+  }
+
+  // Info - Azul
+  &--info {
+    background-color: rgba($color-info, 0.1);
+    border-color: $color-info;
+    color: darken($color-info, 25%);
+
+    .alert__icon,
+    .alert__close {
+      color: $color-info;
+    }
+
+    .alert__title {
+      color: darken($color-info, 30%);
+    }
+  }
+}
+
+// ----------------
+// ANIMACIÓN
+// ----------------
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animación de salida (opcional)
+.alert-leave {
+  animation: slideOutUp 0.3s ease-out forwards;
+}
+
+@keyframes slideOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+

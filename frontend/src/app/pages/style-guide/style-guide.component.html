@@ -1,0 +1,403 @@
+<div class="style-guide">
+  <div class="style-guide__container container">
+    <!-- Header -->
+    <header class="style-guide__header">
+      <h1 class="style-guide__title">T4 Traveling - Style Guide</h1>
+      <p class="style-guide__subtitle">
+        Biblioteca de componentes UI - Todas las variantes, tamaños y estados
+      </p>
+    </header>
+
+    <!-- Tabla de Contenidos -->
+    <nav class="style-guide__toc">
+      <h2 class="style-guide__toc-title">Tabla de Contenidos</h2>
+      <ul class="style-guide__toc-list">
+        <li><a href="#buttons">Botones</a></li>
+        <li><a href="#cards">Cards</a></li>
+        <li><a href="#forms">Formularios</a></li>
+        <li><a href="#alerts">Alertas</a></li>
+        <li><a href="#colors">Colores</a></li>
+        <li><a href="#typography">Tipografía</a></li>
+      </ul>
+    </nav>
+
+    <!-- SECCIÓN: BOTONES -->
+    <section id="buttons" class="style-guide__section">
+      <h2 class="style-guide__section-title">Botones</h2>
+      <p class="style-guide__section-intro">
+        Componente button con 4 variantes, 3 tamaños y estados hover/focus/active/disabled.
+      </p>
+
+      <!-- Variantes -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Variantes</h3>
+        <div class="demo-group__content">
+          <app-button variant="primary" (click)="onButtonClick('primary')">
+            Primary Button
+          </app-button>
+          <app-button variant="secondary" (click)="onButtonClick('secondary')">
+            Secondary Button
+          </app-button>
+          <app-button variant="ghost" (click)="onButtonClick('ghost')">
+            Ghost Button
+          </app-button>
+          <app-button variant="danger" (click)="onButtonClick('danger')">
+            Danger Button
+          </app-button>
+        </div>
+        <pre class="demo-group__code"><code>&lt;app-button variant="primary"&gt;Primary Button&lt;/app-button&gt;
+&lt;app-button variant="secondary"&gt;Secondary Button&lt;/app-button&gt;
+&lt;app-button variant="ghost"&gt;Ghost Button&lt;/app-button&gt;
+&lt;app-button variant="danger"&gt;Danger Button&lt;/app-button&gt;</code></pre>
+      </div>
+
+      <!-- Tamaños -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Tamaños</h3>
+        <div class="demo-group__content" style="align-items: center;">
+          <app-button variant="primary" size="sm">Small</app-button>
+          <app-button variant="primary" size="md">Medium</app-button>
+          <app-button variant="primary" size="lg">Large</app-button>
+        </div>
+        <pre class="demo-group__code"><code>&lt;app-button size="sm"&gt;Small&lt;/app-button&gt;
+&lt;app-button size="md"&gt;Medium&lt;/app-button&gt;
+&lt;app-button size="lg"&gt;Large&lt;/app-button&gt;</code></pre>
+      </div>
+
+      <!-- Estados -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Estados</h3>
+        <div class="demo-group__content">
+          <app-button variant="primary">Normal</app-button>
+          <app-button variant="primary" [disabled]="true">Disabled</app-button>
+          <app-button variant="secondary">Hover me!</app-button>
+          <app-button variant="ghost">Focus me!</app-button>
+        </div>
+        <pre class="demo-group__code"><code>&lt;app-button [disabled]="true"&gt;Disabled&lt;/app-button&gt;</code></pre>
+      </div>
+
+      <!-- Full Width -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Full Width</h3>
+        <div class="demo-group__content" style="flex-direction: column;">
+          <app-button variant="primary" [fullWidth]="true">Full Width Primary</app-button>
+          <app-button variant="secondary" [fullWidth]="true">Full Width Secondary</app-button>
+        </div>
+        <pre class="demo-group__code"><code>&lt;app-button [fullWidth]="true"&gt;Full Width&lt;/app-button&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: CARDS -->
+    <section id="cards" class="style-guide__section">
+      <h2 class="style-guide__section-title">Cards</h2>
+      <p class="style-guide__section-intro">
+        Componente card con imagen, título, descripción y acciones. Incluye variante horizontal.
+      </p>
+
+      <!-- Card Básica -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Card Básica</h3>
+        <div class="demo-group__content">
+          <app-card
+            imageSrc="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400"
+            imageAlt="París"
+            title="París, Francia"
+            description="La ciudad del amor, con sus icónicos monumentos y rica cultura.">
+            <div slot="actions">
+              <app-button variant="primary" size="sm">Ver Detalles</app-button>
+              <app-button variant="ghost" size="sm">Guardar</app-button>
+            </div>
+          </app-card>
+        </div>
+        <pre class="demo-group__code"><code>&lt;app-card
+  imageSrc="..."
+  title="París, Francia"
+  description="..."&gt;
+  &lt;div slot="actions"&gt;
+    &lt;app-button&gt;Ver Detalles&lt;/app-button&gt;
+  &lt;/div&gt;
+&lt;/app-card&gt;</code></pre>
+      </div>
+
+      <!-- Card sin Imagen -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Card sin Imagen</h3>
+        <div class="demo-group__content">
+          <app-card
+            title="Información Importante"
+            description="Esta card no tiene imagen. Ideal para contenido textual o datos.">
+            <div slot="actions">
+              <app-button variant="secondary" size="sm">Más Info</app-button>
+            </div>
+          </app-card>
+        </div>
+      </div>
+
+      <!-- Card Horizontal -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Card Horizontal</h3>
+        <div class="demo-group__content" style="flex-direction: column;">
+          <app-card
+            [horizontal]="true"
+            imageSrc="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400"
+            imageAlt="Tokyo"
+            title="Tokyo, Japón"
+            description="Una metrópolis vibrante que combina tradición con modernidad.">
+            <div slot="actions">
+              <app-button variant="primary" size="sm">Explorar</app-button>
+            </div>
+          </app-card>
+        </div>
+        <pre class="demo-group__code"><code>&lt;app-card [horizontal]="true" ...&gt;&lt;/app-card&gt;</code></pre>
+      </div>
+
+      <!-- Grid de Cards -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Grid de Cards</h3>
+        <div class="demo-group__content grid-3">
+          <app-card
+            imageSrc="https://images.unsplash.com/photo-1543716091-a840c05249ec?w=400"
+            title="Destino 1"
+            description="Descripción breve del destino.">
+          </app-card>
+          <app-card
+            imageSrc="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?w=400"
+            title="Destino 2"
+            description="Descripción breve del destino.">
+          </app-card>
+          <app-card
+            imageSrc="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400"
+            title="Destino 3"
+            description="Descripción breve del destino.">
+          </app-card>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: FORMULARIOS -->
+    <section id="forms" class="style-guide__section">
+      <h2 class="style-guide__section-title">Formularios</h2>
+      <p class="style-guide__section-intro">
+        Componentes de formulario: input, textarea y select. Todos con estados de error y ayuda.
+      </p>
+
+      <form [formGroup]="demoForm">
+        <!-- Form Input -->
+        <div class="demo-group">
+          <h3 class="demo-group__title">Form Input</h3>
+          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
+            <app-form-input
+              id="demo-input-1"
+              label="Nombre"
+              type="text"
+              name="nombre"
+              placeholder="Ingresa tu nombre"
+              [required]="true"
+              helpText="Este es un texto de ayuda"
+              formControlName="demoInput">
+            </app-form-input>
+
+            <app-form-input
+              id="demo-input-2"
+              label="Email"
+              type="email"
+              name="email"
+              placeholder="tu@email.com"
+              [required]="true"
+              errorMessage="Este campo tiene un error"
+              formControlName="demoInput">
+            </app-form-input>
+
+            <app-form-input
+              id="demo-input-3"
+              label="Campo Deshabilitado"
+              type="text"
+              name="disabled"
+              [disabled]="true"
+              placeholder="Este campo está deshabilitado">
+            </app-form-input>
+          </div>
+          <pre class="demo-group__code"><code>&lt;app-form-input
+  id="nombre"
+  label="Nombre"
+  type="text"
+  [required]="true"
+  helpText="..."&gt;
+&lt;/app-form-input&gt;</code></pre>
+        </div>
+
+        <!-- Form Textarea -->
+        <div class="demo-group">
+          <h3 class="demo-group__title">Form Textarea</h3>
+          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
+            <app-form-textarea
+              id="demo-textarea"
+              label="Mensaje"
+              name="mensaje"
+              placeholder="Escribe tu mensaje aquí..."
+              [required]="true"
+              [rows]="5"
+              [maxLength]="200"
+              helpText="Máximo 200 caracteres"
+              formControlName="demoTextarea">
+            </app-form-textarea>
+          </div>
+          <pre class="demo-group__code"><code>&lt;app-form-textarea
+  id="mensaje"
+  label="Mensaje"
+  [rows]="5"
+  [maxLength]="200"&gt;
+&lt;/app-form-textarea&gt;</code></pre>
+        </div>
+
+        <!-- Form Select -->
+        <div class="demo-group">
+          <h3 class="demo-group__title">Form Select</h3>
+          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
+            <app-form-select
+              id="demo-select"
+              label="Selecciona una opción"
+              name="opcion"
+              [options]="selectOptions"
+              [required]="true"
+              helpText="Selecciona una de las opciones disponibles"
+              formControlName="demoSelect">
+            </app-form-select>
+          </div>
+          <pre class="demo-group__code"><code>&lt;app-form-select
+  id="opcion"
+  label="Selecciona..."
+  [options]="options"
+  [required]="true"&gt;
+&lt;/app-form-select&gt;</code></pre>
+        </div>
+      </form>
+    </section>
+
+    <!-- SECCIÓN: ALERTAS -->
+    <section id="alerts" class="style-guide__section">
+      <h2 class="style-guide__section-title">Alertas</h2>
+      <p class="style-guide__section-intro">
+        Componente alert con 4 tipos: success, error, warning, info. Con opción de cerrar.
+      </p>
+
+      <div class="demo-group">
+        <h3 class="demo-group__title">Tipos de Alertas</h3>
+        <div class="demo-group__content" style="flex-direction: column;">
+          <app-alert type="success" title="Éxito" (dismissed)="onAlertDismissed('success')">
+            La operación se completó exitosamente.
+          </app-alert>
+
+          <app-alert type="error" title="Error" (dismissed)="onAlertDismissed('error')">
+            Hubo un error al procesar tu solicitud.
+          </app-alert>
+
+          <app-alert type="warning" title="Advertencia" (dismissed)="onAlertDismissed('warning')">
+            Esta acción puede tener consecuencias. Procede con precaución.
+          </app-alert>
+
+          <app-alert type="info" title="Información" (dismissed)="onAlertDismissed('info')">
+            Esta es una alerta informativa para comunicar datos importantes.
+          </app-alert>
+        </div>
+        <pre class="demo-group__code"><code>&lt;app-alert type="success" title="Éxito"&gt;
+  Mensaje de éxito...
+&lt;/app-alert&gt;</code></pre>
+      </div>
+
+      <!-- Sin Título -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Sin Título</h3>
+        <div class="demo-group__content" style="flex-direction: column;">
+          <app-alert type="info">
+            Esta alerta no tiene título, solo el mensaje.
+          </app-alert>
+        </div>
+      </div>
+
+      <!-- No Dismissible -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">No Dismissible</h3>
+        <div class="demo-group__content" style="flex-direction: column;">
+          <app-alert type="warning" title="Importante" [dismissible]="false">
+            Esta alerta no se puede cerrar.
+          </app-alert>
+        </div>
+        <pre class="demo-group__code"><code>&lt;app-alert [dismissible]="false"&gt;...&lt;/app-alert&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: COLORES -->
+    <section id="colors" class="style-guide__section">
+      <h2 class="style-guide__section-title">Paleta de Colores</h2>
+
+      <div class="color-palette">
+        <div class="color-group">
+          <h3>Primarios</h3>
+          <div class="color-swatches">
+            <div class="color-swatch" style="background: #FF5D1C;">
+              <span>Primary</span>
+              <code>#FF5D1C</code>
+            </div>
+            <div class="color-swatch" style="background: #FFE5A1;">
+              <span>Secondary</span>
+              <code>#FFE5A1</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-group">
+          <h3>Semánticos</h3>
+          <div class="color-swatches">
+            <div class="color-swatch" style="background: #10B981;">
+              <span>Success</span>
+              <code>#10B981</code>
+            </div>
+            <div class="color-swatch" style="background: #EF4444;">
+              <span>Error</span>
+              <code>#EF4444</code>
+            </div>
+            <div class="color-swatch" style="background: #F59E0B;">
+              <span>Warning</span>
+              <code>#F59E0B</code>
+            </div>
+            <div class="color-swatch" style="background: #3B82F6;">
+              <span>Info</span>
+              <code>#3B82F6</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: TIPOGRAFÍA -->
+    <section id="typography" class="style-guide__section">
+      <h2 class="style-guide__section-title">Tipografía</h2>
+
+      <div class="typography-samples">
+        <div class="typography-sample">
+          <h1>Heading 1 - Display XL</h1>
+          <code>font-size: 3.5rem (56px)</code>
+        </div>
+        <div class="typography-sample">
+          <h2>Heading 2 - Display Large</h2>
+          <code>font-size: 2.5rem (40px)</code>
+        </div>
+        <div class="typography-sample">
+          <h3>Heading 3 - Display Medium</h3>
+          <code>font-size: 2rem (32px)</code>
+        </div>
+        <div class="typography-sample">
+          <h4>Heading 4 - Display Small</h4>
+          <code>font-size: 1.5rem (24px)</code>
+        </div>
+        <div class="typography-sample">
+          <p style="font-size: 1.125rem;">Paragraph Large - 1.125rem (18px)</p>
+          <p>Paragraph Base - 1rem (16px)</p>
+          <p style="font-size: 0.875rem;">Paragraph Small - 0.875rem (14px)</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
