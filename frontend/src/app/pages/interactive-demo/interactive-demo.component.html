@@ -1,0 +1,212 @@
+<div class="demo-page">
+  <div class="container">
+    <!-- Header -->
+    <header class="demo-page__header">
+      <h1>Componentes Interactivos - Fase 1</h1>
+      <p class="demo-page__subtitle">
+        Demostración de manipulación del DOM, eventos y componentes interactivos
+      </p>
+    </header>
+
+    <!-- Theme Switcher Demo -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">1. Theme Switcher</h2>
+      <p class="demo-section__description">
+        Cambia entre temas claro, oscuro y automático. La preferencia se guarda en localStorage.
+      </p>
+      <div class="demo-section__content">
+        <app-theme-switcher></app-theme-switcher>
+        <p class="demo-info">
+          ℹ️ El tema automático detecta la preferencia del sistema (prefers-color-scheme)
+        </p>
+      </div>
+    </section>
+
+    <!-- Modal Demo -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">2. Modal</h2>
+      <p class="demo-section__description">
+        Modal con cierre por ESC, click fuera del contenido y gestión de foco.
+      </p>
+      <div class="demo-section__content">
+        <button
+          class="btn btn--primary"
+          (click)="openModal()"
+          appTooltip="Haz click para abrir el modal"
+          tooltipPosition="top">
+          Abrir Modal
+        </button>
+
+        <app-modal
+          [isOpen]="isModalOpen"
+          [title]="'Información de Viaje'"
+          [size]="'md'"
+          [closeOnBackdrop]="true"
+          [closeOnEscape]="true"
+          (closeModal)="closeModal()">
+
+          <div>
+            <p style="margin-bottom: 1rem;">
+              Bienvenido a T4 Traveling, tu compañero de viajes de confianza.
+            </p>
+            <p style="margin-bottom: 1rem;">
+              Ofrecemos las mejores experiencias de viaje con destinos cuidadosamente seleccionados,
+              transporte confiable y alojamientos de calidad.
+            </p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+              <li>✅ Reservas seguras</li>
+              <li>✅ Atención 24/7</li>
+              <li>✅ Mejores precios garantizados</li>
+              <li>✅ Cancelación flexible</li>
+            </ul>
+          </div>
+
+          <div slot="footer">
+            <button class="btn btn--secondary" (click)="closeModal()">
+              Cerrar
+            </button>
+            <button class="btn btn--primary">
+              Hacer una Reserva
+            </button>
+          </div>
+        </app-modal>
+      </div>
+    </section>
+
+    <!-- Accordion Demo -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">3. Acordeón</h2>
+      <p class="demo-section__description">
+        Acordeón con navegación por teclado (flechas, Home, End) y soporte para múltiples items abiertos.
+      </p>
+      <div class="demo-section__content">
+        <app-accordion
+          [items]="accordionItems"
+          [allowMultiple]="false"
+          [expandFirst]="true"
+          (itemToggled)="onAccordionItemToggled($event)">
+        </app-accordion>
+      </div>
+    </section>
+
+    <!-- Tabs Demo -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">4. Tabs</h2>
+      <p class="demo-section__description">
+        Sistema de pestañas con navegación por teclado (flechas, Home, End) y soporte para badges.
+      </p>
+      <div class="demo-section__content">
+        <app-tabs
+          [tabs]="tabItems"
+          [orientation]="'horizontal'"
+          (tabChanged)="onTabChanged($event)">
+        </app-tabs>
+      </div>
+    </section>
+
+    <!-- Tooltip Demo -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">5. Tooltips</h2>
+      <p class="demo-section__description">
+        Tooltips que se muestran al hacer hover o focus, con diferentes posiciones.
+      </p>
+      <div class="demo-section__content">
+        <div class="tooltip-demo">
+          <button
+            class="btn btn--secondary"
+            appTooltip="Tooltip en la parte superior"
+            tooltipPosition="top">
+            Top
+          </button>
+
+          <button
+            class="btn btn--secondary"
+            appTooltip="Tooltip en la parte derecha"
+            tooltipPosition="right">
+            Right
+          </button>
+
+          <button
+            class="btn btn--secondary"
+            appTooltip="Tooltip en la parte inferior"
+            tooltipPosition="bottom">
+            Bottom
+          </button>
+
+          <button
+            class="btn btn--secondary"
+            appTooltip="Tooltip en la parte izquierda"
+            tooltipPosition="left">
+            Left
+          </button>
+        </div>
+        <p class="demo-info">
+          ℹ️ Los tooltips también aparecen al hacer focus con el teclado (Tab)
+        </p>
+      </div>
+    </section>
+
+    <!-- Event Handlers Demo -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">6. Manipulación del DOM y Eventos</h2>
+      <p class="demo-section__description">
+        Ejemplos de event binding, prevención de comportamientos por defecto y gestión de eventos.
+      </p>
+      <div class="demo-section__content">
+        <div class="events-demo">
+          <div class="events-demo__item">
+            <h3>Eventos de Mouse</h3>
+            <div
+              class="interactive-box"
+              (mouseenter)="$event.target.style.backgroundColor = 'var(--color-primary)'"
+              (mouseleave)="$event.target.style.backgroundColor = 'var(--bg-surface)'">
+              Pasa el mouse sobre mí
+            </div>
+          </div>
+
+          <div class="events-demo__item">
+            <h3>Eventos de Teclado</h3>
+            <input
+              type="text"
+              class="demo-input"
+              placeholder="Escribe algo aquí"
+              (keydown.enter)="$event.preventDefault(); $event.target.style.borderColor = 'var(--color-success)'"
+              (blur)="$event.target.style.borderColor = 'var(--border-color)'" />
+            <p class="demo-info">Presiona Enter para cambiar el color del borde</p>
+          </div>
+
+          <div class="events-demo__item">
+            <h3>Prevención de Comportamiento</h3>
+            <a
+              href="https://example.com"
+              class="demo-link"
+              (click)="$event.preventDefault(); alert('Navegación prevenida!')">
+              Click aquí (preventDefault)
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menú Móvil Info -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">7. Menú Hamburguesa Móvil</h2>
+      <p class="demo-section__description">
+        El menú móvil en el header se puede cerrar con:
+      </p>
+      <div class="demo-section__content">
+        <ul class="feature-list">
+          <li>✅ Click en el botón hamburguesa</li>
+          <li>✅ Click fuera del menú</li>
+          <li>✅ Presionando la tecla ESC</li>
+          <li>✅ Click en cualquier enlace del menú</li>
+          <li>✅ Se cierra automáticamente en pantallas grandes</li>
+        </ul>
+        <p class="demo-info">
+          Reduce el tamaño de la ventana para probar el menú móvil.
+        </p>
+      </div>
+    </section>
+  </div>
+</div>
+

@@ -10,7 +10,7 @@
     </div>
 
     <!-- Navegación principal -->
-    <nav class="header__nav" [class.header__nav--open]="isMenuOpen" aria-label="Navegación principal">
+    <nav #mobileNav class="header__nav" [class.header__nav--open]="isMenuOpen" aria-label="Navegación principal">
       <ul class="header__nav-list">
         <li class="header__nav-item">
           <a routerLink="/" class="header__nav-link" routerLinkActive="header__nav-link--active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">

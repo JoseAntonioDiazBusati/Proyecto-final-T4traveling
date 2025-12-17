@@ -1,0 +1,48 @@
+<div
+  class="modal-backdrop"
+  *ngIf="isOpen"
+  (click)="onBackdropClick($event)"
+  [@fadeIn]
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="title ? 'modal-title' : null">
+
+  <div
+    #modalContent
+    class="modal"
+    [class.modal--sm]="size === 'sm'"
+    [class.modal--md]="size === 'md'"
+    [class.modal--lg]="size === 'lg'"
+    [class.modal--xl]="size === 'xl'"
+    (click)="onModalContentClick($event)"
+    [@slideIn]>
+
+    <!-- Header del modal -->
+    <div class="modal__header" *ngIf="title || showCloseButton">
+      <h2 id="modal-title" class="modal__title" *ngIf="title">{{ title }}</h2>
+
+      <button
+        #firstFocusable
+        *ngIf="showCloseButton"
+        class="modal__close"
+        (click)="close()"
+        aria-label="Cerrar modal"
+        type="button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Contenido del modal -->
+    <div class="modal__body">
+      <ng-content></ng-content>
+    </div>
+
+    <!-- Footer del modal (opcional) -->
+    <div class="modal__footer" *ngIf="true">
+      <ng-content select="[slot='footer']"></ng-content>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,50 @@
+<button
+  class="theme-switcher"
+  (click)="toggleTheme()"
+  [attr.aria-label]="'Cambiar tema - Actual: ' + getThemeLabel()"
+  [attr.data-theme]="currentTheme()"
+  type="button">
+
+  <!-- Icono de sol (tema claro) -->
+  <svg
+    *ngIf="getThemeIcon() === 'sun'"
+    class="theme-switcher__icon theme-switcher__icon--sun"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true">
+    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+    <path d="M12 2V4M12 20V22M4 12H2M22 12H20M19.07 4.93L17.66 6.34M6.34 17.66L4.93 19.07M19.07 19.07L17.66 17.66M6.34 6.34L4.93 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+
+  <!-- Icono de luna (tema oscuro) -->
+  <svg
+    *ngIf="getThemeIcon() === 'moon'"
+    class="theme-switcher__icon theme-switcher__icon--moon"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <!-- Icono automático -->
+  <svg
+    *ngIf="getThemeIcon() === 'auto'"
+    class="theme-switcher__icon theme-switcher__icon--auto"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true">
+    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20V4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="currentColor"/>
+  </svg>
+
+  <span class="theme-switcher__label">{{ getThemeLabel() }}</span>
+</button>
+

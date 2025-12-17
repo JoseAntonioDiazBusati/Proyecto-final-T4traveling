@@ -1,0 +1,242 @@
+.demo-page {
+  padding: 3rem 0;
+  min-height: 100vh;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.demo-section {
+  margin-bottom: 4rem;
+  padding: 2rem;
+  background: var(--bg-surface);
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  &__description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  &__content {
+    margin-top: 1.5rem;
+  }
+}
+
+.demo-info {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-hover);
+  border-left: 4px solid var(--color-info);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+// Botones demo
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &--primary {
+    background: var(--color-primary);
+    color: white;
+
+    &:hover {
+      background: #4338ca;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &--secondary {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+
+    &:hover {
+      border-color: var(--border-color-dark);
+      background: var(--bg-hover);
+    }
+  }
+}
+
+// Tooltip demo
+.tooltip-demo {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 3rem 2rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  background: var(--bg-hover);
+  border-radius: 0.5rem;
+}
+
+// Events demo
+.events-demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+
+  &__item {
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.interactive-box {
+  padding: 3rem 2rem;
+  background: var(--bg-surface);
+  border: 2px dashed var(--border-color);
+  border-radius: 0.5rem;
+  text-align: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+
+  &:hover {
+    border-style: solid;
+    color: white;
+  }
+}
+
+.demo-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+}
+
+.demo-link {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-surface);
+  color: var(--text-link);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--bg-hover);
+    border-color: var(--text-link);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .demo-page {
+    padding: 2rem 0;
+
+    &__header {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .demo-section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .tooltip-demo {
+    padding: 2rem 1rem;
+  }
+
+  .events-demo {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
