@@ -1,0 +1,266 @@
+<div class="services-demo">
+  <div class="container">
+    <!-- Header -->
+    <header class="demo-header">
+      <h1>Servicios y Comunicación - Fase 2</h1>
+      <p class="demo-subtitle">
+        Demostración de servicios, comunicación entre componentes y gestión de estado
+      </p>
+    </header>
+
+    <!-- Estado de Usuario -->
+    <section class="demo-section">
+      <h2>1. Estado Global (StateService)</h2>
+      <p class="demo-description">
+        Gestión de estado centralizado con Angular Signals. Los datos persisten en localStorage.
+      </p>
+
+      @if (!isAuthenticated()) {
+        <div class="auth-form">
+          <h3>Iniciar Sesión</h3>
+          <input
+            type="text"
+            class="input"
+            [(ngModel)]="userName"
+            placeholder="Nombre"
+            />
+          <input
+            type="email"
+            class="input"
+            [(ngModel)]="userEmail"
+            placeholder="Email"
+            />
+          <button class="btn btn--primary" (click)="login()">
+            Iniciar Sesión
+          </button>
+        </div>
+      } @else {
+        <div class="user-info">
+          <h3>Usuario Autenticado</h3>
+          <div class="user-card">
+            <img [src]="user()?.avatar" alt="Avatar" class="user-avatar" />
+            <div class="user-details">
+              <p class="user-name">{{ user()?.name }}</p>
+              <p class="user-email">{{ user()?.email }}</p>
+            </div>
+            <button class="btn btn--secondary" (click)="logout()">
+              Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- Carrito -->
+      <div class="cart-section">
+        <h3>Carrito de Compras</h3>
+        <div class="cart-info">
+          <span class="cart-badge">{{ cartItemCount() }} items</span>
+          <span class="cart-total">Total: ${{ cartTotal() }}</span>
+          @if (cartItemCount() > 0) {
+            <button class="btn btn--secondary btn--sm" (click)="clearCart()">
+              Vaciar Carrito
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicio de Comunicación -->
+    <section class="demo-section">
+      <h2>2. Comunicación entre Componentes (CommunicationService)</h2>
+      <p class="demo-description">
+        Patrón Observable/Subject para mensajes entre componentes sin relación directa.
+      </p>
+
+      <div class="communication-demo">
+        <div class="button-group">
+          <button class="btn btn--primary" (click)="sendMessage()">
+            Enviar Mensaje
+          </button>
+          <button class="btn btn--secondary" (click)="sendCustomMessage('notification')">
+            Mensaje Tipo "notification"
+          </button>
+          <button class="btn btn--secondary" (click)="sendCustomMessage('update')">
+            Mensaje Tipo "update"
+          </button>
+        </div>
+
+        <div class="message-log">
+          <h4>Log de Mensajes (últimos 10)</h4>
+          @if (messageLog.length === 0) {
+            <p class="empty-state">No hay mensajes aún</p>
+          } @else {
+            <ul class="message-list">
+              @for (message of messageLog; track $index) {
+                <li class="message-item">{{ message }}</li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Notificaciones -->
+    <section class="demo-section">
+      <h2>3. Sistema de Notificaciones (NotificationService)</h2>
+      <p class="demo-description">
+        Notificaciones toast con diferentes tipos y auto-dismiss configurable.
+      </p>
+
+      <div class="button-grid">
+        <button class="btn btn--success" (click)="showSuccessNotification()">
+          ✓ Success
+        </button>
+        <button class="btn btn--error" (click)="showErrorNotification()">
+          ✕ Error
+        </button>
+        <button class="btn btn--warning" (click)="showWarningNotification()">
+          ⚠ Warning
+        </button>
+        <button class="btn btn--info" (click)="showInfoNotification()">
+          ℹ Info
+        </button>
+        <button class="btn btn--secondary" (click)="showPersistentNotification()">
+          📌 Persistente
+        </button>
+      </div>
+    </section>
+
+    <!-- Loading States -->
+    <section class="demo-section">
+      <h2>4. Gestión de Loading (LoadingService)</h2>
+      <p class="demo-description">
+        Estados de carga globales y específicos para operaciones asíncronas.
+      </p>
+
+      <div class="button-group">
+        <button class="btn btn--primary" (click)="showGlobalLoading()">
+          Mostrar Loading Global (3s)
+        </button>
+        <button class="btn btn--secondary" (click)="loadDestinations()">
+          Cargar Destinos
+        </button>
+      </div>
+    </section>
+
+    <!-- Lógica de Negocio -->
+    <section class="demo-section">
+      <h2>5. Servicio de Lógica de Negocio (DestinationService)</h2>
+      <p class="demo-description">
+        Separación de lógica de negocio en servicios. Los componentes solo gestionan presentación.
+      </p>
+
+      <!-- Búsqueda -->
+      <div class="search-box">
+        <input
+          type="text"
+          class="input"
+          [(ngModel)]="searchQuery"
+          placeholder="Buscar destinos..."
+          (keyup.enter)="searchDestinations()"
+          />
+        <button class="btn btn--primary" (click)="searchDestinations()">
+          Buscar
+        </button>
+      </div>
+
+      <!-- Ordenamiento -->
+      <div class="sort-controls">
+        <label>Ordenar por:</label>
+        <button class="btn btn--sm" (click)="sortDestinations('name')">Nombre</button>
+        <button class="btn btn--sm" (click)="sortDestinations('price')">Precio</button>
+        <button class="btn btn--sm" (click)="sortDestinations('rating')">Rating</button>
+      </div>
+
+      <!-- Lista de Destinos -->
+      @if (isLoadingDestinations) {
+        <div class="loading-local">
+          <div class="spinner-small"></div>
+          <p>Cargando destinos...</p>
+        </div>
+      } @else {
+        <div class="destinations-grid">
+          @for (destination of destinations; track destination.id) {
+            <div class="destination-card" (click)="selectDestination(destination)">
+              <div class="destination-header">
+                <h3>{{ destination.name }}</h3>
+                <span class="destination-rating">⭐ {{ destination.rating }}</span>
+              </div>
+              <p class="destination-country">{{ destination.country }}</p>
+              <p class="destination-description">{{ destination.description }}</p>
+              <div class="destination-footer">
+                <span class="destination-price">${{ destination.price }}</span>
+                <button
+                  class="btn btn--sm btn--primary"
+                  (click)="addToCart(destination); $event.stopPropagation()">
+                  Añadir al Carrito
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </section>
+
+    <!-- Crear Reserva -->
+    <section class="demo-section">
+      <h2>6. Operaciones Asíncronas con Loading</h2>
+      <p class="demo-description">
+        Ejemplo de operación asíncrona con loading global y notificaciones.
+      </p>
+
+      <div class="booking-form">
+        <h3>Crear Reserva</h3>
+        <select class="input" [(ngModel)]="bookingData.destination">
+          <option value="">Selecciona un destino</option>
+          @for (destination of destinations; track destination.id) {
+            <option [value]="destination.id">{{ destination.name }}</option>
+          }
+        </select>
+
+        <input
+          type="date"
+          class="input"
+          [(ngModel)]="bookingData.date"
+          />
+
+        <input
+          type="number"
+          class="input"
+          [(ngModel)]="bookingData.guests"
+          min="1"
+          max="10"
+          placeholder="Número de huéspedes"
+          />
+
+        <button
+          class="btn btn--primary btn--lg"
+          [disabled]="isCreatingBooking"
+          (click)="createBooking()">
+          @if (isCreatingBooking) {
+            <span class="spinner-inline"></span>
+            Creando reserva...
+          } @else {
+            Crear Reserva
+          }
+        </button>
+      </div>
+    </section>
+
+    <!-- Información adicional -->
+    <section class="demo-section demo-section--info">
+      <h2>💡 Conceptos Implementados</h2>
+      <ul class="concepts-list">
+        <li>✅ <strong>Comunicación entre componentes</strong> - Observable/Subject pattern</li>
+        <li>✅ <strong>Estado global</strong> - Gestión centralizada con Signals</li>
+        <li>✅ <strong>Notificaciones toast</strong> - Sistema centralizado con tipos y auto-dismiss</li>
+        <li>✅ <strong>Loading states</strong> - Global y específico por operación</li>
+        <li>✅ <strong>Separación de responsabilidades</strong> - Servicios vs Componentes</li>
+        <li>✅ <strong>Lógica de negocio</strong> - Encapsulada en servicios</li>
+        <li>✅ <strong>Persistencia</strong> - LocalStorage para estado</li>
+        <li>✅ <strong>RxJS</strong> - Observables y operators</li>
+      </ul>
+    </section>
+  </div>
+</div>
+

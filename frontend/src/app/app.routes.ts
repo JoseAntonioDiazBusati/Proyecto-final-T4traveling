@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/interactive-demo',
+    redirectTo: '/services-demo',
     pathMatch: 'full'
   },
   {
@@ -13,6 +13,10 @@ export const routes: Routes = [
   {
     path: 'interactive-demo',
     loadComponent: () => import('./pages/interactive-demo/interactive-demo.component').then(m => m.InteractiveDemoComponent)
+  },
+  {
+    path: 'services-demo',
+    loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent)
   }
 ];
 
