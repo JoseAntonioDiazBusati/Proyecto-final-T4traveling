@@ -100,6 +100,54 @@ export class InteractiveDemoComponent {
   }
 
   /**
+   * Muestra una alerta
+   */
+  alert(message: string): void {
+    window.alert(message);
+  }
+
+  /**
+   * Cambia el estilo de un elemento en mouseenter
+   */
+  onMouseEnter(event: Event): void {
+    const target = event.target as HTMLElement;
+    target.style.backgroundColor = 'var(--color-primary)';
+  }
+
+  /**
+   * Restaura el estilo de un elemento en mouseleave
+   */
+  onMouseLeave(event: Event): void {
+    const target = event.target as HTMLElement;
+    target.style.backgroundColor = 'var(--bg-surface)';
+  }
+
+  /**
+   * Cambia el borde en enter
+   */
+  onEnter(event: Event): void {
+    event.preventDefault();
+    const target = event.target as HTMLElement;
+    target.style.borderColor = 'var(--color-success)';
+  }
+
+  /**
+   * Restaura el borde en blur
+   */
+  onBlur(event: Event): void {
+    const target = event.target as HTMLElement;
+    target.style.borderColor = 'var(--border-color)';
+  }
+
+  /**
+   * Previene la navegación
+   */
+  preventNavigation(event: Event): void {
+    event.preventDefault();
+    this.alert('Navegación prevenida!');
+  }
+
+  /**
    * Maneja el toggle de items del acordeón
    */
   onAccordionItemToggled(event: { item: AccordionItem; isOpen: boolean }): void {

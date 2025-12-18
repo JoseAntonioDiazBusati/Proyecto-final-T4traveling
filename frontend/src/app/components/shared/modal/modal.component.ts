@@ -123,7 +123,7 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
    * Maneja eventos de teclado (ESC para cerrar)
    */
   @HostListener('document:keydown.escape', ['$event'])
-  onEscapeKey(event: KeyboardEvent): void {
+  onEscapeKey(event: Event): void {
     if (this.isOpen && this.closeOnEscape) {
       event.preventDefault();
       this.close();
@@ -134,8 +134,10 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
    * Maneja la navegación con Tab para mantener el foco dentro del modal
    */
   @HostListener('document:keydown.tab', ['$event'])
-  onTabKey(event: KeyboardEvent): void {
+  onTabKey(event: Event): void {
     if (!this.isOpen || !this.modalContent) return;
+
+    const keyboardEvent = event as KeyboardEvent;
 
     const focusableElements = this.modalContent.nativeElement.querySelectorAll(
       'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
@@ -144,7 +146,7 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
-    if (event.shiftKey) {
+    if (keyboardEvent.shiftKey) {
       // Tab + Shift (hacia atrás)
       if (document.activeElement === firstElement) {
         event.preventDefault();

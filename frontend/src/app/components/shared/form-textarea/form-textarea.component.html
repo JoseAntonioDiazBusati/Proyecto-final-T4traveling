@@ -14,7 +14,7 @@
     [required]="required"
     [disabled]="disabled"
     [rows]="rows"
-    [maxlength]="maxLength || undefined"
+    [attr.maxlength]="maxLength || null"
     [value]="value"
     (input)="onInput($event)"
     (blur)="onBlur()"

@@ -1,67 +1,66 @@
 import { Component, inject } from '@angular/core';
-}
-  }
-    }
-        return 'Tema automático';
-      default:
-        return 'Tema automático';
-      case 'auto':
-        return 'Tema oscuro';
-      case 'dark':
-        return 'Tema claro';
-      case 'light':
-    switch (theme) {
-    const theme = this.currentTheme();
-  getThemeLabel(): string {
-   */
-   * Obtiene el label del tema actual
-  /**
-
-  }
-    }
-        return 'auto';
-      default:
-        return 'auto';
-      case 'auto':
-        return 'moon';
-      case 'dark':
-        return 'sun';
-      case 'light':
-    switch (theme) {
-    const theme = this.currentTheme();
-  getThemeIcon(): string {
-   */
-   * Obtiene el icono apropiado según el tema
-  /**
-
-  }
-    this.themeService.setTheme(theme);
-  setTheme(theme: Theme): void {
-   */
-   * Establece un tema específico
-  /**
-
-  }
-    this.themeService.toggleTheme();
-  toggleTheme(): void {
-   */
-   * Alterna entre temas
-  /**
-
-  appliedTheme = this.themeService.appliedTheme;
-  currentTheme = this.themeService.currentTheme;
-  // Exponer el signal del tema actual
-
-  private themeService = inject(ThemeService);
-export class ThemeSwitcherComponent {
-})
-  styleUrl: './theme-switcher.component.scss'
-  templateUrl: './theme-switcher.component.html',
-  imports: [CommonModule],
-  standalone: true,
-  selector: 'app-theme-switcher',
-@Component({
-
-import { ThemeService, Theme } from '../../../services/theme.service';
 import { CommonModule } from '@angular/common';
+import { ThemeService, Theme } from '../../../services/theme.service';
 
+@Component({
+  selector: 'app-theme-switcher',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './theme-switcher.component.html',
+  styleUrl: './theme-switcher.component.scss'
+})
+export class ThemeSwitcherComponent {
+  private themeService = inject(ThemeService);
+
+  // Exponer el signal del tema actual
+  currentTheme = this.themeService.currentTheme;
+  appliedTheme = this.themeService.appliedTheme;
+
+  /**
+   * Alterna entre temas
+   */
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  /**
+   * Establece un tema específico
+   */
+  setTheme(theme: Theme): void {
+    this.themeService.setTheme(theme);
+  }
+
+  /**
+   * Obtiene el icono apropiado según el tema
+   */
+  getThemeIcon(): string {
+    const theme = this.currentTheme();
+    switch (theme) {
+      case 'light':
+        return 'sun';
+      case 'dark':
+        return 'moon';
+      case 'auto':
+        return 'auto';
+      default:
+        return 'auto';
+    }
+  }
+
+  /**
+   * Obtiene el label del tema actual
+   */
+  getThemeLabel(): string {
+    const theme = this.currentTheme();
+    switch (theme) {
+      case 'light':
+        return 'Tema claro';
+      case 'dark':
+        return 'Tema oscuro';
+      case 'auto':
+        return 'Tema automático';
+      default:
+        return 'Tema automático';
+    }
+  }
+}

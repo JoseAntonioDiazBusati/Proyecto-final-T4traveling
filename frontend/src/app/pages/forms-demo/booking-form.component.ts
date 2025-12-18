@@ -268,7 +268,7 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     }
 
     this.formService.setSubmitting(this.formId, true);
-    this.loadingService.show('Procesando reserva...');
+    this.loadingService.show('booking-submit', 'Procesando reserva...');
 
     try {
       await this.simulateApiCall();
@@ -293,7 +293,7 @@ export class BookingFormComponent implements OnInit, OnDestroy {
       });
     } finally {
       this.formService.setSubmitting(this.formId, false);
-      this.loadingService.hide('Reserva procesada');
+      this.loadingService.hide('booking-submit');
     }
   }
 

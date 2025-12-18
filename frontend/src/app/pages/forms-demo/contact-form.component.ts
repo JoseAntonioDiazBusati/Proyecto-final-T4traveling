@@ -251,7 +251,7 @@ export class ContactFormComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.formService.setSubmitting(this.formId, true);
-    this.loadingService.show('Enviando consulta...');
+    this.loadingService.show('contact-submit', 'Enviando consulta...');
 
     try {
       await this.simulateApiCall();
@@ -276,7 +276,7 @@ export class ContactFormComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     } finally {
       this.formService.setSubmitting(this.formId, false);
-      this.loadingService.hide('Consulta enviada');
+      this.loadingService.hide('contact-submit');
     }
   }
 

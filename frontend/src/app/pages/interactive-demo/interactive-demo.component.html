@@ -158,8 +158,8 @@
             <h3>Eventos de Mouse</h3>
             <div
               class="interactive-box"
-              (mouseenter)="$event.target.style.backgroundColor = 'var(--color-primary)'"
-              (mouseleave)="$event.target.style.backgroundColor = 'var(--bg-surface)'">
+              (mouseenter)="onMouseEnter($event)"
+              (mouseleave)="onMouseLeave($event)">
               Pasa el mouse sobre mí
             </div>
           </div>
@@ -170,8 +170,8 @@
               type="text"
               class="demo-input"
               placeholder="Escribe algo aquí"
-              (keydown.enter)="$event.preventDefault(); $event.target.style.borderColor = 'var(--color-success)'"
-              (blur)="$event.target.style.borderColor = 'var(--border-color)'" />
+              (keydown.enter)="onEnter($event)"
+              (blur)="onBlur($event)" />
             <p class="demo-info">Presiona Enter para cambiar el color del borde</p>
           </div>
 

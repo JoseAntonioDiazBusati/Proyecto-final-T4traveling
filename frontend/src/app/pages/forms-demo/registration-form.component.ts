@@ -128,7 +128,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     }
 
     this.formService.setSubmitting(this.formId, true);
-    this.loadingService.show('Registrando usuario...');
+    this.loadingService.show('registration-submit', 'Registrando usuario...');
 
     // Animación en el botón usando ViewChild
     if (this.submitButton) {
@@ -158,7 +158,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       });
     } finally {
       this.formService.setSubmitting(this.formId, false);
-      this.loadingService.hide('Registro completado');
+      this.loadingService.hide('registration-submit');
     }
   }
 
