@@ -1,0 +1,36 @@
+/* Estilos del componente raíz - Diseño Figma T4-Traveling */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #FFFFFF;
+}
+
+/* Router outlet */
+router-outlet {
+  display: none;
+}
+
+/* Contenedor principal */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+}
+
+/* Animación fade-in para contenido */
+:host ::ng-deep router-outlet + * {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

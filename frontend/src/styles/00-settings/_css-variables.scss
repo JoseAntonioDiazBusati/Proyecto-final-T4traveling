@@ -5,30 +5,35 @@
 
 :root {
   // ----------------
-  // COLORES DE FONDO
+  // COLORES DE FONDO - Figma T4-Traveling
   // ----------------
-  --bg-primary: #{$color-primary-0};
-  --bg-secondary: #{$color-secondary-0};
-  --bg-body: #{$color-neutral-900};
-  --bg-surface: #{$color-neutral-1000};
-  --bg-hover: #{$color-neutral-800};
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #FFF2C7;
+  --bg-body: #F8F9FA;
+  --bg-surface: #FFFFFF;
+  --bg-hover: #FFE9D9;
 
   // ----------------
-  // COLORES DE TEXTO
+  // COLORES DE TEXTO - Figma T4-Traveling
   // ----------------
-  --text-primary: #{$color-neutral-0};
-  --text-secondary: #{$color-neutral-400};
-  --text-tertiary: #{$color-neutral-600};
-  --text-inverse: #{$color-neutral-1000};
-  --text-link: #{$color-primary-0};
-  --text-link-hover: #{$color-primary-1};
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --text-inverse: #FFFFFF;
+  --text-link: #FF5D1C;
+  --text-link-hover: #BF3100;
 
   // ----------------
   // COLORES DE BORDE
   // ----------------
-  --border-color: #{$color-neutral-700};
-  --border-color-light: #{$color-neutral-800};
-  --border-color-dark: #{$color-neutral-500};
+  --border-color: #E0E0E0;
+  --border-color-light: #F0F0F0;
+  --border-color-dark: #CCCCCC;
+
+  // Color primario naranja T4
+  --color-primary: #FF5D1C;
+  --color-primary-dark: #BF3100;
+  --color-primary-light: #FF8A5B;
 
   // ----------------
   // COLORES SEMÁNTICOS
