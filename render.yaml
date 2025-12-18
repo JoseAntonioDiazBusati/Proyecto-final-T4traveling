@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: proyecto-final-t4traveling
+    env: static
+    buildCommand: cd frontend && npm install && npm run build:prod
+    staticPublishPath: ./frontend/dist/maquetar-proyecto/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
