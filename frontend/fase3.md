@@ -1,0 +1,26 @@
+- Formularios reactivos básicos
+  - Implementar FormBuilder en todos los formularios
+  - FormGroup y FormControl para cada campo
+  - Validadores síncronos integrados (required, minLength, email, pattern)
+- Validadores personalizados
+  - Validador de contraseña fuerte
+  - Validador de confirmación de contraseña
+  - Validador de formato personalizado (NIF, teléfono, código postal)
+  - Validadores a nivel de formulario (cross-field validation)
+- Validadores asíncronos
+  - Validador de email único (simular consulta a API)
+  - Validador de username disponible
+- Debounce para evitar múltiples llamadas
+  - FormArray para contenido dinámico
+  - Agregar/eliminar campos dinámicamente
+- Validación de cada elemento del array
+  - Ejemplo: lista de direcciones, lista de teléfonos, items de factura
+- Gestión de estados de formulario
+  - Mostrar errores solo después de touched/dirty
+  - Deshabilitar submit si formulario inválido
+  - Loading states durante validación asíncrona
+  - Feedback visual de validación
+- Documentación
+  - Catálogo de validadores implementados
+  - Guía de uso de FormArray
+  - Ejemplos de validación asíncrona

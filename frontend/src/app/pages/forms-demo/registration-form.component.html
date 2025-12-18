@@ -1,0 +1,279 @@
+<div class="registration-form-container">
+  <div class="form-card">
+    <h2 #formTitle class="form-title">Registro de Usuario</h2>
+    <p class="form-description">Complete el formulario para crear su cuenta</p>
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username" class="form-label">
+          Nombre de usuario <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            class="form-control"
+            [class.invalid]="shouldShowError('username')"
+            [class.validating]="isFieldValidating('username')"
+            placeholder="johndoe"
+          />
+          <span class="input-icon" *ngIf="isFieldValidating('username')">
+            <span class="spinner"></span>
+          </span>
+          <span class="input-icon success" *ngIf="f['username'].valid && f['username'].touched">
+            ✓
+          </span>
+        </div>
+        <small class="error-message" *ngIf="shouldShowError('username')">
+          {{ getErrorMessage('username', 'Nombre de usuario') }}
+        </small>
+        <small class="help-text" *ngIf="!shouldShowError('username')">
+          Entre 3 y 20 caracteres
+        </small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email" class="form-label">
+          Email <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-control"
+            [class.invalid]="shouldShowError('email')"
+            [class.validating]="isFieldValidating('email')"
+            placeholder="usuario@example.com"
+          />
+          <span class="input-icon" *ngIf="isFieldValidating('email')">
+            <span class="spinner"></span>
+          </span>
+          <span class="input-icon success" *ngIf="f['email'].valid && f['email'].touched">
+            ✓
+          </span>
+        </div>
+        <small class="error-message" *ngIf="shouldShowError('email')">
+          {{ getErrorMessage('email', 'Email') }}
+        </small>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password" class="form-label">
+          Contraseña <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            class="form-control"
+            [class.invalid]="shouldShowError('password')"
+            placeholder="••••••••"
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility('password')"
+            [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+          >
+            {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+          </button>
+        </div>
+        <small class="error-message" *ngIf="shouldShowError('password')">
+          {{ getErrorMessage('password', 'Contraseña') }}
+        </small>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">
+          Confirmar contraseña <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <input
+            id="confirmPassword"
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            formControlName="confirmPassword"
+            class="form-control"
+            [class.invalid]="shouldShowError('confirmPassword')"
+            placeholder="••••••••"
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility('confirmPassword')"
+            [attr.aria-label]="showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+          >
+            {{ showConfirmPassword ? '👁️' : '👁️‍🗨️' }}
+          </button>
+        </div>
+        <small class="error-message" *ngIf="shouldShowError('confirmPassword')">
+          {{ getErrorMessage('confirmPassword', 'Confirmación de contraseña') }}
+        </small>
+      </div>
+
+      <!-- First Name and Last Name -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName" class="form-label">
+            Nombre <span class="required">*</span>
+          </label>
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            class="form-control"
+            [class.invalid]="shouldShowError('firstName')"
+            placeholder="Juan"
+          />
+          <small class="error-message" *ngIf="shouldShowError('firstName')">
+            {{ getErrorMessage('firstName', 'Nombre') }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">
+            Apellidos <span class="required">*</span>
+          </label>
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            class="form-control"
+            [class.invalid]="shouldShowError('lastName')"
+            placeholder="Pérez"
+          />
+          <small class="error-message" *ngIf="shouldShowError('lastName')">
+            {{ getErrorMessage('lastName', 'Apellidos') }}
+          </small>
+        </div>
+      </div>
+
+      <!-- NIF -->
+      <div class="form-group">
+        <label for="nif" class="form-label">
+          NIF/NIE <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <input
+            id="nif"
+            type="text"
+            formControlName="nif"
+            class="form-control"
+            [class.invalid]="shouldShowError('nif')"
+            [class.validating]="isFieldValidating('nif')"
+            placeholder="12345678A"
+            maxlength="9"
+          />
+          <span class="input-icon" *ngIf="isFieldValidating('nif')">
+            <span class="spinner"></span>
+          </span>
+          <span class="input-icon success" *ngIf="f['nif'].valid && f['nif'].touched">
+            ✓
+          </span>
+        </div>
+        <small class="error-message" *ngIf="shouldShowError('nif')">
+          {{ getErrorMessage('nif', 'NIF/NIE') }}
+        </small>
+      </div>
+
+      <!-- Phone and Birth Date -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone" class="form-label">
+            Teléfono <span class="required">*</span>
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            formControlName="phone"
+            class="form-control"
+            [class.invalid]="shouldShowError('phone')"
+            placeholder="612345678"
+          />
+          <small class="error-message" *ngIf="shouldShowError('phone')">
+            {{ getErrorMessage('phone', 'Teléfono') }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="birthDate" class="form-label">
+            Fecha de nacimiento <span class="required">*</span>
+          </label>
+          <input
+            id="birthDate"
+            type="date"
+            formControlName="birthDate"
+            class="form-control"
+            [class.invalid]="shouldShowError('birthDate')"
+          />
+          <small class="error-message" *ngIf="shouldShowError('birthDate')">
+            {{ getErrorMessage('birthDate', 'Fecha de nacimiento') }}
+          </small>
+        </div>
+      </div>
+
+      <!-- Accept Terms -->
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input
+            id="acceptTerms"
+            type="checkbox"
+            formControlName="acceptTerms"
+            class="checkbox-input"
+          />
+          <span class="checkbox-text">
+            Acepto los <a href="#" class="link">términos y condiciones</a> <span class="required">*</span>
+          </span>
+        </label>
+        <small class="error-message" *ngIf="shouldShowError('acceptTerms')">
+          {{ getErrorMessage('acceptTerms', 'Aceptación de términos') }}
+        </small>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+          [disabled]="!registrationForm.dirty"
+        >
+          Limpiar
+        </button>
+        <button
+          #submitButton
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="registrationForm.invalid || registrationForm.pending"
+        >
+          <span *ngIf="!registrationForm.pending">Registrarse</span>
+          <span *ngIf="registrationForm.pending" class="btn-loading">
+            <span class="spinner"></span> Validando...
+          </span>
+        </button>
+      </div>
+
+      <!-- Form Status (Debug Info - Remove in production) -->
+      <div class="form-status" *ngIf="registrationForm.dirty">
+        <details>
+          <summary>Estado del formulario (Debug)</summary>
+          <ul>
+            <li>Valid: {{ registrationForm.valid }}</li>
+            <li>Invalid: {{ registrationForm.invalid }}</li>
+            <li>Pending: {{ registrationForm.pending }}</li>
+            <li>Dirty: {{ registrationForm.dirty }}</li>
+            <li>Touched: {{ registrationForm.touched }}</li>
+          </ul>
+        </details>
+      </div>
+    </form>
+  </div>
+</div>
+

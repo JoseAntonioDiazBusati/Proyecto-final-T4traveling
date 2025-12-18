@@ -1,0 +1,368 @@
+<div class="booking-form-container">
+  <div class="form-card">
+    <h2 class="form-title">Reserva tu Viaje</h2>
+    <p class="form-description">Complete los datos para realizar su reserva</p>
+
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="booking-form">
+
+      <!-- Información de contacto -->
+      <section class="form-section">
+        <h3 class="section-title">Información de Contacto</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactEmail" class="form-label">
+              Email de contacto <span class="required">*</span>
+            </label>
+            <input
+              id="contactEmail"
+              type="email"
+              formControlName="contactEmail"
+              class="form-control"
+              [class.invalid]="shouldShowError('contactEmail')"
+              placeholder="contacto@example.com"
+            />
+            <small class="error-message" *ngIf="shouldShowError('contactEmail')">
+              {{ getErrorMessage('contactEmail', 'Email') }}
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="contactPhone" class="form-label">
+              Teléfono <span class="required">*</span>
+            </label>
+            <input
+              id="contactPhone"
+              type="tel"
+              formControlName="contactPhone"
+              class="form-control"
+              [class.invalid]="shouldShowError('contactPhone')"
+              placeholder="612345678"
+            />
+            <small class="error-message" *ngIf="shouldShowError('contactPhone')">
+              {{ getErrorMessage('contactPhone', 'Teléfono') }}
+            </small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detalles del viaje -->
+      <section class="form-section">
+        <h3 class="section-title">Detalles del Viaje</h3>
+
+        <div class="form-group">
+          <label for="destination" class="form-label">
+            Destino <span class="required">*</span>
+          </label>
+          <select
+            id="destination"
+            formControlName="destination"
+            class="form-control"
+            [class.invalid]="shouldShowError('destination')"
+          >
+            <option value="">Seleccione un destino</option>
+            <option *ngFor="let dest of destinations" [value]="dest.id">
+              {{ dest.name }} - {{ dest.price }}€ por persona
+            </option>
+          </select>
+          <small class="error-message" *ngIf="shouldShowError('destination')">
+            {{ getErrorMessage('destination', 'Destino') }}
+          </small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="departureDate" class="form-label">
+              Fecha de salida <span class="required">*</span>
+            </label>
+            <input
+              id="departureDate"
+              type="date"
+              formControlName="departureDate"
+              class="form-control"
+              [class.invalid]="shouldShowError('departureDate')"
+              [min]="minDate"
+              [max]="maxDate"
+            />
+            <small class="error-message" *ngIf="shouldShowError('departureDate')">
+              {{ getErrorMessage('departureDate', 'Fecha de salida') }}
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="returnDate" class="form-label">
+              Fecha de regreso <span class="required">*</span>
+            </label>
+            <input
+              id="returnDate"
+              type="date"
+              formControlName="returnDate"
+              class="form-control"
+              [class.invalid]="shouldShowError('returnDate')"
+              [min]="minDate"
+              [max]="maxDate"
+            />
+            <small class="error-message" *ngIf="shouldShowError('returnDate')">
+              {{ getErrorMessage('returnDate', 'Fecha de regreso') }}
+            </small>
+            <small class="error-message" *ngIf="bookingForm.errors?.['dateRange'] && bookingForm.get('returnDate')?.touched">
+              La fecha de regreso debe ser posterior a la fecha de salida
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="numberOfTravelers" class="form-label">
+            Número de viajeros <span class="required">*</span>
+          </label>
+          <input
+            id="numberOfTravelers"
+            type="number"
+            formControlName="numberOfTravelers"
+            class="form-control"
+            [class.invalid]="shouldShowError('numberOfTravelers')"
+            min="1"
+            max="10"
+          />
+          <small class="error-message" *ngIf="shouldShowError('numberOfTravelers')">
+            {{ getErrorMessage('numberOfTravelers', 'Número de viajeros') }}
+          </small>
+          <small class="help-text" *ngIf="!shouldShowError('numberOfTravelers')">
+            Máximo 10 viajeros por reserva
+          </small>
+        </div>
+      </section>
+
+      <!-- Datos de los viajeros (FormArray) -->
+      <section class="form-section">
+        <div class="section-header">
+          <h3 class="section-title">Datos de los Viajeros</h3>
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm"
+            (click)="addTraveler()"
+            [disabled]="travelers.length >= (bookingForm.get('numberOfTravelers')?.value || 10)"
+          >
+            + Añadir viajero
+          </button>
+        </div>
+
+        <div #travelersContainer class="travelers-container" formArrayName="travelers">
+          <div *ngFor="let traveler of travelers.controls; let i = index"
+               class="traveler-card"
+               [formGroupName]="i">
+
+            <div class="traveler-header">
+              <h4 class="traveler-title">Viajero {{ i + 1 }}</h4>
+              <button
+                type="button"
+                class="btn-remove"
+                (click)="removeTraveler(i)"
+                [disabled]="travelers.length === 1"
+                [attr.aria-label]="'Eliminar viajero ' + (i + 1)"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label [for]="'firstName-' + i" class="form-label">
+                  Nombre <span class="required">*</span>
+                </label>
+                <input
+                  [id]="'firstName-' + i"
+                  type="text"
+                  formControlName="firstName"
+                  class="form-control"
+                  [class.invalid]="shouldShowTravelerError(i, 'firstName')"
+                  placeholder="Juan"
+                />
+                <small class="error-message" *ngIf="shouldShowTravelerError(i, 'firstName')">
+                  {{ getTravelerErrorMessage(i, 'firstName', 'Nombre') }}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label [for]="'lastName-' + i" class="form-label">
+                  Apellidos <span class="required">*</span>
+                </label>
+                <input
+                  [id]="'lastName-' + i"
+                  type="text"
+                  formControlName="lastName"
+                  class="form-control"
+                  [class.invalid]="shouldShowTravelerError(i, 'lastName')"
+                  placeholder="Pérez"
+                />
+                <small class="error-message" *ngIf="shouldShowTravelerError(i, 'lastName')">
+                  {{ getTravelerErrorMessage(i, 'lastName', 'Apellidos') }}
+                </small>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label [for]="'nif-' + i" class="form-label">
+                  NIF/NIE <span class="required">*</span>
+                </label>
+                <input
+                  [id]="'nif-' + i"
+                  type="text"
+                  formControlName="nif"
+                  class="form-control"
+                  [class.invalid]="shouldShowTravelerError(i, 'nif')"
+                  placeholder="12345678A"
+                  maxlength="9"
+                />
+                <small class="error-message" *ngIf="shouldShowTravelerError(i, 'nif')">
+                  {{ getTravelerErrorMessage(i, 'nif', 'NIF/NIE') }}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label [for]="'birthDate-' + i" class="form-label">
+                  Fecha de nacimiento <span class="required">*</span>
+                </label>
+                <input
+                  [id]="'birthDate-' + i"
+                  type="date"
+                  formControlName="birthDate"
+                  class="form-control"
+                  [class.invalid]="shouldShowTravelerError(i, 'birthDate')"
+                />
+                <small class="error-message" *ngIf="shouldShowTravelerError(i, 'birthDate')">
+                  {{ getTravelerErrorMessage(i, 'birthDate', 'Fecha de nacimiento') }}
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label [for]="'specialNeeds-' + i" class="form-label">
+                Necesidades especiales
+              </label>
+              <textarea
+                [id]="'specialNeeds-' + i"
+                formControlName="specialNeeds"
+                class="form-control"
+                rows="2"
+                placeholder="Alergias, movilidad reducida, etc."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <p class="help-text" *ngIf="travelers.length === 0">
+          Añada al menos un viajero para continuar
+        </p>
+      </section>
+
+      <!-- Extras -->
+      <section class="form-section">
+        <h3 class="section-title">Servicios Adicionales</h3>
+
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              formControlName="includeInsurance"
+              class="checkbox-input"
+            />
+            <span class="checkbox-text">
+              Incluir seguro de viaje (+50€ por persona)
+            </span>
+          </label>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              formControlName="includeTransfers"
+              class="checkbox-input"
+            />
+            <span class="checkbox-text">
+              Incluir transfers aeropuerto-hotel (+75€ por persona)
+            </span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="specialRequests" class="form-label">
+            Solicitudes especiales
+          </label>
+          <textarea
+            id="specialRequests"
+            formControlName="specialRequests"
+            class="form-control"
+            rows="3"
+            placeholder="Habitación con vistas, cama extra, etc."
+          ></textarea>
+          <small class="help-text">
+            Máximo 500 caracteres
+          </small>
+        </div>
+      </section>
+
+      <!-- Resumen de precio -->
+      <section class="form-section price-summary" *ngIf="getSelectedDestination()">
+        <h3 class="section-title">Resumen del Precio</h3>
+        <div class="price-breakdown">
+          <div class="price-item">
+            <span>{{ getSelectedDestination()?.name }}</span>
+            <span>{{ getSelectedDestination()?.price }}€ × {{ bookingForm.get('numberOfTravelers')?.value || 0 }} viajeros</span>
+          </div>
+          <div class="price-item" *ngIf="bookingForm.get('includeInsurance')?.value">
+            <span>Seguro de viaje</span>
+            <span>50€ × {{ bookingForm.get('numberOfTravelers')?.value || 0 }}</span>
+          </div>
+          <div class="price-item" *ngIf="bookingForm.get('includeTransfers')?.value">
+            <span>Transfers</span>
+            <span>75€ × {{ bookingForm.get('numberOfTravelers')?.value || 0 }}</span>
+          </div>
+          <div class="price-total">
+            <span>Total</span>
+            <span>{{ calculateTotalPrice() }}€</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Términos -->
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            formControlName="acceptTerms"
+            class="checkbox-input"
+          />
+          <span class="checkbox-text">
+            Acepto los <a href="#" class="link">términos y condiciones</a> <span class="required">*</span>
+          </span>
+        </label>
+        <small class="error-message" *ngIf="shouldShowError('acceptTerms')">
+          {{ getErrorMessage('acceptTerms', 'Aceptación de términos') }}
+        </small>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+          [disabled]="!bookingForm.dirty"
+        >
+          Limpiar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="bookingForm.invalid"
+        >
+          Confirmar Reserva
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

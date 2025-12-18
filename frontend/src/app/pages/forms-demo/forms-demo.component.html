@@ -1,0 +1,224 @@
+<div class="forms-demo-container">
+  <div class="demo-header">
+    <h1 class="demo-title">Demostración de Formularios Reactivos</h1>
+    <p class="demo-description">
+      Fase 3: Formularios con validaciones síncronas, asíncronas y FormArray
+    </p>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="tabs-navigation">
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'registration'"
+      (click)="selectTab('registration')"
+    >
+      <span class="tab-icon">📝</span>
+      <span class="tab-text">Registro de Usuario</span>
+    </button>
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'booking'"
+      (click)="selectTab('booking')"
+    >
+      <span class="tab-icon">✈️</span>
+      <span class="tab-text">Reserva de Viaje</span>
+    </button>
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'contact'"
+      (click)="selectTab('contact')"
+    >
+      <span class="tab-icon">💬</span>
+      <span class="tab-text">Contacto</span>
+    </button>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+    <!-- Registration Form -->
+    <div class="tab-panel" [class.active]="activeTab === 'registration'" *ngIf="activeTab === 'registration'">
+      <div class="panel-info">
+        <h3>Formulario de Registro</h3>
+        <ul class="features-list">
+          <li>✅ Validadores síncronos: contraseña fuerte, NIF, teléfono</li>
+          <li>✅ Validadores asíncronos: email único, username disponible, documento único</li>
+          <li>✅ Cross-field validation: confirmación de contraseña</li>
+          <li>✅ Feedback visual de validación en tiempo real</li>
+          <li>✅ ViewChild y ElementRef para manipulación del DOM</li>
+        </ul>
+      </div>
+      <app-registration-form></app-registration-form>
+    </div>
+
+    <!-- Booking Form -->
+    <div class="tab-panel" [class.active]="activeTab === 'booking'" *ngIf="activeTab === 'booking'">
+      <div class="panel-info">
+        <h3>Formulario de Reserva</h3>
+        <ul class="features-list">
+          <li>✅ FormArray dinámico para múltiples viajeros</li>
+          <li>✅ Agregar/eliminar elementos del array</li>
+          <li>✅ Validación individual de cada elemento</li>
+          <li>✅ Validación de rango de fechas</li>
+          <li>✅ Cálculo dinámico de precios</li>
+          <li>✅ Animaciones CSS en elementos dinámicos</li>
+        </ul>
+      </div>
+      <app-booking-form></app-booking-form>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="tab-panel" [class.active]="activeTab === 'contact'" *ngIf="activeTab === 'contact'">
+      <div class="panel-info">
+        <h3>Formulario de Contacto</h3>
+        <ul class="features-list">
+          <li>✅ FormArray para métodos de contacto múltiples</li>
+          <li>✅ Validación dinámica según tipo de contacto</li>
+          <li>✅ Contador de caracteres en tiempo real</li>
+          <li>✅ Validación de patrones personalizados</li>
+          <li>✅ Scroll automático a errores</li>
+          <li>✅ AfterViewInit para animaciones de entrada</li>
+        </ul>
+      </div>
+      <app-contact-form></app-contact-form>
+    </div>
+  </div>
+
+  <!-- Documentation Section -->
+  <div class="documentation-section">
+    <h2 class="doc-title">📚 Documentación de Validadores</h2>
+
+    <div class="doc-grid">
+      <!-- Validadores Síncronos -->
+      <div class="doc-card">
+        <h3 class="doc-card-title">Validadores Síncronos Personalizados</h3>
+        <div class="doc-card-content">
+          <div class="validator-item">
+            <h4>strongPassword()</h4>
+            <p>Valida contraseña fuerte con requisitos específicos:</p>
+            <ul>
+              <li>Mínimo 8 caracteres</li>
+              <li>Al menos 1 mayúscula</li>
+              <li>Al menos 1 minúscula</li>
+              <li>Al menos 1 número</li>
+              <li>Al menos 1 carácter especial</li>
+            </ul>
+          </div>
+
+          <div class="validator-item">
+            <h4>nif()</h4>
+            <p>Valida formato y letra del NIF/NIE español</p>
+          </div>
+
+          <div class="validator-item">
+            <h4>spanishPhone()</h4>
+            <p>Valida números de teléfono españoles (móvil y fijo)</p>
+          </div>
+
+          <div class="validator-item">
+            <h4>spanishPostalCode()</h4>
+            <p>Valida código postal español (01000-52999)</p>
+          </div>
+
+          <div class="validator-item">
+            <h4>minAge(age: number)</h4>
+            <p>Valida edad mínima a partir de fecha de nacimiento</p>
+          </div>
+
+          <div class="validator-item">
+            <h4>passwordMatch(field1, field2)</h4>
+            <p>Validación a nivel de FormGroup para confirmar contraseña</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Validadores Asíncronos -->
+      <div class="doc-card">
+        <h3 class="doc-card-title">Validadores Asíncronos</h3>
+        <div class="doc-card-content">
+          <div class="validator-item">
+            <h4>uniqueEmail()</h4>
+            <p>Simula consulta a API para verificar si el email ya existe</p>
+            <ul>
+              <li>Delay: 1000ms</li>
+              <li>Emails registrados de prueba: usuario@example.com, admin@t4traveling.com</li>
+            </ul>
+          </div>
+
+          <div class="validator-item">
+            <h4>usernameAvailable()</h4>
+            <p>Verifica disponibilidad de nombre de usuario</p>
+            <ul>
+              <li>Delay: 800ms</li>
+              <li>Usernames ocupados: admin, root, user, test</li>
+            </ul>
+          </div>
+
+          <div class="validator-item">
+            <h4>uniqueDocument()</h4>
+            <p>Valida que el documento no esté ya registrado</p>
+            <ul>
+              <li>Delay: 1200ms</li>
+              <li>Documentos registrados: 12345678A, 87654321B</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- FormArray -->
+      <div class="doc-card">
+        <h3 class="doc-card-title">Implementación de FormArray</h3>
+        <div class="doc-card-content">
+          <div class="validator-item">
+            <h4>Caso de Uso: Viajeros</h4>
+            <p>FormArray dinámico en formulario de reserva</p>
+            <ul>
+              <li>Agregar/eliminar viajeros dinámicamente</li>
+              <li>Validación individual de cada viajero</li>
+              <li>Sincronización con número total de viajeros</li>
+              <li>Animaciones de entrada/salida</li>
+            </ul>
+          </div>
+
+          <div class="validator-item">
+            <h4>Caso de Uso: Métodos de Contacto</h4>
+            <p>FormArray para múltiples formas de contacto</p>
+            <ul>
+              <li>Validación dinámica según tipo seleccionado</li>
+              <li>Máximo 4 métodos de contacto</li>
+              <li>Selección de método preferido</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ViewChild y ElementRef -->
+      <div class="doc-card">
+        <h3 class="doc-card-title">ViewChild y ElementRef</h3>
+        <div class="doc-card-content">
+          <div class="validator-item">
+            <h4>Manipulación del DOM</h4>
+            <p>Acceso directo a elementos del DOM para:</p>
+            <ul>
+              <li>Modificar estilos dinámicamente</li>
+              <li>Aplicar animaciones programáticamente</li>
+              <li>Gestionar focus de elementos</li>
+              <li>Scroll automático a errores</li>
+            </ul>
+          </div>
+
+          <div class="validator-item">
+            <h4>Ejemplos implementados</h4>
+            <ul>
+              <li>Cambio de color del título en registro</li>
+              <li>Animación del botón al enviar</li>
+              <li>Animación de entrada del formulario de contacto</li>
+              <li>Focus automático en campo de asunto</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
