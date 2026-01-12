@@ -1,5 +1,5 @@
 <!-- Header principal de T4 Traveling -->
-<header class="header">
+<header class="header" role="banner">
   <div class="header__container container">
     <!-- Logo -->
     <div class="header__logo">
@@ -10,30 +10,68 @@
     </div>
 
     <!-- Navegación principal -->
-    <nav #mobileNav class="header__nav" [class.header__nav--open]="isMenuOpen" aria-label="Navegación principal">
-      <ul class="header__nav-list">
-        <li class="header__nav-item">
-          <a routerLink="/" class="header__nav-link" routerLinkActive="header__nav-link--active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">
+    <nav
+      #mobileNav
+      id="main-navigation"
+      class="header__nav"
+      [class.header__nav--open]="isMenuOpen"
+      [attr.aria-hidden]="!isMenuOpen"
+      aria-label="Navegación principal"
+      role="navigation">
+      <ul class="header__nav-list" role="menubar">
+        <li class="header__nav-item" role="none">
+          <a
+            routerLink="/"
+            class="header__nav-link"
+            routerLinkActive="header__nav-link--active"
+            [routerLinkActiveOptions]="{exact: true}"
+            (click)="closeMenu()"
+            (keydown.enter)="closeMenu()"
+            role="menuitem">
             Inicio
           </a>
         </li>
-        <li class="header__nav-item">
-          <a routerLink="/destinos" class="header__nav-link" routerLinkActive="header__nav-link--active" (click)="closeMenu()">
+        <li class="header__nav-item" role="none">
+          <a
+            routerLink="/destinos"
+            class="header__nav-link"
+            routerLinkActive="header__nav-link--active"
+            (click)="closeMenu()"
+            (keydown.enter)="closeMenu()"
+            role="menuitem">
             Destinos
           </a>
         </li>
-        <li class="header__nav-item">
-          <a routerLink="/transportes" class="header__nav-link" routerLinkActive="header__nav-link--active" (click)="closeMenu()">
+        <li class="header__nav-item" role="none">
+          <a
+            routerLink="/transportes"
+            class="header__nav-link"
+            routerLinkActive="header__nav-link--active"
+            (click)="closeMenu()"
+            (keydown.enter)="closeMenu()"
+            role="menuitem">
             Transportes
           </a>
         </li>
-        <li class="header__nav-item">
-          <a routerLink="/reservas" class="header__nav-link" routerLinkActive="header__nav-link--active" (click)="closeMenu()">
+        <li class="header__nav-item" role="none">
+          <a
+            routerLink="/reservas"
+            class="header__nav-link"
+            routerLinkActive="header__nav-link--active"
+            (click)="closeMenu()"
+            (keydown.enter)="closeMenu()"
+            role="menuitem">
             Mis Reservas
           </a>
         </li>
-        <li class="header__nav-item">
-          <a routerLink="/contacto" class="header__nav-link" routerLinkActive="header__nav-link--active" (click)="closeMenu()">
+        <li class="header__nav-item" role="none">
+          <a
+            routerLink="/contacto"
+            class="header__nav-link"
+            routerLinkActive="header__nav-link--active"
+            (click)="closeMenu()"
+            (keydown.enter)="closeMenu()"
+            role="menuitem">
             Contacto
           </a>
         </li>
@@ -42,31 +80,46 @@
 
     <!-- Utilidades del header -->
     <div class="header__utilities">
+      <!-- Theme Switcher -->
+      <app-theme-switcher></app-theme-switcher>
+
       <!-- Búsqueda -->
-      <button class="header__utility-btn" aria-label="Buscar destinos" type="button">
-        <svg class="header__utility-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button
+        class="header__utility-btn"
+        aria-label="Buscar destinos"
+        type="button"
+        (keydown.enter)="$event.stopPropagation()">
+        <svg class="header__utility-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
 
       <!-- Usuario -->
-      <button class="header__utility-btn" aria-label="Cuenta de usuario" type="button">
-        <svg class="header__utility-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button
+        class="header__utility-btn"
+        aria-label="Cuenta de usuario"
+        type="button"
+        (keydown.enter)="$event.stopPropagation()">
+        <svg class="header__utility-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
 
       <!-- Menú móvil toggle -->
       <button
+        #menuToggle
         class="header__menu-toggle"
         [class.header__menu-toggle--active]="isMenuOpen"
         (click)="toggleMenu()"
+        (keydown.enter)="toggleMenu(); $event.preventDefault()"
+        (keydown.space)="toggleMenu(); $event.preventDefault()"
         [attr.aria-expanded]="isMenuOpen"
-        aria-label="Abrir menú de navegación"
+        aria-controls="main-navigation"
+        [attr.aria-label]="isMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
         type="button">
-        <span class="header__menu-toggle-bar"></span>
-        <span class="header__menu-toggle-bar"></span>
-        <span class="header__menu-toggle-bar"></span>
+        <span class="header__menu-toggle-bar" aria-hidden="true"></span>
+        <span class="header__menu-toggle-bar" aria-hidden="true"></span>
+        <span class="header__menu-toggle-bar" aria-hidden="true"></span>
       </button>
     </div>
   </div>

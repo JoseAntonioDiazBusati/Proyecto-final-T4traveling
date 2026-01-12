@@ -1,0 +1,62 @@
+<!--
+  Accordion Component
+  Implementa ARIA roles y navegación por teclado accesible
+  Utiliza animación CSS para transiciones suaves
+-->
+<div class="accordion" role="presentation">
+  <div
+    *ngFor="let item of items; let i = index"
+    class="accordion__item"
+    [class.accordion__item--open]="item.isOpen"
+    [class.accordion__item--disabled]="item.disabled">
+
+    <!-- Cabecera del accordion - Botón activador -->
+    <button
+      type="button"
+      class="accordion__header"
+      [id]="getButtonId(item)"
+      [attr.aria-expanded]="item.isOpen"
+      [attr.aria-controls]="getContentId(item)"
+      [attr.aria-disabled]="item.disabled"
+      [disabled]="item.disabled"
+      (click)="toggleItem(item, $event)"
+      (keydown)="onKeyDown($event, item, i)">
+
+      <span class="accordion__title">{{ item.title }}</span>
+
+      <!-- Icono indicador de estado -->
+      <span class="accordion__icon" [class.accordion__icon--open]="item.isOpen">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
+          <path
+            d="M5 7.5L10 12.5L15 7.5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Panel de contenido con animación -->
+    <div
+      [id]="getContentId(item)"
+      class="accordion__content"
+      [class.accordion__content--open]="item.isOpen"
+      role="region"
+      [attr.aria-labelledby]="getButtonId(item)"
+      [attr.aria-hidden]="!item.isOpen">
+
+      <div class="accordion__body">
+        <!-- Contenido HTML seguro -->
+        <p [innerHTML]="item.content"></p>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { CustomValidators } from '../../validators/custom-validators';
 import { FormService } from '../../services/form.service';
 import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
+import { DomManipulationService } from '../../services/dom-manipulation.service';
 
 interface Traveler {
   firstName: string;
@@ -14,6 +15,18 @@ interface Traveler {
   specialNeeds?: string;
 }
 
+/**
+ * BookingFormComponent - Formulario de reserva de viajes
+ *
+ * Características implementadas:
+ * - @ViewChild + ElementRef para acceso al DOM (1.1)
+ * - ngAfterViewInit para manipulación segura del DOM
+ * - Foco automático en el primer campo
+ * - Scroll programado a secciones
+ * - Renderer2 para manipulación de estilos (1.2)
+ * - Creación dinámica de chips con tags (1.3)
+ * - Event binding con eventos específicos (2.1, 2.2)
+ */
 @Component({
   selector: 'app-booking-form',
   standalone: true,
@@ -21,13 +34,20 @@ interface Traveler {
   templateUrl: './booking-form.component.html',
   styleUrls: ['./booking-form.component.scss']
 })
-export class BookingFormComponent implements OnInit, OnDestroy {
+export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
+  // ViewChild para acceso al DOM (requisito 1.1)
   @ViewChild('travelersContainer') travelersContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('contactEmailInput') contactEmailInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('formContainer') formContainer!: ElementRef<HTMLFormElement>;
+  @ViewChild('tagsContainer') tagsContainer?: ElementRef<HTMLDivElement>;
 
   bookingForm!: FormGroup;
   formId = 'booking-form';
   minDate: string;
   maxDate: string;
+
+  // Tags dinámicos para extras seleccionados
+  selectedTags: string[] = [];
 
   destinations = [
     { id: 1, name: 'París, Francia', price: 599 },
@@ -41,7 +61,9 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private formService: FormService,
     private notificationService: NotificationService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private renderer: Renderer2,
+    private domService: DomManipulationService
   ) {
     // Establecer fechas mínimas y máximas
     const today = new Date();
@@ -60,8 +82,126 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     this.addTraveler();
   }
 
+  /**
+   * ngAfterViewInit - Acceso seguro al DOM después de inicializar la vista
+   * Requisito 1.1: Acceso al DOM en ngAfterViewInit()
+   */
+  ngAfterViewInit(): void {
+    // Foco automático en el primer campo del formulario
+    this.focusFirstInput();
+
+    // Medir dimensiones del formulario para estadísticas
+    this.measureFormDimensions();
+
+    // Aplicar estilos iniciales con Renderer2
+    this.initializeFormStyles();
+  }
+
   ngOnDestroy(): void {
     this.formService.unregisterForm(this.formId);
+  }
+
+  /**
+   * Enfoca el primer input del formulario
+   * Demuestra uso de ViewChild + ElementRef
+   */
+  private focusFirstInput(): void {
+    if (this.contactEmailInput?.nativeElement) {
+      // Usar setTimeout para asegurar que el DOM esté listo
+      setTimeout(() => {
+        this.contactEmailInput.nativeElement.focus();
+      }, 100);
+    }
+  }
+
+  /**
+   * Mide las dimensiones del formulario
+   * Demuestra uso de ViewChild para medición del DOM
+   */
+  private measureFormDimensions(): void {
+    if (this.formContainer?.nativeElement) {
+      const rect = this.formContainer.nativeElement.getBoundingClientRect();
+      console.log(`📐 Dimensiones del formulario: ${rect.width}px x ${rect.height}px`);
+    }
+  }
+
+  /**
+   * Inicializa estilos del formulario con Renderer2
+   * Requisito 1.2: Uso de Renderer2 para estilos
+   */
+  private initializeFormStyles(): void {
+    if (this.formContainer?.nativeElement) {
+      this.renderer.addClass(this.formContainer.nativeElement, 'form-initialized');
+      this.renderer.setStyle(this.formContainer.nativeElement, 'opacity', '1');
+    }
+  }
+
+  /**
+   * Scroll programado a la sección de viajeros
+   * Demuestra uso de ViewChild para scroll programático
+   */
+  scrollToTravelers(): void {
+    if (this.travelersContainer?.nativeElement) {
+      this.travelersContainer.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+
+  /**
+   * Añade un tag dinámico usando DomManipulationService
+   * Requisito 1.3: Creación dinámica de elementos
+   */
+  addTag(tagName: string): void {
+    if (this.selectedTags.includes(tagName)) return;
+
+    this.selectedTags.push(tagName);
+
+    if (this.tagsContainer?.nativeElement) {
+      this.domService.createChip(
+        tagName,
+        (_id: string) => {
+          // Callback cuando se elimina el tag
+          const index = this.selectedTags.indexOf(tagName);
+          if (index > -1) {
+            this.selectedTags.splice(index, 1);
+          }
+        },
+        this.tagsContainer.nativeElement
+      );
+    }
+  }
+
+  /**
+   * Maneja el evento de focus en campos
+   * Requisito 2.2: Eventos específicos de focus
+   */
+  onFieldFocus(event: FocusEvent, fieldName: string): void {
+    const target = event.target as HTMLElement;
+    this.renderer.addClass(target.parentElement, 'field-focused');
+  }
+
+  /**
+   * Maneja el evento de blur en campos
+   */
+  onFieldBlur(event: FocusEvent, fieldName: string): void {
+    const target = event.target as HTMLElement;
+    this.renderer.removeClass(target.parentElement, 'field-focused');
+  }
+
+  /**
+   * Maneja eventos de teclado en el formulario
+   * Requisito 2.2: Eventos específicos de teclado
+   */
+  onKeyDown(event: KeyboardEvent): void {
+    // Ctrl + Enter para enviar formulario
+    if (event.ctrlKey && event.key === 'Enter') {
+      event.preventDefault();
+      if (this.bookingForm.valid) {
+        this.onSubmit();
+      }
+    }
   }
 
   private initForm(): void {

@@ -1,0 +1,206 @@
+/**
+ * Tabs Component Styles
+ * Implementa estilos para tabs horizontal y vertical
+ * Compatible con el sistema de temas
+ */
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  // Layout horizontal
+  &--horizontal {
+    .tabs__list {
+      flex-direction: row;
+      border-bottom: 1px solid var(--border-color, #333);
+    }
+
+    .tabs__indicator {
+      bottom: 0;
+      height: 2px;
+    }
+  }
+
+  // Layout vertical
+  &--vertical {
+    flex-direction: row;
+
+    .tabs__list {
+      flex-direction: column;
+      border-right: 1px solid var(--border-color, #333);
+      min-width: 200px;
+    }
+
+    .tabs__indicator {
+      left: 0;
+      width: 3px;
+    }
+
+    .tabs__panels {
+      flex: 1;
+      padding-left: 1.5rem;
+    }
+  }
+
+  &__list {
+    display: flex;
+    position: relative;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.25rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary, #999);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover:not(:disabled) {
+      color: var(--text-primary, #fff);
+      background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary, #4f46e5);
+      outline-offset: -2px;
+      background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+    }
+
+    &--active {
+      color: var(--color-primary, #4f46e5);
+
+      &:hover:not(:disabled) {
+        color: var(--color-primary, #4f46e5);
+      }
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &:hover {
+        color: var(--text-secondary, #999);
+        background-color: transparent;
+      }
+    }
+  }
+
+  &__tab-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__tab-label {
+    line-height: 1;
+  }
+
+  &__tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 6px;
+    background-color: var(--color-error, #ef4444);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 9999px;
+  }
+
+  &__indicator {
+    position: absolute;
+    background-color: var(--color-primary, #4f46e5);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  &__panels {
+    margin-top: 1rem;
+  }
+
+  &__panel {
+    display: none;
+
+    &--active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+  }
+
+  &__panel-content {
+    color: var(--text-primary, #fff);
+    line-height: 1.6;
+
+    p {
+      margin: 0;
+
+      & + p {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+// Animación de fade in
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive
+@media (max-width: 640px) {
+  .tabs {
+    &--vertical {
+      flex-direction: column;
+
+      .tabs__list {
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color, #333);
+        min-width: auto;
+        overflow-x: auto;
+      }
+
+      .tabs__panels {
+        padding-left: 0;
+        padding-top: 1rem;
+      }
+    }
+
+    &__tab {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
+}
+

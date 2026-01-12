@@ -1,6 +1,18 @@
-import { Component, Input, Output, EventEmitter, HostListener, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, ElementRef, ViewChild, AfterViewInit, OnDestroy, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+/**
+ * ModalComponent - Modal accesible con focus trap
+ *
+ * Características implementadas:
+ * - Cierre con ESC (@HostListener document:keydown.escape)
+ * - Cierre al click en backdrop
+ * - Focus trap (Tab navigation dentro del modal)
+ * - Gestión de foco (guarda y restaura)
+ * - Bloqueo de scroll del body
+ * - Uso de Renderer2 para manipulación DOM segura
+ * - ARIA roles completos (role="dialog", aria-modal, aria-labelledby)
+ */
 @Component({
   selector: 'app-modal',
   standalone: true,
@@ -25,6 +37,8 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
 
   private previousActiveElement: HTMLElement | null = null;
 
+  constructor(private renderer: Renderer2) {}
+
   ngAfterViewInit(): void {
     if (this.isOpen) {
       this.handleModalOpen();
@@ -32,8 +46,9 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Restaurar el foco al cerrar el componente
+    // Restaurar el foco y scroll al cerrar el componente
     this.restoreFocus();
+    this.renderer.setStyle(document.body, 'overflow', '');
   }
 
   /**
@@ -49,13 +64,15 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Maneja la apertura del modal
+   * Usa Renderer2 para manipular estilos del body
    */
   private handleModalOpen(): void {
     // Guardar el elemento activo antes de abrir el modal
     this.previousActiveElement = document.activeElement as HTMLElement;
 
-    // Prevenir scroll del body
-    document.body.style.overflow = 'hidden';
+    // Prevenir scroll del body usando Renderer2
+    this.renderer.setStyle(document.body, 'overflow', 'hidden');
+    this.renderer.addClass(document.body, 'modal-open');
 
     // Enfocar el primer elemento focusable después de un pequeño delay
     setTimeout(() => {
@@ -67,10 +84,12 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Maneja el cierre del modal
+   * Usa Renderer2 para restaurar estilos del body
    */
   private handleModalClose(): void {
-    // Restaurar scroll del body
-    document.body.style.overflow = '';
+    // Restaurar scroll del body usando Renderer2
+    this.renderer.setStyle(document.body, 'overflow', '');
+    this.renderer.removeClass(document.body, 'modal-open');
 
     // Restaurar foco
     this.restoreFocus();

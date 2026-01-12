@@ -222,11 +222,11 @@ private focusTab(index: number): void {
 
 **Eventos de Teclado**:
 - Horizontal:
-  - `ArrowLeft`: Tab anterior
-  - `ArrowRight`: Tab siguiente
+    - `ArrowLeft`: Tab anterior
+    - `ArrowRight`: Tab siguiente
 - Vertical:
-  - `ArrowUp`: Tab anterior
-  - `ArrowDown`: Tab siguiente
+    - `ArrowUp`: Tab anterior
+    - `ArrowDown`: Tab siguiente
 - `Home`: Primera tab
 - `End`: Última tab
 - `Enter` / `Space`: Activa tab
@@ -658,4 +658,3 @@ describe('ModalComponent', () => {
 **Última actualización**: 2025-12-17
 **Versión**: 1.0.0
 **Autor**: T4 Traveling Dev Team
-

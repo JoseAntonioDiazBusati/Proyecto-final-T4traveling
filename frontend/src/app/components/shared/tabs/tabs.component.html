@@ -1,0 +1,72 @@
+<!--
+  Tabs Component
+  Implementa navegación completa por teclado y ARIA roles
+  Compatible con orientación horizontal y vertical
+-->
+<div
+  class="tabs"
+  [class.tabs--vertical]="orientation === 'vertical'"
+  [class.tabs--horizontal]="orientation === 'horizontal'">
+
+  <!-- Lista de pestañas con role tablist -->
+  <div
+    class="tabs__list"
+    role="tablist"
+    [attr.aria-orientation]="orientation"
+    [attr.aria-label]="'Navegación por pestañas'">
+
+    <button
+      *ngFor="let tab of tabs; let i = index"
+      type="button"
+      role="tab"
+      class="tabs__tab"
+      [id]="getTabButtonId(tab)"
+      [class.tabs__tab--active]="isTabActive(tab)"
+      [class.tabs__tab--disabled]="tab.disabled"
+      [attr.aria-selected]="isTabActive(tab)"
+      [attr.aria-controls]="getTabPanelId(tab)"
+      [attr.aria-disabled]="tab.disabled"
+      [attr.tabindex]="isTabActive(tab) ? 0 : -1"
+      [disabled]="tab.disabled"
+      (click)="selectTab(tab, $event)"
+      (keydown)="onKeyDown($event, tab, i)"
+      (focus)="onTabFocus(tab)"
+      (blur)="onTabBlur(tab)">
+
+      <!-- Icono opcional -->
+      <span *ngIf="tab.icon" class="tabs__tab-icon" [innerHTML]="tab.icon" aria-hidden="true"></span>
+
+      <!-- Etiqueta del tab -->
+      <span class="tabs__tab-label">{{ tab.label }}</span>
+
+      <!-- Badge opcional -->
+      <span *ngIf="tab.badge" class="tabs__tab-badge" aria-label="Notificaciones: {{ tab.badge }}">
+        {{ tab.badge }}
+      </span>
+    </button>
+  </div>
+
+  <!-- Paneles de contenido -->
+  <div class="tabs__panels">
+    <div
+      *ngFor="let tab of tabs"
+      role="tabpanel"
+      class="tabs__panel"
+      [id]="getTabPanelId(tab)"
+      [class.tabs__panel--active]="isTabActive(tab)"
+      [attr.aria-labelledby]="getTabButtonId(tab)"
+      [attr.aria-hidden]="!isTabActive(tab)"
+      [attr.tabindex]="isTabActive(tab) ? 0 : -1">
+
+      <!-- Contenido del panel -->
+      <div class="tabs__panel-content" *ngIf="isTabActive(tab)">
+        <ng-container *ngIf="tab.content">
+          <p>{{ tab.content }}</p>
+        </ng-container>
+        <!-- Slot para contenido proyectado -->
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</div>
+

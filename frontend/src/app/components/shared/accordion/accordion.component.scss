@@ -1,0 +1,148 @@
+/**
+ * Accordion Component Styles
+ * Implementa animaciones CSS para transiciones suaves
+ * Compatible con el sistema de temas (light/dark)
+ */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+
+  &__item {
+    border: 1px solid var(--border-color, #333);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: var(--bg-surface, #1a1a1a);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover:not(.accordion__item--disabled) {
+      border-color: var(--border-color-hover, #555);
+    }
+
+    &--open {
+      border-color: var(--color-primary, #4f46e5);
+      box-shadow: 0 0 0 1px var(--color-primary, #4f46e5);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary, #fff);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    transition: background-color 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary, #4f46e5);
+      outline-offset: -2px;
+      background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &__title {
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 1rem;
+    color: var(--text-secondary, #999);
+    transition: transform 0.3s ease;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+
+    &--open {
+      max-height: 500px; // Valor suficiente para la mayoría de contenidos
+      transition: max-height 0.4s ease-in;
+    }
+  }
+
+  &__body {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--text-secondary, #ccc);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+
+    p {
+      margin: 0;
+
+      & + p {
+        margin-top: 0.75rem;
+      }
+    }
+
+    ul, ol {
+      margin: 0.75rem 0;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .accordion {
+    &__header {
+      padding: 0.875rem 1rem;
+      font-size: 0.9375rem;
+    }
+
+    &__body {
+      padding: 0 1rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    &__icon {
+      margin-left: 0.75rem;
+    }
+  }
+}
+
