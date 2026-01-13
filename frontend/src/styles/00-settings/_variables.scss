@@ -6,22 +6,34 @@
 // COLORES
 // ----------------
 
-// Colores Primarios (Basados en Figma T4-Traveling)
-$color-primary-0: #FF5D1C; // Naranja principal
-$color-primary-1: #BF3100; // Naranja oscuro
-$color-primary-2: #EC9F05; // Amarillo-naranja
-$color-primary-3: #F5BB00; // Amarillo
-$color-primary-4: #8EA604; // Verde-amarillo
+// Colores Principales - Paleta T4-Traveling
+$lime-moss: #8ea604;         // Verde lima musgo
+$amber-gold: #f5bb00;        // Dorado ámbar
+$golden-orange: #ec9f05;     // Naranja dorado
+$chocolate: #d76a03;         // Chocolate
+$rusty-spice: #bf3100;       // Especias oxidadas
 
 // Colores Secundarios
-$color-secondary-0: #FFF2C7; // Crema claro
-$color-secondary-1: #812100; // Marrón oscuro
-$color-secondary-2: #C4EAF5; // Azul claro
+$cream-light: #FFF2C7;       // Crema claro
+$brown-dark: #812100;        // Marrón oscuro
+$blue-light: #C4EAF5;        // Azul claro
+
+// Asignación de colores principales para uso en el sistema
+$color-primary-0: $golden-orange;  // Naranja dorado principal
+$color-primary-1: $rusty-spice;    // Especias oxidadas
+$color-primary-2: $chocolate;      // Chocolate
+$color-primary-3: $amber-gold;     // Dorado ámbar
+$color-primary-4: $lime-moss;      // Verde lima musgo
+
+// Colores Secundarios (reasignación)
+$color-secondary-0: $cream-light;  // Crema claro
+$color-secondary-1: $brown-dark;   // Marrón oscuro
+$color-secondary-2: $blue-light;   // Azul claro
 
 // Colores Semánticos
 $color-error: #F44930;
 $color-success: #8DCC52;
-$color-warning: #EC9F05;
+$color-warning: #F9EA47;
 $color-info: #00CFFD;
 
 // Colores Neutrales (Escala de grises)

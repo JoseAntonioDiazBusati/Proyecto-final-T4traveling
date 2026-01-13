@@ -1,6 +1,4 @@
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 
 /**
  * Interceptor de autenticación
@@ -17,7 +15,6 @@ export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ) => {
-  const authService = inject(AuthService);
 
   // Lista de endpoints que no requieren autenticación
   const publicEndpoints = [
@@ -31,24 +28,20 @@ export const authInterceptor: HttpInterceptorFn = (
     req.url.includes(endpoint)
   );
 
-  // Si es público o no hay autenticación, continuar sin modificar
-  if (isPublicEndpoint || !authService.isAuthenticated()) {
+  // Si es público o no hay token de autenticación, continuar sin modificar
+  const token = localStorage.getItem('t4traveling-token');
+
+  if (isPublicEndpoint || !token) {
     return next(req);
   }
 
-  // Obtener el token del servicio de autenticación
-  const token = authService.getToken?.() ?? localStorage.getItem('t4traveling-token');
-
   // Si hay token, clonar la request y añadir el header
-  if (token) {
-    const authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    return next(authReq);
-  }
+  const authReq = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 
-  return next(req);
+  return next(authReq);
 };
 

@@ -5,23 +5,39 @@
 
 :root {
   // ----------------
-  // COLORES DE FONDO - Figma T4-Traveling
+  // COLORES PRINCIPALES - Paleta T4-Traveling
+  // ----------------
+  --lime-moss: #8ea604;         // Verde lima musgo
+  --amber-gold: #f5bb00;        // Dorado ámbar
+  --golden-orange: #ec9f05;     // Naranja dorado
+  --chocolate: #d76a03;         // Chocolate
+  --rusty-spice: #bf3100;       // Especias oxidadas
+
+  // ----------------
+  // COLORES SECUNDARIOS
+  // ----------------
+  --cream-light: #FFF2C7;       // Crema claro
+  --brown-dark: #812100;        // Marrón oscuro
+  --blue-light: #C4EAF5;        // Azul claro
+
+  // ----------------
+  // COLORES DE FONDO
   // ----------------
   --bg-primary: #FFFFFF;
-  --bg-secondary: #FFF2C7;
+  --bg-secondary: var(--cream-light);
   --bg-body: #F8F9FA;
   --bg-surface: #FFFFFF;
   --bg-hover: #FFE9D9;
 
   // ----------------
-  // COLORES DE TEXTO - Figma T4-Traveling
+  // COLORES DE TEXTO
   // ----------------
   --text-primary: #333333;
   --text-secondary: #666666;
   --text-tertiary: #999999;
   --text-inverse: #FFFFFF;
-  --text-link: #FF5D1C;
-  --text-link-hover: #BF3100;
+  --text-link: var(--golden-orange);
+  --text-link-hover: var(--rusty-spice);
 
   // ----------------
   // COLORES DE BORDE
@@ -30,10 +46,12 @@
   --border-color-light: #F0F0F0;
   --border-color-dark: #CCCCCC;
 
-  // Color primario naranja T4
-  --color-primary: #FF5D1C;
-  --color-primary-dark: #BF3100;
-  --color-primary-light: #FF8A5B;
+  // ----------------
+  // COLOR PRIMARIO (usando paleta principal)
+  // ----------------
+  --color-primary: var(--golden-orange);
+  --color-primary-dark: var(--rusty-spice);
+  --color-primary-light: var(--amber-gold);
 
   // ----------------
   // COLORES SEMÁNTICOS
