@@ -1,369 +1,47 @@
 <div class="style-guide">
-  <div class="style-guide__container container">
-    <!-- Header -->
-    <header class="style-guide__header">
-      <h1 class="style-guide__title">T4 Traveling - Style Guide</h1>
-      <p class="style-guide__subtitle">
-        Biblioteca de componentes UI - Todas las variantes, tamaños y estados
-      </p>
-    </header>
-
-    <!-- Tabla de Contenidos -->
-    <nav class="style-guide__toc">
-      <h2 class="style-guide__toc-title">Tabla de Contenidos</h2>
-      <ul class="style-guide__toc-list">
-        <li><a href="#buttons">Botones</a></li>
-        <li><a href="#cards">Cards</a></li>
-        <li><a href="#forms">Formularios</a></li>
-        <li><a href="#alerts">Alertas</a></li>
-        <li><a href="#colors">Colores</a></li>
-        <li><a href="#typography">Tipografía</a></li>
-      </ul>
-    </nav>
-
-    <!-- SECCIÓN: BOTONES -->
-    <section id="buttons" class="style-guide__section">
-      <h2 class="style-guide__section-title">Botones</h2>
-      <p class="style-guide__section-intro">
-        Componente button con 4 variantes, 3 tamaños y estados hover/focus/active/disabled.
-      </p>
-
-      <!-- Variantes -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Variantes</h3>
-        <div class="demo-group__content">
-          <app-button variant="primary" (click)="onButtonClick('primary')">
-            Primary Button
-          </app-button>
-          <app-button variant="secondary" (click)="onButtonClick('secondary')">
-            Secondary Button
-          </app-button>
-          <app-button variant="ghost" (click)="onButtonClick('ghost')">
-            Ghost Button
-          </app-button>
-          <app-button variant="danger" (click)="onButtonClick('danger')">
-            Danger Button
-          </app-button>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-button variant="primary"&gt;Primary Button&lt;/app-button&gt;
-&lt;app-button variant="secondary"&gt;Secondary Button&lt;/app-button&gt;
-&lt;app-button variant="ghost"&gt;Ghost Button&lt;/app-button&gt;
-&lt;app-button variant="danger"&gt;Danger Button&lt;/app-button&gt;</code></pre>
-      </div>
-
-      <!-- Tamaños -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Tamaños</h3>
-        <div class="demo-group__content" style="align-items: center;">
-          <app-button variant="primary" size="sm">Small</app-button>
-          <app-button variant="primary" size="md">Medium</app-button>
-          <app-button variant="primary" size="lg">Large</app-button>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-button size="sm"&gt;Small&lt;/app-button&gt;
-&lt;app-button size="md"&gt;Medium&lt;/app-button&gt;
-&lt;app-button size="lg"&gt;Large&lt;/app-button&gt;</code></pre>
-      </div>
-
-      <!-- Estados -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Estados</h3>
-        <div class="demo-group__content">
-          <app-button variant="primary">Normal</app-button>
-          <app-button variant="primary" [disabled]="true">Disabled</app-button>
-          <app-button variant="secondary">Hover me!</app-button>
-          <app-button variant="ghost">Focus me!</app-button>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-button [disabled]="true"&gt;Disabled&lt;/app-button&gt;</code></pre>
-      </div>
-
-      <!-- Full Width -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Full Width</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-button variant="primary" [fullWidth]="true">Full Width Primary</app-button>
-          <app-button variant="secondary" [fullWidth]="true">Full Width Secondary</app-button>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-button [fullWidth]="true"&gt;Full Width&lt;/app-button&gt;</code></pre>
-      </div>
-    </section>
-
-    <!-- SECCIÓN: CARDS -->
-    <section id="cards" class="style-guide__section">
-      <h2 class="style-guide__section-title">Cards</h2>
-      <p class="style-guide__section-intro">
-        Componente card con imagen, título, descripción y acciones. Incluye variante horizontal.
-      </p>
-
-      <!-- Card Básica -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Card Básica</h3>
-        <div class="demo-group__content">
-          <app-card
-            imageSrc="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400"
-            imageAlt="París"
-            title="París, Francia"
-            description="La ciudad del amor, con sus icónicos monumentos y rica cultura.">
-            <div slot="actions">
-              <app-button variant="primary" size="sm">Ver Detalles</app-button>
-              <app-button variant="ghost" size="sm">Guardar</app-button>
-            </div>
-          </app-card>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-card
-  imageSrc="..."
-  title="París, Francia"
-  description="..."&gt;
-  &lt;div slot="actions"&gt;
-    &lt;app-button&gt;Ver Detalles&lt;/app-button&gt;
-  &lt;/div&gt;
-&lt;/app-card&gt;</code></pre>
-      </div>
-
-      <!-- Card sin Imagen -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Card sin Imagen</h3>
-        <div class="demo-group__content">
-          <app-card
-            title="Información Importante"
-            description="Esta card no tiene imagen. Ideal para contenido textual o datos.">
-            <div slot="actions">
-              <app-button variant="secondary" size="sm">Más Info</app-button>
-            </div>
-          </app-card>
-        </div>
-      </div>
-
-      <!-- Card Horizontal -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Card Horizontal</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-card
-            [horizontal]="true"
-            imageSrc="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400"
-            imageAlt="Tokyo"
-            title="Tokyo, Japón"
-            description="Una metrópolis vibrante que combina tradición con modernidad.">
-            <div slot="actions">
-              <app-button variant="primary" size="sm">Explorar</app-button>
-            </div>
-          </app-card>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-card [horizontal]="true" ...&gt;&lt;/app-card&gt;</code></pre>
-      </div>
-
-      <!-- Grid de Cards -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Grid de Cards</h3>
-        <div class="demo-group__content grid-3">
-          <app-card
-            imageSrc="https://images.unsplash.com/photo-1543716091-a840c05249ec?w=400"
-            title="Destino 1"
-            description="Descripción breve del destino.">
-          </app-card>
-          <app-card
-            imageSrc="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?w=400"
-            title="Destino 2"
-            description="Descripción breve del destino.">
-          </app-card>
-          <app-card
-            imageSrc="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400"
-            title="Destino 3"
-            description="Descripción breve del destino.">
-          </app-card>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECCIÓN: FORMULARIOS -->
-    <section id="forms" class="style-guide__section">
-      <h2 class="style-guide__section-title">Formularios</h2>
-      <p class="style-guide__section-intro">
-        Componentes de formulario: input, textarea y select. Todos con estados de error y ayuda.
-      </p>
-
-      <form [formGroup]="demoForm">
-        <!-- Form Input -->
-        <div class="demo-group">
-          <h3 class="demo-group__title">Form Input</h3>
-          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
-            <app-form-input
-              id="demo-input-1"
-              label="Nombre"
-              type="text"
-              name="nombre"
-              placeholder="Ingresa tu nombre"
-              [required]="true"
-              helpText="Este es un texto de ayuda"
-              formControlName="demoInput">
-            </app-form-input>
-
-            <app-form-input
-              id="demo-input-2"
-              label="Email"
-              type="email"
-              name="email"
-              placeholder="tu@email.com"
-              [required]="true"
-              errorMessage="Este campo tiene un error"
-              formControlName="demoInput">
-            </app-form-input>
-
-            <app-form-input
-              id="demo-input-3"
-              label="Campo Deshabilitado"
-              type="text"
-              name="disabled"
-              [disabled]="true"
-              placeholder="Este campo está deshabilitado">
-            </app-form-input>
-          </div>
-          <pre class="demo-group__code"><code>&lt;app-form-input
-  id="nombre"
-  label="Nombre"
-  type="text"
-  [required]="true"
-  helpText="..."&gt;
-&lt;/app-form-input&gt;</code></pre>
-        </div>
-
-        <!-- Form Textarea -->
-        <div class="demo-group">
-          <h3 class="demo-group__title">Form Textarea</h3>
-          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
-            <app-form-textarea
-              id="demo-textarea"
-              label="Mensaje"
-              name="mensaje"
-              placeholder="Escribe tu mensaje aquí..."
-              [required]="true"
-              [rows]="5"
-              [maxLength]="200"
-              helpText="Máximo 200 caracteres"
-              formControlName="demoTextarea">
-            </app-form-textarea>
-          </div>
-          <pre class="demo-group__code"><code>&lt;app-form-textarea
-  id="mensaje"
-  label="Mensaje"
-  [rows]="5"
-  [maxLength]="200"&gt;
-&lt;/app-form-textarea&gt;</code></pre>
-        </div>
-
-        <!-- Form Select -->
-        <div class="demo-group">
-          <h3 class="demo-group__title">Form Select</h3>
-          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
-            <app-form-select
-              id="demo-select"
-              label="Selecciona una opción"
-              name="opcion"
-              [options]="selectOptions"
-              [required]="true"
-              helpText="Selecciona una de las opciones disponibles"
-              formControlName="demoSelect">
-            </app-form-select>
-          </div>
-          <pre class="demo-group__code"><code>&lt;app-form-select
-  id="opcion"
-  label="Selecciona..."
-  [options]="options"
-  [required]="true"&gt;
-&lt;/app-form-select&gt;</code></pre>
-        </div>
-      </form>
-    </section>
-
-    <!-- SECCIÓN: ALERTAS -->
-    <section id="alerts" class="style-guide__section">
-      <h2 class="style-guide__section-title">Alertas</h2>
-      <p class="style-guide__section-intro">
-        Componente alert con 4 tipos: success, error, warning, info. Con opción de cerrar.
-      </p>
-
-      <div class="demo-group">
-        <h3 class="demo-group__title">Tipos de Alertas</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-alert type="success" title="Éxito" (dismissed)="onAlertDismissed('success')">
-            La operación se completó exitosamente.
-          </app-alert>
-
-          <app-alert type="error" title="Error" (dismissed)="onAlertDismissed('error')">
-            Hubo un error al procesar tu solicitud.
-          </app-alert>
-
-          <app-alert type="warning" title="Advertencia" (dismissed)="onAlertDismissed('warning')">
-            Esta acción puede tener consecuencias. Procede con precaución.
-          </app-alert>
-
-          <app-alert type="info" title="Información" (dismissed)="onAlertDismissed('info')">
-            Esta es una alerta informativa para comunicar datos importantes.
-          </app-alert>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-alert type="success" title="Éxito"&gt;
-  Mensaje de éxito...
-&lt;/app-alert&gt;</code></pre>
-      </div>
-
-      <!-- Sin Título -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Sin Título</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-alert type="info">
-            Esta alerta no tiene título, solo el mensaje.
-          </app-alert>
-        </div>
-      </div>
-
-      <!-- No Dismissible -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">No Dismissible</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-alert type="warning" title="Importante" [dismissible]="false">
-            Esta alerta no se puede cerrar.
-          </app-alert>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-alert [dismissible]="false"&gt;...&lt;/app-alert&gt;</code></pre>
-      </div>
-    </section>
+  <div class="style-guide__container">
 
     <!-- SECCIÓN: COLORES -->
-    <section id="colors" class="style-guide__section">
-      <h2 class="style-guide__section-title">Paleta de Colores</h2>
+    <section class="sg-section">
+      <h2 class="sg-section__title">Colores</h2>
 
-      <div class="color-palette">
-        <div class="color-group">
-          <h3>Primarios</h3>
-          <div class="color-swatches">
-            <div class="color-swatch" style="background: #FF5D1C;">
-              <span>Primary</span>
-              <code>#FF5D1C</code>
-            </div>
-            <div class="color-swatch" style="background: #FFE5A1;">
-              <span>Secondary</span>
-              <code>#FFE5A1</code>
+      <!-- Primarios -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Primarios</h3>
+        <div class="sg-colors">
+          <div *ngFor="let color of primaryColors" class="sg-color-item">
+            <div class="sg-color-swatch" [style.background-color]="color.hex"></div>
+            <div class="sg-color-info">
+              <span class="sg-color-name">{{ color.name }}</span>
+              <span class="sg-color-variable">{{ color.variable }}</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="color-group">
-          <h3>Semánticos</h3>
-          <div class="color-swatches">
-            <div class="color-swatch" style="background: #10B981;">
-              <span>Success</span>
-              <code>#10B981</code>
+      <!-- Secundarios -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Secundarios</h3>
+        <div class="sg-colors">
+          <div *ngFor="let color of secondaryColors" class="sg-color-item">
+            <div class="sg-color-swatch" [style.background-color]="color.hex"></div>
+            <div class="sg-color-info">
+              <span class="sg-color-name">{{ color.name }}</span>
+              <span class="sg-color-variable">{{ color.variable }}</span>
             </div>
-            <div class="color-swatch" style="background: #EF4444;">
-              <span>Error</span>
-              <code>#EF4444</code>
-            </div>
-            <div class="color-swatch" style="background: #F59E0B;">
-              <span>Warning</span>
-              <code>#F59E0B</code>
-            </div>
-            <div class="color-swatch" style="background: #3B82F6;">
-              <span>Info</span>
-              <code>#3B82F6</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apoyo -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Apoyo</h3>
+        <div class="sg-colors">
+          <div *ngFor="let color of supportColors" class="sg-color-item">
+            <div class="sg-color-swatch" [style.background-color]="color.hex"></div>
+            <div class="sg-color-info">
+              <span class="sg-color-name">{{ color.name }}</span>
+              <span class="sg-color-variable">{{ color.variable }}</span>
             </div>
           </div>
         </div>
@@ -371,33 +49,250 @@
     </section>
 
     <!-- SECCIÓN: TIPOGRAFÍA -->
-    <section id="typography" class="style-guide__section">
-      <h2 class="style-guide__section-title">Tipografía</h2>
+    <section class="sg-section">
+      <div class="sg-typography-grid">
+        <!-- Columna Blanca -->
+        <div class="sg-typography-col sg-typography-col--light">
+          <div *ngFor="let typo of typographyLevels" class="sg-typo-item">
+            <span class="sg-typo-level">{{ typo.level }}</span>
+            <span class="sg-typo-size">{{ typo.size }}</span>
+          </div>
+        </div>
 
-      <div class="typography-samples">
-        <div class="typography-sample">
-          <h1>Heading 1 - Display XL</h1>
-          <code>font-size: 3.5rem (56px)</code>
-        </div>
-        <div class="typography-sample">
-          <h2>Heading 2 - Display Large</h2>
-          <code>font-size: 2.5rem (40px)</code>
-        </div>
-        <div class="typography-sample">
-          <h3>Heading 3 - Display Medium</h3>
-          <code>font-size: 2rem (32px)</code>
-        </div>
-        <div class="typography-sample">
-          <h4>Heading 4 - Display Small</h4>
-          <code>font-size: 1.5rem (24px)</code>
-        </div>
-        <div class="typography-sample">
-          <p style="font-size: 1.125rem;">Paragraph Large - 1.125rem (18px)</p>
-          <p>Paragraph Base - 1rem (16px)</p>
-          <p style="font-size: 0.875rem;">Paragraph Small - 0.875rem (14px)</p>
+        <!-- Columna Negra -->
+        <div class="sg-typography-col sg-typography-col--dark">
+          <div *ngFor="let typo of typographyLevels" class="sg-typo-item">
+            <span class="sg-typo-level">{{ typo.level }}</span>
+            <span class="sg-typo-size">{{ typo.size }}</span>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- SECCIÓN: BOTONES -->
+    <section class="sg-section">
+      <h2 class="sg-section__title">Botones</h2>
+
+      <!-- Primary Large -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Primary<br><small>Large</small></h3>
+        <div class="sg-buttons">
+          <button class="sg-btn sg-btn--primary sg-btn--lg">REGULAR</button>
+          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--hover">HOVER</button>
+          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--focused">FOCUSED</button>
+          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--pressed">PRESSED</button>
+        </div>
+      </div>
+
+      <!-- Second xy/Large -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Second<br><small>xy/Large</small></h3>
+        <div class="sg-buttons">
+          <button class="sg-btn sg-btn--secondary sg-btn--lg">DEFAULT</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--hover">HOVER</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--focused">FOCUSED</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--pressed">PRESSED</button>
+        </div>
+      </div>
+
+      <!-- Ghost Large -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Ghost<br><small>Large</small></h3>
+        <div class="sg-buttons">
+          <button class="sg-btn sg-btn--ghost sg-btn--lg">DEFAULT</button>
+          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--hover">HOVER</button>
+          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--focused">FOCUSED</button>
+          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--pressed">PRESSED</button>
+        </div>
+      </div>
+
+      <!-- Primary Medium -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Primary<br><small>Medium</small></h3>
+        <div class="sg-buttons">
+          <button class="sg-btn sg-btn--primary sg-btn--md sg-btn--small">VARIANT</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--md sg-btn--small">DEFAULT</button>
+        </div>
+      </div>
+
+      <!-- Primary Small -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Primary<br><small>Small</small></h3>
+        <div class="sg-buttons">
+          <button class="sg-btn sg-btn--primary sg-btn--sm">VARIANT</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--sm">DEFAULT</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: INPUTS -->
+    <section class="sg-section">
+      <h2 class="sg-section__title">Inputs</h2>
+
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Label<br><small>Inputs</small></h3>
+        <div class="sg-inputs">
+          <div class="sg-input-group">
+            <label class="sg-input-label">Label</label>
+            <input type="text" class="sg-input" [(ngModel)]="inputValues.label">
+          </div>
+          <div class="sg-input-group">
+            <label class="sg-input-label">Or Message</label>
+            <input type="text" class="sg-input" placeholder="Or Message" [(ngModel)]="inputValues.message">
+          </div>
+          <div class="sg-input-group">
+            <label class="sg-input-label">Input Text</label>
+            <input type="text" class="sg-input sg-input--info" value="Input Text">
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-subsection">
+        <div class="sg-inputs">
+          <div class="sg-input-group">
+            <label class="sg-input-label">Error</label>
+            <input type="text" class="sg-input sg-input--error" [(ngModel)]="inputValues.error">
+          </div>
+          <div class="sg-input-group">
+            <label class="sg-input-label">Success</label>
+            <input type="text" class="sg-input sg-input--success" value="Success">
+          </div>
+          <div class="sg-input-group">
+            <label class="sg-input-label">Disabled</label>
+            <input type="text" class="sg-input" disabled [(ngModel)]="inputValues.disabled">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: CHECKBOX -->
+    <section class="sg-section">
+      <h2 class="sg-section__title">Checkbox</h2>
+      <div class="sg-checkboxes">
+        <label class="sg-checkbox">
+          <input type="checkbox" [(ngModel)]="checkboxStates.default">
+          <span class="sg-checkbox__check"></span>
+          <span class="sg-checkbox__label">Default</span>
+        </label>
+        <label class="sg-checkbox">
+          <input type="checkbox" [(ngModel)]="checkboxStates.focused">
+          <span class="sg-checkbox__check sg-checkbox__check--focused"></span>
+          <span class="sg-checkbox__label">Focused</span>
+        </label>
+        <label class="sg-checkbox">
+          <input type="checkbox" [(ngModel)]="checkboxStates.checked" checked>
+          <span class="sg-checkbox__check"></span>
+          <span class="sg-checkbox__label">Checked</span>
+        </label>
+        <label class="sg-checkbox">
+          <input type="checkbox" [(ngModel)]="checkboxStates.checkedDisabled" checked disabled>
+          <span class="sg-checkbox__check"></span>
+          <span class="sg-checkbox__label">Checked Disabled</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: RADIO -->
+    <section class="sg-section">
+      <h2 class="sg-section__title">Radio</h2>
+      <div class="sg-radios">
+        <label class="sg-radio">
+          <input type="radio" name="radio-demo" value="default" [(ngModel)]="radioStates.default">
+          <span class="sg-radio__check"></span>
+          <span class="sg-radio__label">Default</span>
+        </label>
+        <label class="sg-radio">
+          <input type="radio" name="radio-demo" value="focused" [(ngModel)]="radioStates.focused">
+          <span class="sg-radio__check sg-radio__check--focused"></span>
+          <span class="sg-radio__label">Focused</span>
+        </label>
+        <label class="sg-radio">
+          <input type="radio" name="radio-demo" value="checked" [(ngModel)]="radioStates.checked" checked>
+          <span class="sg-radio__check"></span>
+          <span class="sg-radio__label">Checked</span>
+        </label>
+        <label class="sg-radio">
+          <input type="radio" name="radio-demo-disabled" value="checkedDisabled" checked disabled>
+          <span class="sg-radio__check"></span>
+          <span class="sg-radio__label">Checked Disabled</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: SHADOWS & CORNER RADIUS -->
+    <section class="sg-section">
+      <h2 class="sg-section__title">Shadows & Corner radius</h2>
+      <div class="sg-shadows">
+        <div class="sg-shadow-item sg-shadow--01">
+          <span class="sg-shadow-label">Shadow 01</span>
+        </div>
+        <div class="sg-shadow-item sg-shadow--02">
+          <span class="sg-shadow-label">Shadow 02</span>
+        </div>
+        <div class="sg-shadow-item sg-shadow--03">
+          <span class="sg-shadow-label">Shadow 03</span>
+        </div>
+        <div class="sg-shadow-item sg-shadow--04">
+          <span class="sg-shadow-label">Shadow 04</span>
+        </div>
+        <div class="sg-shadow-item sg-shadow--corner">
+          <span class="sg-shadow-label">Corner radius</span>
+        </div>
+        <div class="sg-shadow-item sg-shadow--corner-radius">
+          <span class="sg-shadow-label">Corner radius</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: ICONS -->
+    <section class="sg-section">
+      <h2 class="sg-section__title">Icons</h2>
+
+      <!-- General -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">General</h3>
+        <div class="sg-icons">
+          <span class="sg-icon">👤</span>
+          <span class="sg-icon">⭐</span>
+          <span class="sg-icon">📋</span>
+          <span class="sg-icon">📥</span>
+          <span class="sg-icon">📁</span>
+          <span class="sg-icon">ℹ️</span>
+          <span class="sg-icon">❤️</span>
+          <span class="sg-icon">🚗</span>
+          <span class="sg-icon">🎮</span>
+          <span class="sg-icon">⚙️</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Navigation</h3>
+        <div class="sg-icons">
+          <span class="sg-icon">🏠</span>
+          <span class="sg-icon">🔍</span>
+          <span class="sg-icon">⏱️</span>
+          <span class="sg-icon">⚠️</span>
+        </div>
+      </div>
+
+      <!-- Action -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection__title">Action</h3>
+        <div class="sg-icons">
+          <span class="sg-icon">✓</span>
+          <span class="sg-icon">📋</span>
+          <span class="sg-icon">✏️</span>
+          <span class="sg-icon">⚠️</span>
+          <span class="sg-icon">ℹ️</span>
+          <span class="sg-icon">🔒</span>
+          <span class="sg-icon">⚙️</span>
+          <span class="sg-icon">✕</span>
+          <span class="sg-icon">✖</span>
+        </div>
+      </div>
+    </section>
+
   </div>
 </div>
 

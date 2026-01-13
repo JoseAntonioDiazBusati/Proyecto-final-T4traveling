@@ -1,218 +1,563 @@
 // ============================================
-// STYLE GUIDE PAGE
+// STYLE GUIDE COMPONENT - Basado en Figma
 // ============================================
 
-@import '../../../styles/00-settings/variables';
-@import '../../../styles/01-tools/mixins';
-
 .style-guide {
+  padding: 2rem;
+  background-color: #FFFFFF;
   min-height: 100vh;
-  background-color: $color-neutral-900;
-  padding: $spacing-12 0;
 
   &__container {
-    max-width: 1200px;
-  }
-
-  // Header
-  &__header {
-    text-align: center;
-    margin-bottom: $spacing-12;
-    padding-bottom: $spacing-8;
-    border-bottom: 2px solid $color-neutral-700;
-  }
-
-  &__title {
-    font-size: $font-4xl;
-    font-weight: $font-weight-bold;
-    color: $color-neutral-0;
-    margin-bottom: $spacing-3;
-  }
-
-  &__subtitle {
-    font-size: $font-lg;
-    color: $color-neutral-400;
-    margin: 0;
-  }
-
-  // Table of Contents
-  &__toc {
-    background-color: $color-neutral-1000;
-    padding: $spacing-6;
-    border-radius: $radius-lg;
-    margin-bottom: $spacing-10;
-  }
-
-  &__toc-title {
-    font-size: $font-xl;
-    color: $color-neutral-0;
-    margin-bottom: $spacing-4;
-  }
-
-  &__toc-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: $spacing-3;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    a {
-      color: $color-primary-0;
-      text-decoration: none;
-      font-weight: $font-weight-medium;
-      transition: color $transition-base;
-
-      &:hover {
-        color: $color-primary-1;
-        text-decoration: underline;
-      }
-    }
-  }
-
-  // Sections
-  &__section {
-    margin-bottom: $spacing-16;
-  }
-
-  &__section-title {
-    font-size: $font-3xl;
-    font-weight: $font-weight-bold;
-    color: $color-neutral-0;
-    margin-bottom: $spacing-4;
-    padding-bottom: $spacing-3;
-    border-bottom: 2px solid $color-primary-0;
-  }
-
-  &__section-intro {
-    font-size: $font-base;
-    color: $color-neutral-300;
-    margin-bottom: $spacing-8;
-    line-height: $line-height-relaxed;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 }
 
-// Demo Groups
-.demo-group {
-  background-color: $color-neutral-1000;
-  border-radius: $radius-lg;
-  padding: $spacing-8;
-  margin-bottom: $spacing-8;
+// ============================================
+// SECCIONES
+// ============================================
 
-  &__title {
-    font-size: $font-xl;
-    font-weight: $font-weight-semibold;
-    color: $color-neutral-0;
-    margin-bottom: $spacing-6;
-  }
-
-  &__content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $spacing-4;
-    margin-bottom: $spacing-6;
-  }
-
-  &__code {
-    background-color: $color-neutral-800;
-    border: 1px solid $color-neutral-700;
-    border-radius: $radius-md;
-    padding: $spacing-4;
-    overflow-x: auto;
-    margin: 0;
-
-    code {
-      font-family: 'Courier New', monospace;
-      font-size: $font-sm;
-      color: $color-neutral-200;
-      white-space: pre;
-    }
-  }
-}
-
-// Grid variants
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: $spacing-6;
-}
-
-// Color Palette
-.color-palette {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-8;
-}
-
-.color-group {
-  h3 {
-    font-size: $font-lg;
-    color: $color-neutral-0;
-    margin-bottom: $spacing-4;
-  }
-}
-
-.color-swatches {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: $spacing-4;
-}
-
-.color-swatch {
-  aspect-ratio: 1;
-  border-radius: $radius-md;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: $spacing-2;
-  box-shadow: $shadow-md;
-  padding: $spacing-4;
-  color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-
-  span {
-    font-weight: $font-weight-bold;
-    font-size: $font-sm;
-  }
-
-  code {
-    font-size: $font-xs;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: $spacing-1 $spacing-2;
-    border-radius: $radius-sm;
-  }
-}
-
-// Typography Samples
-.typography-samples {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-6;
-  background-color: $color-neutral-1000;
-  padding: $spacing-8;
-  border-radius: $radius-lg;
-}
-
-.typography-sample {
-  padding-bottom: $spacing-4;
-  border-bottom: 1px solid $color-neutral-700;
+.sg-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #E0E0E0;
 
   &:last-child {
     border-bottom: none;
-    padding-bottom: 0;
   }
 
-  h1, h2, h3, h4, p {
-    color: $color-neutral-0;
-    margin-bottom: $spacing-2;
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.sg-subsection {
+  margin-bottom: 2rem;
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666666;
+    margin-bottom: 1rem;
+
+    small {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: #999999;
+    }
+  }
+}
+
+// ============================================
+// COLORES
+// ============================================
+
+.sg-colors {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.sg-color-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sg-color-swatch {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sg-color-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.sg-color-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333333;
+}
+
+.sg-color-variable {
+  font-size: 0.75rem;
+  color: #999999;
+  font-family: monospace;
+}
+
+// ============================================
+// TIPOGRAFÍA
+// ============================================
+
+.sg-typography-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.sg-typography-col {
+  padding: 2rem;
+  border-radius: 8px;
+
+  &--light {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
   }
 
-  code {
-    display: block;
-    font-size: $font-xs;
-    color: $color-neutral-500;
-    font-family: 'Courier New', monospace;
+  &--dark {
+    background-color: #000000;
+    color: #FFFFFF;
+  }
+}
+
+.sg-typo-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  font-size: 0.875rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.sg-typo-level {
+  font-weight: 600;
+}
+
+.sg-typo-size {
+  color: inherit;
+  opacity: 0.7;
+}
+
+// ============================================
+// BOTONES
+// ============================================
+
+.sg-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.sg-btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 24px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+
+  // Tamaños
+  &--lg {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+  }
+
+  &--md {
+    padding: 0.75rem 2rem;
+    font-size: 0.875rem;
+  }
+
+  &--sm {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.75rem;
+  }
+
+  &--small {
+    padding: 0.625rem 1.75rem;
+  }
+
+  // Variantes
+  &--primary {
+    background-color: var(--golden-orange);
+    color: white;
+    box-shadow: 0 2px 4px rgba(236, 159, 5, 0.3);
+
+    &.sg-btn--hover,
+    &:hover {
+      background-color: var(--chocolate);
+    }
+
+    &.sg-btn--focused,
+    &:focus {
+      outline: 3px solid rgba(236, 159, 5, 0.4);
+      outline-offset: 2px;
+    }
+
+    &.sg-btn--pressed,
+    &:active {
+      background-color: var(--rusty-spice);
+      transform: translateY(1px);
+    }
+  }
+
+  &--secondary {
+    background-color: transparent;
+    color: var(--golden-orange);
+    border: 2px solid var(--golden-orange);
+
+    &.sg-btn--hover,
+    &:hover {
+      background-color: rgba(236, 159, 5, 0.1);
+    }
+
+    &.sg-btn--focused,
+    &:focus {
+      outline: 3px solid rgba(236, 159, 5, 0.4);
+      outline-offset: 2px;
+    }
+
+    &.sg-btn--pressed,
+    &:active {
+      background-color: rgba(236, 159, 5, 0.2);
+      transform: translateY(1px);
+    }
+  }
+
+  &--ghost {
+    background-color: transparent;
+    color: var(--golden-orange);
+    border: none;
+
+    &.sg-btn--hover,
+    &:hover {
+      background-color: rgba(236, 159, 5, 0.1);
+    }
+
+    &.sg-btn--focused,
+    &:focus {
+      outline: 3px solid rgba(236, 159, 5, 0.4);
+      outline-offset: 2px;
+    }
+
+    &.sg-btn--pressed,
+    &:active {
+      background-color: rgba(236, 159, 5, 0.2);
+      transform: translateY(1px);
+    }
+  }
+}
+
+// ============================================
+// INPUTS
+// ============================================
+
+.sg-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.sg-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sg-input-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333333;
+}
+
+.sg-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #333333;
+  transition: all 0.3s ease;
+
+  &::placeholder {
+    color: #999999;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--golden-orange);
+    box-shadow: 0 0 0 3px rgba(236, 159, 5, 0.1);
+  }
+
+  &--info {
+    border-color: var(--blue-light);
+    background-color: rgba(196, 234, 245, 0.1);
+  }
+
+  &--error {
+    border-color: #F44930;
+    background-color: rgba(244, 73, 48, 0.05);
+  }
+
+  &--success {
+    border-color: #8DCC52;
+    background-color: rgba(141, 204, 82, 0.05);
+  }
+
+  &:disabled {
+    background-color: #F5F5F5;
+    color: #999999;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// CHECKBOX
+// ============================================
+
+.sg-checkboxes {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.sg-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  position: relative;
+
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .sg-checkbox__check {
+      background-color: var(--blue-light);
+      border-color: var(--blue-light);
+
+      &::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-weight: bold;
+        font-size: 0.875rem;
+      }
+    }
+
+    &:disabled + .sg-checkbox__check {
+      background-color: #E0E0E0;
+      border-color: #CCCCCC;
+      cursor: not-allowed;
+    }
+
+    &:disabled:checked + .sg-checkbox__check {
+      background-color: #CCCCCC;
+      border-color: #CCCCCC;
+    }
+  }
+}
+
+.sg-checkbox__check {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #CCCCCC;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &--focused {
+    outline: 3px solid rgba(196, 234, 245, 0.4);
+    outline-offset: 2px;
+  }
+}
+
+.sg-checkbox__label {
+  font-size: 0.875rem;
+  color: #333333;
+}
+
+// ============================================
+// RADIO
+// ============================================
+
+.sg-radios {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.sg-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  position: relative;
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .sg-radio__check {
+      border-color: var(--blue-light);
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px;
+        height: 10px;
+        background-color: var(--blue-light);
+        border-radius: 50%;
+      }
+    }
+
+    &:disabled + .sg-radio__check {
+      border-color: #CCCCCC;
+      cursor: not-allowed;
+    }
+
+    &:disabled:checked + .sg-radio__check::after {
+      background-color: #CCCCCC;
+    }
+  }
+}
+
+.sg-radio__check {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #CCCCCC;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &--focused {
+    outline: 3px solid rgba(196, 234, 245, 0.4);
+    outline-offset: 2px;
+  }
+}
+
+.sg-radio__label {
+  font-size: 0.875rem;
+  color: #333333;
+}
+
+// ============================================
+// SHADOWS
+// ============================================
+
+.sg-shadows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 2rem;
+}
+
+.sg-shadow-item {
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sg-shadow--01 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.sg-shadow--02 {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.sg-shadow--03 {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.sg-shadow--04 {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.sg-shadow--corner {
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sg-shadow--corner-radius {
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sg-shadow-label {
+  font-size: 0.75rem;
+  color: #666666;
+  text-align: center;
+}
+
+// ============================================
+// ICONS
+// ============================================
+
+.sg-icons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.sg-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #F5F5F5;
+    transform: scale(1.1);
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: 768px) {
+  .sg-typography-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-shadows {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sg-buttons {
+    flex-direction: column;
   }
 }
 
