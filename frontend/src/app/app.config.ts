@@ -1,6 +1,8 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withPreloading, PreloadAllModules, withComponentInputBinding } from '@angular/router';
+import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
+import { authInterceptor, errorInterceptor, loggingInterceptor } from './interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -9,6 +11,14 @@ export const appConfig: ApplicationConfig = {
       routes,
       withPreloading(PreloadAllModules),
       withComponentInputBinding()
+    ),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        loggingInterceptor,  // Logging primero para capturar todo
+        authInterceptor,     // Añade token de autenticación
+        errorInterceptor     // Manejo de errores al final
+      ])
     )
   ]
 };
