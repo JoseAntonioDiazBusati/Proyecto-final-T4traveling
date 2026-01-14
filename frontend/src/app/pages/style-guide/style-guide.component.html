@@ -1,298 +1,299 @@
-<div class="style-guide">
-  <div class="style-guide__container">
+<article class="style-guide" role="main" aria-label="Guía de estilos de T4 Traveling">
+  <header class="style-guide__container">
 
     <!-- SECCIÓN: COLORES -->
-    <section class="sg-section">
-      <h2 class="sg-section__title">Colores</h2>
+    <section class="sg-section" aria-labelledby="colors-heading">
+      <h2 id="colors-heading" class="sg-section__title">Colores</h2>
 
       <!-- Primarios -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Primarios</h3>
-        <div class="sg-colors">
-          <div *ngFor="let color of primaryColors" class="sg-color-item">
-            <div class="sg-color-swatch" [style.background-color]="color.hex"></div>
-            <div class="sg-color-info">
+      <section class="sg-subsection" aria-labelledby="primary-colors-heading">
+        <h3 id="primary-colors-heading" class="sg-subsection__title">Primarios</h3>
+        <ul class="sg-colors" role="list">
+          <li *ngFor="let color of primaryColors" class="sg-color-item">
+            <span class="sg-color-swatch" [style.background-color]="color.hex" role="img" [attr.aria-label]="'Muestra de color ' + color.name"></span>
+            <span class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
               <span class="sg-color-variable">{{ color.variable }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+            </span>
+          </li>
+        </ul>
+      </section>
 
       <!-- Secundarios -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Secundarios</h3>
-        <div class="sg-colors">
-          <div *ngFor="let color of secondaryColors" class="sg-color-item">
-            <div class="sg-color-swatch" [style.background-color]="color.hex"></div>
-            <div class="sg-color-info">
+      <section class="sg-subsection" aria-labelledby="secondary-colors-heading">
+        <h3 id="secondary-colors-heading" class="sg-subsection__title">Secundarios</h3>
+        <ul class="sg-colors" role="list">
+          <li *ngFor="let color of secondaryColors" class="sg-color-item">
+            <span class="sg-color-swatch" [style.background-color]="color.hex" role="img" [attr.aria-label]="'Muestra de color ' + color.name"></span>
+            <span class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
               <span class="sg-color-variable">{{ color.variable }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+            </span>
+          </li>
+        </ul>
+      </section>
 
       <!-- Apoyo -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Apoyo</h3>
-        <div class="sg-colors">
-          <div *ngFor="let color of supportColors" class="sg-color-item">
-            <div class="sg-color-swatch" [style.background-color]="color.hex"></div>
-            <div class="sg-color-info">
+      <section class="sg-subsection" aria-labelledby="support-colors-heading">
+        <h3 id="support-colors-heading" class="sg-subsection__title">Apoyo</h3>
+        <ul class="sg-colors" role="list">
+          <li *ngFor="let color of supportColors" class="sg-color-item">
+            <span class="sg-color-swatch" [style.background-color]="color.hex" role="img" [attr.aria-label]="'Muestra de color ' + color.name"></span>
+            <span class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
               <span class="sg-color-variable">{{ color.variable }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+            </span>
+          </li>
+        </ul>
+      </section>
     </section>
 
     <!-- SECCIÓN: TIPOGRAFÍA -->
-    <section class="sg-section">
-      <div class="sg-typography-grid">
+    <section class="sg-section" aria-labelledby="typography-heading">
+      <h2 id="typography-heading" class="sg-section__title visually-hidden">Tipografía</h2>
+      <article class="sg-typography-grid">
         <!-- Columna Blanca -->
-        <div class="sg-typography-col sg-typography-col--light">
-          <div *ngFor="let typo of typographyLevels" class="sg-typo-item">
+        <section class="sg-typography-col sg-typography-col--light" aria-label="Tipografía sobre fondo claro">
+          <article *ngFor="let typo of typographyLevels" class="sg-typo-item">
             <span class="sg-typo-level">{{ typo.level }}</span>
             <span class="sg-typo-size">{{ typo.size }}</span>
-          </div>
-        </div>
+          </article>
+        </section>
 
         <!-- Columna Negra -->
-        <div class="sg-typography-col sg-typography-col--dark">
-          <div *ngFor="let typo of typographyLevels" class="sg-typo-item">
+        <section class="sg-typography-col sg-typography-col--dark" aria-label="Tipografía sobre fondo oscuro">
+          <article *ngFor="let typo of typographyLevels" class="sg-typo-item">
             <span class="sg-typo-level">{{ typo.level }}</span>
             <span class="sg-typo-size">{{ typo.size }}</span>
-          </div>
-        </div>
-      </div>
+          </article>
+        </section>
+      </article>
     </section>
 
     <!-- SECCIÓN: BOTONES -->
-    <section class="sg-section">
-      <h2 class="sg-section__title">Botones</h2>
+    <section class="sg-section" aria-labelledby="buttons-heading">
+      <h2 id="buttons-heading" class="sg-section__title">Botones</h2>
 
       <!-- Primary Large -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Primary<br><small>Large</small></h3>
-        <div class="sg-buttons">
-          <button class="sg-btn sg-btn--primary sg-btn--lg">REGULAR</button>
-          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--hover">HOVER</button>
-          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--focused">FOCUSED</button>
-          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--pressed">PRESSED</button>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="primary-large-heading">
+        <h3 id="primary-large-heading" class="sg-subsection__title">Primary<br><small>Large</small></h3>
+        <nav class="sg-buttons" role="group" aria-label="Botones primarios grandes">
+          <button class="sg-btn sg-btn--primary sg-btn--lg" type="button">REGULAR</button>
+          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--hover" type="button">HOVER</button>
+          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--focused" type="button">FOCUSED</button>
+          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--pressed" type="button">PRESSED</button>
+        </nav>
+      </section>
 
       <!-- Second xy/Large -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Second<br><small>xy/Large</small></h3>
-        <div class="sg-buttons">
-          <button class="sg-btn sg-btn--secondary sg-btn--lg">DEFAULT</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--hover">HOVER</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--focused">FOCUSED</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--pressed">PRESSED</button>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="secondary-large-heading">
+        <h3 id="secondary-large-heading" class="sg-subsection__title">Second<br><small>xy/Large</small></h3>
+        <nav class="sg-buttons" role="group" aria-label="Botones secundarios grandes">
+          <button class="sg-btn sg-btn--secondary sg-btn--lg" type="button">DEFAULT</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--hover" type="button">HOVER</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--focused" type="button">FOCUSED</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--pressed" type="button">PRESSED</button>
+        </nav>
+      </section>
 
       <!-- Ghost Large -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Ghost<br><small>Large</small></h3>
-        <div class="sg-buttons">
-          <button class="sg-btn sg-btn--ghost sg-btn--lg">DEFAULT</button>
-          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--hover">HOVER</button>
-          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--focused">FOCUSED</button>
-          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--pressed">PRESSED</button>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="ghost-large-heading">
+        <h3 id="ghost-large-heading" class="sg-subsection__title">Ghost<br><small>Large</small></h3>
+        <nav class="sg-buttons" role="group" aria-label="Botones ghost grandes">
+          <button class="sg-btn sg-btn--ghost sg-btn--lg" type="button">DEFAULT</button>
+          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--hover" type="button">HOVER</button>
+          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--focused" type="button">FOCUSED</button>
+          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--pressed" type="button">PRESSED</button>
+        </nav>
+      </section>
 
       <!-- Primary Medium -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Primary<br><small>Medium</small></h3>
-        <div class="sg-buttons">
-          <button class="sg-btn sg-btn--primary sg-btn--md sg-btn--small">VARIANT</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--md sg-btn--small">DEFAULT</button>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="primary-medium-heading">
+        <h3 id="primary-medium-heading" class="sg-subsection__title">Primary<br><small>Medium</small></h3>
+        <nav class="sg-buttons" role="group" aria-label="Botones medianos">
+          <button class="sg-btn sg-btn--primary sg-btn--md sg-btn--small" type="button">VARIANT</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--md sg-btn--small" type="button">DEFAULT</button>
+        </nav>
+      </section>
 
       <!-- Primary Small -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Primary<br><small>Small</small></h3>
-        <div class="sg-buttons">
-          <button class="sg-btn sg-btn--primary sg-btn--sm">VARIANT</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--sm">DEFAULT</button>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="primary-small-heading">
+        <h3 id="primary-small-heading" class="sg-subsection__title">Primary<br><small>Small</small></h3>
+        <nav class="sg-buttons" role="group" aria-label="Botones pequeños">
+          <button class="sg-btn sg-btn--primary sg-btn--sm" type="button">VARIANT</button>
+          <button class="sg-btn sg-btn--secondary sg-btn--sm" type="button">DEFAULT</button>
+        </nav>
+      </section>
     </section>
 
     <!-- SECCIÓN: INPUTS -->
-    <section class="sg-section">
-      <h2 class="sg-section__title">Inputs</h2>
+    <section class="sg-section" aria-labelledby="inputs-heading">
+      <h2 id="inputs-heading" class="sg-section__title">Inputs</h2>
 
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Label<br><small>Inputs</small></h3>
-        <div class="sg-inputs">
-          <div class="sg-input-group">
-            <label class="sg-input-label">Label</label>
-            <input type="text" class="sg-input" [(ngModel)]="inputValues.label">
-          </div>
-          <div class="sg-input-group">
-            <label class="sg-input-label">Or Message</label>
-            <input type="text" class="sg-input" placeholder="Or Message" [(ngModel)]="inputValues.message">
-          </div>
-          <div class="sg-input-group">
-            <label class="sg-input-label">Input Text</label>
-            <input type="text" class="sg-input sg-input--info" value="Input Text">
-          </div>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="label-inputs-heading">
+        <h3 id="label-inputs-heading" class="sg-subsection__title">Label<br><small>Inputs</small></h3>
+        <form class="sg-inputs" aria-label="Ejemplos de inputs con etiquetas">
+          <fieldset class="sg-input-group">
+            <label class="sg-input-label" for="input-label">Label</label>
+            <input type="text" id="input-label" class="sg-input" [(ngModel)]="inputValues.label" name="label">
+          </fieldset>
+          <fieldset class="sg-input-group">
+            <label class="sg-input-label" for="input-message">Or Message</label>
+            <input type="text" id="input-message" class="sg-input" placeholder="Or Message" [(ngModel)]="inputValues.message" name="message">
+          </fieldset>
+          <fieldset class="sg-input-group">
+            <label class="sg-input-label" for="input-text">Input Text</label>
+            <input type="text" id="input-text" class="sg-input sg-input--info" value="Input Text" name="inputText">
+          </fieldset>
+        </form>
+      </section>
 
-      <div class="sg-subsection">
-        <div class="sg-inputs">
-          <div class="sg-input-group">
-            <label class="sg-input-label">Error</label>
-            <input type="text" class="sg-input sg-input--error" [(ngModel)]="inputValues.error">
-          </div>
-          <div class="sg-input-group">
-            <label class="sg-input-label">Success</label>
-            <input type="text" class="sg-input sg-input--success" value="Success">
-          </div>
-          <div class="sg-input-group">
-            <label class="sg-input-label">Disabled</label>
-            <input type="text" class="sg-input" disabled [(ngModel)]="inputValues.disabled">
-          </div>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-label="Estados de inputs">
+        <form class="sg-inputs">
+          <fieldset class="sg-input-group">
+            <label class="sg-input-label" for="input-error">Error</label>
+            <input type="text" id="input-error" class="sg-input sg-input--error" [(ngModel)]="inputValues.error" name="error" aria-invalid="true">
+          </fieldset>
+          <fieldset class="sg-input-group">
+            <label class="sg-input-label" for="input-success">Success</label>
+            <input type="text" id="input-success" class="sg-input sg-input--success" value="Success" name="success">
+          </fieldset>
+          <fieldset class="sg-input-group">
+            <label class="sg-input-label" for="input-disabled">Disabled</label>
+            <input type="text" id="input-disabled" class="sg-input" disabled [(ngModel)]="inputValues.disabled" name="disabled">
+          </fieldset>
+        </form>
+      </section>
     </section>
 
     <!-- SECCIÓN: CHECKBOX -->
-    <section class="sg-section">
-      <h2 class="sg-section__title">Checkbox</h2>
-      <div class="sg-checkboxes">
+    <section class="sg-section" aria-labelledby="checkbox-heading">
+      <h2 id="checkbox-heading" class="sg-section__title">Checkbox</h2>
+      <form class="sg-checkboxes" role="group" aria-labelledby="checkbox-heading">
         <label class="sg-checkbox">
-          <input type="checkbox" [(ngModel)]="checkboxStates.default">
-          <span class="sg-checkbox__check"></span>
+          <input type="checkbox" [(ngModel)]="checkboxStates.default" name="checkbox-default">
+          <span class="sg-checkbox__check" aria-hidden="true"></span>
           <span class="sg-checkbox__label">Default</span>
         </label>
         <label class="sg-checkbox">
-          <input type="checkbox" [(ngModel)]="checkboxStates.focused">
-          <span class="sg-checkbox__check sg-checkbox__check--focused"></span>
+          <input type="checkbox" [(ngModel)]="checkboxStates.focused" name="checkbox-focused">
+          <span class="sg-checkbox__check sg-checkbox__check--focused" aria-hidden="true"></span>
           <span class="sg-checkbox__label">Focused</span>
         </label>
         <label class="sg-checkbox">
-          <input type="checkbox" [(ngModel)]="checkboxStates.checked" checked>
-          <span class="sg-checkbox__check"></span>
+          <input type="checkbox" [(ngModel)]="checkboxStates.checked" checked name="checkbox-checked">
+          <span class="sg-checkbox__check" aria-hidden="true"></span>
           <span class="sg-checkbox__label">Checked</span>
         </label>
         <label class="sg-checkbox">
-          <input type="checkbox" [(ngModel)]="checkboxStates.checkedDisabled" checked disabled>
-          <span class="sg-checkbox__check"></span>
+          <input type="checkbox" [(ngModel)]="checkboxStates.checkedDisabled" checked disabled name="checkbox-disabled">
+          <span class="sg-checkbox__check" aria-hidden="true"></span>
           <span class="sg-checkbox__label">Checked Disabled</span>
         </label>
-      </div>
+      </form>
     </section>
 
     <!-- SECCIÓN: RADIO -->
-    <section class="sg-section">
-      <h2 class="sg-section__title">Radio</h2>
-      <div class="sg-radios">
+    <section class="sg-section" aria-labelledby="radio-heading">
+      <h2 id="radio-heading" class="sg-section__title">Radio</h2>
+      <form class="sg-radios" role="radiogroup" aria-labelledby="radio-heading">
         <label class="sg-radio">
           <input type="radio" name="radio-demo" value="default" [(ngModel)]="radioStates.default">
-          <span class="sg-radio__check"></span>
+          <span class="sg-radio__check" aria-hidden="true"></span>
           <span class="sg-radio__label">Default</span>
         </label>
         <label class="sg-radio">
           <input type="radio" name="radio-demo" value="focused" [(ngModel)]="radioStates.focused">
-          <span class="sg-radio__check sg-radio__check--focused"></span>
+          <span class="sg-radio__check sg-radio__check--focused" aria-hidden="true"></span>
           <span class="sg-radio__label">Focused</span>
         </label>
         <label class="sg-radio">
           <input type="radio" name="radio-demo" value="checked" [(ngModel)]="radioStates.checked" checked>
-          <span class="sg-radio__check"></span>
+          <span class="sg-radio__check" aria-hidden="true"></span>
           <span class="sg-radio__label">Checked</span>
         </label>
         <label class="sg-radio">
           <input type="radio" name="radio-demo-disabled" value="checkedDisabled" checked disabled>
-          <span class="sg-radio__check"></span>
+          <span class="sg-radio__check" aria-hidden="true"></span>
           <span class="sg-radio__label">Checked Disabled</span>
         </label>
-      </div>
+      </form>
     </section>
 
     <!-- SECCIÓN: SHADOWS & CORNER RADIUS -->
-    <section class="sg-section">
-      <h2 class="sg-section__title">Shadows & Corner radius</h2>
-      <div class="sg-shadows">
-        <div class="sg-shadow-item sg-shadow--01">
+    <section class="sg-section" aria-labelledby="shadows-heading">
+      <h2 id="shadows-heading" class="sg-section__title">Shadows & Corner radius</h2>
+      <ul class="sg-shadows" role="list">
+        <li class="sg-shadow-item sg-shadow--01">
           <span class="sg-shadow-label">Shadow 01</span>
-        </div>
-        <div class="sg-shadow-item sg-shadow--02">
+        </li>
+        <li class="sg-shadow-item sg-shadow--02">
           <span class="sg-shadow-label">Shadow 02</span>
-        </div>
-        <div class="sg-shadow-item sg-shadow--03">
+        </li>
+        <li class="sg-shadow-item sg-shadow--03">
           <span class="sg-shadow-label">Shadow 03</span>
-        </div>
-        <div class="sg-shadow-item sg-shadow--04">
+        </li>
+        <li class="sg-shadow-item sg-shadow--04">
           <span class="sg-shadow-label">Shadow 04</span>
-        </div>
-        <div class="sg-shadow-item sg-shadow--corner">
+        </li>
+        <li class="sg-shadow-item sg-shadow--corner">
           <span class="sg-shadow-label">Corner radius</span>
-        </div>
-        <div class="sg-shadow-item sg-shadow--corner-radius">
+        </li>
+        <li class="sg-shadow-item sg-shadow--corner-radius">
           <span class="sg-shadow-label">Corner radius</span>
-        </div>
-      </div>
+        </li>
+      </ul>
     </section>
 
     <!-- SECCIÓN: ICONS -->
-    <section class="sg-section">
-      <h2 class="sg-section__title">Icons</h2>
+    <section class="sg-section" aria-labelledby="icons-heading">
+      <h2 id="icons-heading" class="sg-section__title">Icons</h2>
 
       <!-- General -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">General</h3>
-        <div class="sg-icons">
-          <span class="sg-icon">👤</span>
-          <span class="sg-icon">⭐</span>
-          <span class="sg-icon">📋</span>
-          <span class="sg-icon">📥</span>
-          <span class="sg-icon">📁</span>
-          <span class="sg-icon">ℹ️</span>
-          <span class="sg-icon">❤️</span>
-          <span class="sg-icon">🚗</span>
-          <span class="sg-icon">🎮</span>
-          <span class="sg-icon">⚙️</span>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="general-icons-heading">
+        <h3 id="general-icons-heading" class="sg-subsection__title">General</h3>
+        <ul class="sg-icons" role="list" aria-label="Iconos generales">
+          <li class="sg-icon" role="img" aria-label="Usuario">👤</li>
+          <li class="sg-icon" role="img" aria-label="Favorito">⭐</li>
+          <li class="sg-icon" role="img" aria-label="Portapapeles">📋</li>
+          <li class="sg-icon" role="img" aria-label="Descargar">📥</li>
+          <li class="sg-icon" role="img" aria-label="Carpeta">📁</li>
+          <li class="sg-icon" role="img" aria-label="Información">ℹ️</li>
+          <li class="sg-icon" role="img" aria-label="Me gusta">❤️</li>
+          <li class="sg-icon" role="img" aria-label="Vehículo">🚗</li>
+          <li class="sg-icon" role="img" aria-label="Juego">🎮</li>
+          <li class="sg-icon" role="img" aria-label="Configuración">⚙️</li>
+        </ul>
+      </section>
 
       <!-- Navigation -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Navigation</h3>
-        <div class="sg-icons">
-          <span class="sg-icon">🏠</span>
-          <span class="sg-icon">🔍</span>
-          <span class="sg-icon">⏱️</span>
-          <span class="sg-icon">⚠️</span>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="nav-icons-heading">
+        <h3 id="nav-icons-heading" class="sg-subsection__title">Navigation</h3>
+        <ul class="sg-icons" role="list" aria-label="Iconos de navegación">
+          <li class="sg-icon" role="img" aria-label="Inicio">🏠</li>
+          <li class="sg-icon" role="img" aria-label="Buscar">🔍</li>
+          <li class="sg-icon" role="img" aria-label="Tiempo">⏱️</li>
+          <li class="sg-icon" role="img" aria-label="Alerta">⚠️</li>
+        </ul>
+      </section>
 
       <!-- Action -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection__title">Action</h3>
-        <div class="sg-icons">
-          <span class="sg-icon">✓</span>
-          <span class="sg-icon">📋</span>
-          <span class="sg-icon">✏️</span>
-          <span class="sg-icon">⚠️</span>
-          <span class="sg-icon">ℹ️</span>
-          <span class="sg-icon">🔒</span>
-          <span class="sg-icon">⚙️</span>
-          <span class="sg-icon">✕</span>
-          <span class="sg-icon">✖</span>
-        </div>
-      </div>
+      <section class="sg-subsection" aria-labelledby="action-icons-heading">
+        <h3 id="action-icons-heading" class="sg-subsection__title">Action</h3>
+        <ul class="sg-icons" role="list" aria-label="Iconos de acción">
+          <li class="sg-icon" role="img" aria-label="Verificado">✓</li>
+          <li class="sg-icon" role="img" aria-label="Portapapeles">📋</li>
+          <li class="sg-icon" role="img" aria-label="Editar">✏️</li>
+          <li class="sg-icon" role="img" aria-label="Advertencia">⚠️</li>
+          <li class="sg-icon" role="img" aria-label="Información">ℹ️</li>
+          <li class="sg-icon" role="img" aria-label="Bloqueado">🔒</li>
+          <li class="sg-icon" role="img" aria-label="Configuración">⚙️</li>
+          <li class="sg-icon" role="img" aria-label="Cerrar">✕</li>
+          <li class="sg-icon" role="img" aria-label="Eliminar">✖</li>
+        </ul>
+      </section>
     </section>
 
-  </div>
-</div>
+  </header>
+</article>
 
