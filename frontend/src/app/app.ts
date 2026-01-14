@@ -19,4 +19,7 @@ import { FooterComponent } from './components/layout/footer/footer.component';
   styleUrls: ['./app.css']
 })
 export class App {
+  constructor() {
+    console.log('✓ App component initialized');
+  }
 }
