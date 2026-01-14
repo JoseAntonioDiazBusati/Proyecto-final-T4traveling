@@ -32,15 +32,13 @@
         <h3 id="primary-colors-heading" class="sg-subsection__title">Primarios</h3>
         <ul class="sg-colors" role="list">
           <li *ngFor="let color of primaryColors" class="sg-color-item">
-            <span class="sg-color-swatch"
-                  [style.background-color]="color.hex"
-                  role="img"
-                  [attr.aria-label]="'Color ' + color.name + ' con valor ' + color.hex"></span>
-            <span class="sg-color-info">
+            <div class="sg-color-swatch"
+                 [ngStyle]="{ 'background-color': color.hex }"></div>
+            <div class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
               <code class="sg-color-variable">{{ color.variable }}</code>
               <code class="sg-color-hex">{{ color.hex }}</code>
-            </span>
+            </div>
           </li>
         </ul>
       </article>
@@ -50,33 +48,46 @@
         <h3 id="secondary-colors-heading" class="sg-subsection__title">Secundarios</h3>
         <ul class="sg-colors" role="list">
           <li *ngFor="let color of secondaryColors" class="sg-color-item">
-            <span class="sg-color-swatch"
-                  [style.background-color]="color.hex"
-                  role="img"
-                  [attr.aria-label]="'Color ' + color.name + ' con valor ' + color.hex"></span>
-            <span class="sg-color-info">
+            <div class="sg-color-swatch"
+                 [ngStyle]="{ 'background-color': color.hex }"></div>
+            <div class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
               <code class="sg-color-variable">{{ color.variable }}</code>
               <code class="sg-color-hex">{{ color.hex }}</code>
-            </span>
+            </div>
           </li>
         </ul>
       </article>
 
-      <!-- Apoyo -->
-      <article class="sg-subsection" aria-labelledby="support-colors-heading">
-        <h3 id="support-colors-heading" class="sg-subsection__title">Apoyo (Semánticos)</h3>
+      <!-- Semánticos -->
+      <article class="sg-subsection" aria-labelledby="semantic-colors-heading">
+        <h3 id="semantic-colors-heading" class="sg-subsection__title">Semánticos (Estados)</h3>
         <ul class="sg-colors" role="list">
-          <li *ngFor="let color of supportColors" class="sg-color-item">
-            <span class="sg-color-swatch"
-                  [style.background-color]="color.hex"
-                  role="img"
-                  [attr.aria-label]="'Color ' + color.name + ' con valor ' + color.hex"></span>
-            <span class="sg-color-info">
+          <li *ngFor="let color of semanticColors" class="sg-color-item">
+            <div class="sg-color-swatch"
+                 [ngStyle]="{ 'background-color': color.hex }"></div>
+            <div class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
               <code class="sg-color-variable">{{ color.variable }}</code>
               <code class="sg-color-hex">{{ color.hex }}</code>
-            </span>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Neutrales -->
+      <article class="sg-subsection" aria-labelledby="neutral-colors-heading">
+        <h3 id="neutral-colors-heading" class="sg-subsection__title">Neutrales (Escala de Grises)</h3>
+        <ul class="sg-colors sg-colors--grid" role="list">
+          <li *ngFor="let color of neutralColors" class="sg-color-item">
+            <div class="sg-color-swatch"
+                 [ngStyle]="{ 'background-color': color.hex }"
+                 [class.sg-color-swatch--light]="color.hex === '#FFFFFF' || color.hex === '#F5F5F5' || color.hex === '#E0E0E0'"></div>
+            <div class="sg-color-info">
+              <span class="sg-color-name">{{ color.name }}</span>
+              <code class="sg-color-variable">{{ color.variable }}</code>
+              <code class="sg-color-hex">{{ color.hex }}</code>
+            </div>
           </li>
         </ul>
       </article>
@@ -390,8 +401,7 @@
         <app-empty-state
           title="No hay reservas"
           message="Aún no has realizado ninguna reserva. ¡Explora nuestros destinos!"
-          icon="inbox"
-          [showAction]="true">
+          icon="inbox">
         </app-empty-state>
       </article>
 

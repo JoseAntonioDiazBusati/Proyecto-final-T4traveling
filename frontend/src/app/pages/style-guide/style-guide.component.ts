@@ -60,7 +60,7 @@ interface SelectOption {
     ToastContainerComponent
   ],
   templateUrl: './style-guide.component.html',
-  styleUrl: './style-guide.component.scss'
+  styleUrls: ['./style-guide.component.scss']
 })
 export class StyleGuideComponent {
   // Estado del modal
@@ -112,28 +112,44 @@ export class StyleGuideComponent {
   onButtonClick(variant: string): void {
     console.log(`Botón ${variant} clickeado`);
   }
-  // Colores Primarios
+  // Colores Primarios (Paleta Principal T4 Traveling)
   readonly primaryColors: ColorItem[] = [
-    { name: 'Color 1', variable: '--lime-moss', hex: '#8EA604' },
-    { name: 'Color 2', variable: '--amber-gold', hex: '#F5BB00' },
-    { name: 'Color 3', variable: '--golden-orange', hex: '#EC9F05' },
-    { name: 'Color 4', variable: '--chocolate', hex: '#D76A03' },
-    { name: 'Color 5', variable: '--rusty-spice', hex: '#BF3100' }
+    { name: 'Lime Moss', variable: '$lime-moss / $color-primary-4', hex: '#8EA604' },
+    { name: 'Amber Gold', variable: '$amber-gold / $color-primary-3', hex: '#F5BB00' },
+    { name: 'Golden Orange', variable: '$golden-orange / $color-primary-0', hex: '#EC9F05' },
+    { name: 'Chocolate', variable: '$chocolate / $color-primary-2', hex: '#D76A03' },
+    { name: 'Rusty Spice', variable: '$rusty-spice / $color-primary-1', hex: '#BF3100' }
   ];
 
   // Colores Secundarios
   readonly secondaryColors: ColorItem[] = [
-    { name: 'Secondary 1', variable: '--cream-light', hex: '#FFF2C7' },
-    { name: 'Secondary 2', variable: '--brown-dark', hex: '#812100' },
-    { name: 'Secondary 3', variable: '--blue-light', hex: '#C4EAF5' }
+    { name: 'Cream Light', variable: '$cream-light / $color-secondary-0', hex: '#FFF2C7' },
+    { name: 'Brown Dark', variable: '$brown-dark / $color-secondary-1', hex: '#812100' },
+    { name: 'Blue Light', variable: '$blue-light / $color-secondary-2', hex: '#C4EAF5' }
   ];
 
-  // Colores de Apoyo
-  readonly supportColors: ColorItem[] = [
-    { name: 'Apoyo 1', variable: '--support-green', hex: '#8DCC52' },
-    { name: 'Apoyo 2', variable: '--support-yellow', hex: '#F5F500' },
-    { name: 'Apoyo 3', variable: '--support-red', hex: '#F44930' },
-    { name: 'Apoyo 4', variable: '--support-cyan', hex: '#00CFFD' }
+  // Colores Semánticos (Estados)
+  readonly semanticColors: ColorItem[] = [
+    { name: 'Success', variable: '$color-success', hex: '#8DCC52' },
+    { name: 'Error', variable: '$color-error', hex: '#F44930' },
+    { name: 'Warning', variable: '$color-warning', hex: '#F9EA47' },
+    { name: 'Info', variable: '$color-info', hex: '#00CFFD' }
+  ];
+
+  // Colores Neutrales (Escala de Grises)
+  readonly neutralColors: ColorItem[] = [
+    { name: 'Negro', variable: '$color-neutral-0', hex: '#000000' },
+    { name: 'Gris 50', variable: '$color-neutral-50', hex: '#1A1A1A' },
+    { name: 'Gris 100', variable: '$color-neutral-100', hex: '#333333' },
+    { name: 'Gris 200', variable: '$color-neutral-200', hex: '#4D4D4D' },
+    { name: 'Gris 300', variable: '$color-neutral-300', hex: '#666666' },
+    { name: 'Gris 400', variable: '$color-neutral-400', hex: '#808080' },
+    { name: 'Gris 500', variable: '$color-neutral-500', hex: '#999999' },
+    { name: 'Gris 600', variable: '$color-neutral-600', hex: '#AAAAAA' },
+    { name: 'Gris 700', variable: '$color-neutral-700', hex: '#CCCCCC' },
+    { name: 'Gris 800', variable: '$color-neutral-800', hex: '#E0E0E0' },
+    { name: 'Gris 900', variable: '$color-neutral-900', hex: '#F5F5F5' },
+    { name: 'Blanco', variable: '$color-neutral-1000', hex: '#FFFFFF' }
   ];
 
   // Tipografía

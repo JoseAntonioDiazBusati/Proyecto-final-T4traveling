@@ -163,6 +163,12 @@
   margin-bottom: 2rem;
   list-style: none;
   padding: 0;
+
+  // Variante grid para neutrales (más columnas)
+  &--grid {
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    gap: 1rem;
+  }
 }
 
 .sg-color-item {
@@ -181,6 +187,11 @@
 
   &:hover {
     transform: scale(1.05);
+  }
+
+  // Variante para colores claros (añadir borde)
+  &--light {
+    border: 0.125rem solid rgba(0, 0, 0, 0.1);
   }
 }
 
