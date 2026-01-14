@@ -1,14 +1,22 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToastContainerComponent } from './components/shared/toast-container/toast-container.component';
-import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { MainComponent } from './components/layout/main/main.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastContainerComponent, LoadingSpinnerComponent],
+  imports: [
+    RouterOutlet,
+    ToastContainerComponent,
+    HeaderComponent,
+    MainComponent,
+    FooterComponent
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
 }

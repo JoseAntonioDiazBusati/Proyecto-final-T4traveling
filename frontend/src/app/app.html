@@ -1,6 +1,17 @@
-<router-outlet></router-outlet>
+<!-- Layout principal de la aplicación -->
+<div class="app-container">
+  <!-- Header con navegación -->
+  <app-header></app-header>
+
+  <!-- Contenido principal con router-outlet -->
+  <app-main>
+    <router-outlet></router-outlet>
+  </app-main>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
+</div>
 
 <!-- Componentes globales -->
 <app-toast-container></app-toast-container>
-<app-loading-spinner></app-loading-spinner>
 

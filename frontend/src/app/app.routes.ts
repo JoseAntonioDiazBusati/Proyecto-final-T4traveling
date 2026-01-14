@@ -53,14 +53,51 @@ export const routes: Routes = [
   },
 
   /**
-   * About - Página informativa
+   * Style Guide - Guía de estilos del sistema
+   * Acceso directo para desarrollo y documentación
    */
   {
-    path: 'about',
+    path: 'style-guide',
     loadComponent: () => import('./pages/style-guide/style-guide.component').then(m => m.StyleGuideComponent),
     data: {
-      breadcrumb: 'Sobre nosotros',
-      breadcrumbIcon: 'ℹ️'
+      breadcrumb: 'Guía de Estilos',
+      breadcrumbIcon: '🎨'
+    }
+  },
+
+  /**
+   * Formularios - Demo de formularios y validaciones
+   */
+  {
+    path: 'formularios',
+    loadComponent: () => import('./pages/forms-demo/forms-demo.component').then(m => m.FormsDemoComponent),
+    data: {
+      breadcrumb: 'Formularios',
+      breadcrumbIcon: '📝'
+    }
+  },
+
+  /**
+   * Componentes - Demo interactiva de componentes
+   */
+  {
+    path: 'componentes',
+    loadComponent: () => import('./pages/interactive-demo/interactive-demo.component').then(m => m.InteractiveDemoComponent),
+    data: {
+      breadcrumb: 'Componentes',
+      breadcrumbIcon: '🧩'
+    }
+  },
+
+  /**
+   * Servicios - Demo de servicios y comunicación
+   */
+  {
+    path: 'servicios',
+    loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent),
+    data: {
+      breadcrumb: 'Servicios',
+      breadcrumbIcon: '⚙️'
     }
   },
 
@@ -179,38 +216,6 @@ export const routes: Routes = [
     ]
   },
 
-  // =====================================
-  // RUTAS DE DEMO (desarrollo)
-  // =====================================
-
-  {
-    path: 'style-guide',
-    loadComponent: () => import('./pages/style-guide/style-guide.component').then(m => m.StyleGuideComponent),
-    data: {
-      breadcrumb: 'Guía de estilos'
-    }
-  },
-  {
-    path: 'interactive-demo',
-    loadComponent: () => import('./pages/interactive-demo/interactive-demo.component').then(m => m.InteractiveDemoComponent),
-    data: {
-      breadcrumb: 'Demo interactiva'
-    }
-  },
-  {
-    path: 'services-demo',
-    loadComponent: () => import('./pages/services-demo/services-demo.component').then(m => m.ServicesDemoComponent),
-    data: {
-      breadcrumb: 'Demo servicios'
-    }
-  },
-  {
-    path: 'forms-demo',
-    loadComponent: () => import('./pages/forms-demo/forms-demo.component').then(m => m.FormsDemoComponent),
-    data: {
-      breadcrumb: 'Demo formularios'
-    }
-  },
 
   // =====================================
   // RUTAS DE ERROR
