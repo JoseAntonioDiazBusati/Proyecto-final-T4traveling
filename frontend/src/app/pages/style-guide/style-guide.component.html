@@ -1,299 +1,449 @@
 <article class="style-guide" role="main" aria-label="Guía de estilos de T4 Traveling">
-  <header class="style-guide__container">
+  <header class="style-guide__header">
+    <h1 class="style-guide__main-title">Guía de Estilos - T4 Traveling</h1>
+    <p class="style-guide__description">Sistema de diseño completo con componentes reutilizables y accesibles</p>
+    <app-theme-switcher></app-theme-switcher>
+  </header>
 
+  <nav class="style-guide__nav" role="navigation" aria-label="Navegación de la guía">
+    <ul class="style-guide__nav-list" role="list">
+      <li><a href="#colores" class="style-guide__nav-link">Colores</a></li>
+      <li><a href="#tipografia" class="style-guide__nav-link">Tipografía</a></li>
+      <li><a href="#botones" class="style-guide__nav-link">Botones</a></li>
+      <li><a href="#cards" class="style-guide__nav-link">Cards</a></li>
+      <li><a href="#formularios" class="style-guide__nav-link">Formularios</a></li>
+      <li><a href="#feedback" class="style-guide__nav-link">Feedback</a></li>
+      <li><a href="#navegacion" class="style-guide__nav-link">Navegación</a></li>
+      <li><a href="#estados" class="style-guide__nav-link">Estados</a></li>
+    </ul>
+  </nav>
+
+  <main class="style-guide__container">
+
+    <!-- ========================================== -->
     <!-- SECCIÓN: COLORES -->
-    <section class="sg-section" aria-labelledby="colors-heading">
-      <h2 id="colors-heading" class="sg-section__title">Colores</h2>
+    <!-- ========================================== -->
+    <section id="colores" class="sg-section" aria-labelledby="colors-heading">
+      <h2 id="colors-heading" class="sg-section__title">🎨 Colores</h2>
+      <p class="sg-section__intro">Paleta de colores basada en el diseño de T4 Traveling</p>
 
       <!-- Primarios -->
-      <section class="sg-subsection" aria-labelledby="primary-colors-heading">
+      <article class="sg-subsection" aria-labelledby="primary-colors-heading">
         <h3 id="primary-colors-heading" class="sg-subsection__title">Primarios</h3>
         <ul class="sg-colors" role="list">
           <li *ngFor="let color of primaryColors" class="sg-color-item">
-            <span class="sg-color-swatch" [style.background-color]="color.hex" role="img" [attr.aria-label]="'Muestra de color ' + color.name"></span>
+            <span class="sg-color-swatch"
+                  [style.background-color]="color.hex"
+                  role="img"
+                  [attr.aria-label]="'Color ' + color.name + ' con valor ' + color.hex"></span>
             <span class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
-              <span class="sg-color-variable">{{ color.variable }}</span>
+              <code class="sg-color-variable">{{ color.variable }}</code>
+              <code class="sg-color-hex">{{ color.hex }}</code>
             </span>
           </li>
         </ul>
-      </section>
+      </article>
 
       <!-- Secundarios -->
-      <section class="sg-subsection" aria-labelledby="secondary-colors-heading">
+      <article class="sg-subsection" aria-labelledby="secondary-colors-heading">
         <h3 id="secondary-colors-heading" class="sg-subsection__title">Secundarios</h3>
         <ul class="sg-colors" role="list">
           <li *ngFor="let color of secondaryColors" class="sg-color-item">
-            <span class="sg-color-swatch" [style.background-color]="color.hex" role="img" [attr.aria-label]="'Muestra de color ' + color.name"></span>
+            <span class="sg-color-swatch"
+                  [style.background-color]="color.hex"
+                  role="img"
+                  [attr.aria-label]="'Color ' + color.name + ' con valor ' + color.hex"></span>
             <span class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
-              <span class="sg-color-variable">{{ color.variable }}</span>
+              <code class="sg-color-variable">{{ color.variable }}</code>
+              <code class="sg-color-hex">{{ color.hex }}</code>
             </span>
           </li>
         </ul>
-      </section>
+      </article>
 
       <!-- Apoyo -->
-      <section class="sg-subsection" aria-labelledby="support-colors-heading">
-        <h3 id="support-colors-heading" class="sg-subsection__title">Apoyo</h3>
+      <article class="sg-subsection" aria-labelledby="support-colors-heading">
+        <h3 id="support-colors-heading" class="sg-subsection__title">Apoyo (Semánticos)</h3>
         <ul class="sg-colors" role="list">
           <li *ngFor="let color of supportColors" class="sg-color-item">
-            <span class="sg-color-swatch" [style.background-color]="color.hex" role="img" [attr.aria-label]="'Muestra de color ' + color.name"></span>
+            <span class="sg-color-swatch"
+                  [style.background-color]="color.hex"
+                  role="img"
+                  [attr.aria-label]="'Color ' + color.name + ' con valor ' + color.hex"></span>
             <span class="sg-color-info">
               <span class="sg-color-name">{{ color.name }}</span>
-              <span class="sg-color-variable">{{ color.variable }}</span>
+              <code class="sg-color-variable">{{ color.variable }}</code>
+              <code class="sg-color-hex">{{ color.hex }}</code>
             </span>
           </li>
         </ul>
-      </section>
-    </section>
-
-    <!-- SECCIÓN: TIPOGRAFÍA -->
-    <section class="sg-section" aria-labelledby="typography-heading">
-      <h2 id="typography-heading" class="sg-section__title visually-hidden">Tipografía</h2>
-      <article class="sg-typography-grid">
-        <!-- Columna Blanca -->
-        <section class="sg-typography-col sg-typography-col--light" aria-label="Tipografía sobre fondo claro">
-          <article *ngFor="let typo of typographyLevels" class="sg-typo-item">
-            <span class="sg-typo-level">{{ typo.level }}</span>
-            <span class="sg-typo-size">{{ typo.size }}</span>
-          </article>
-        </section>
-
-        <!-- Columna Negra -->
-        <section class="sg-typography-col sg-typography-col--dark" aria-label="Tipografía sobre fondo oscuro">
-          <article *ngFor="let typo of typographyLevels" class="sg-typo-item">
-            <span class="sg-typo-level">{{ typo.level }}</span>
-            <span class="sg-typo-size">{{ typo.size }}</span>
-          </article>
-        </section>
       </article>
     </section>
 
+    <!-- ========================================== -->
+    <!-- SECCIÓN: TIPOGRAFÍA -->
+    <!-- ========================================== -->
+    <section id="tipografia" class="sg-section" aria-labelledby="typography-heading">
+      <h2 id="typography-heading" class="sg-section__title">✍️ Tipografía</h2>
+      <p class="sg-section__intro">Escala tipográfica con Roboto (texto) y Montserrat (títulos)</p>
+
+      <article class="sg-typography-demo">
+        <h1 class="sg-typo-example sg-typo-example--h1">Heading 1 - La aventura comienza aquí</h1>
+        <h2 class="sg-typo-example sg-typo-example--h2">Heading 2 - Descubre nuevos destinos</h2>
+        <h3 class="sg-typo-example sg-typo-example--h3">Heading 3 - Explora el mundo</h3>
+        <h4 class="sg-typo-example sg-typo-example--h4">Heading 4 - Viaja con nosotros</h4>
+        <h5 class="sg-typo-example sg-typo-example--h5">Heading 5 - Tu próxima aventura</h5>
+        <h6 class="sg-typo-example sg-typo-example--h6">Heading 6 - Reserva ahora</h6>
+        <p class="sg-typo-example sg-typo-example--p">
+          Párrafo: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <p class="sg-typo-example sg-typo-example--small">
+          <small>Texto pequeño: Términos y condiciones aplicables</small>
+        </p>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
     <!-- SECCIÓN: BOTONES -->
-    <section class="sg-section" aria-labelledby="buttons-heading">
-      <h2 id="buttons-heading" class="sg-section__title">Botones</h2>
+    <!-- ========================================== -->
+    <section id="botones" class="sg-section" aria-labelledby="buttons-heading">
+      <h2 id="buttons-heading" class="sg-section__title">🔘 Botones</h2>
+      <p class="sg-section__intro">Componentes de botón con múltiples variantes y tamaños</p>
 
-      <!-- Primary Large -->
-      <section class="sg-subsection" aria-labelledby="primary-large-heading">
-        <h3 id="primary-large-heading" class="sg-subsection__title">Primary<br><small>Large</small></h3>
-        <nav class="sg-buttons" role="group" aria-label="Botones primarios grandes">
-          <button class="sg-btn sg-btn--primary sg-btn--lg" type="button">REGULAR</button>
-          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--hover" type="button">HOVER</button>
-          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--focused" type="button">FOCUSED</button>
-          <button class="sg-btn sg-btn--primary sg-btn--lg sg-btn--pressed" type="button">PRESSED</button>
+      <!-- Primary Buttons -->
+      <article class="sg-subsection" aria-labelledby="primary-buttons-heading">
+        <h3 id="primary-buttons-heading" class="sg-subsection__title">Primary (Acción principal)</h3>
+        <nav class="sg-buttons-demo" role="group" aria-label="Botones primarios">
+          <app-button variant="primary" size="lg" (click)="onButtonClick('primary-lg')">
+            Large
+          </app-button>
+          <app-button variant="primary" size="md" (click)="onButtonClick('primary-md')">
+            Medium
+          </app-button>
+          <app-button variant="primary" size="sm" (click)="onButtonClick('primary-sm')">
+            Small
+          </app-button>
+          <app-button variant="primary" size="md" [disabled]="true">
+            Disabled
+          </app-button>
         </nav>
-      </section>
+      </article>
 
-      <!-- Second xy/Large -->
-      <section class="sg-subsection" aria-labelledby="secondary-large-heading">
-        <h3 id="secondary-large-heading" class="sg-subsection__title">Second<br><small>xy/Large</small></h3>
-        <nav class="sg-buttons" role="group" aria-label="Botones secundarios grandes">
-          <button class="sg-btn sg-btn--secondary sg-btn--lg" type="button">DEFAULT</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--hover" type="button">HOVER</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--focused" type="button">FOCUSED</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--lg sg-btn--pressed" type="button">PRESSED</button>
+      <!-- Secondary Buttons -->
+      <article class="sg-subsection" aria-labelledby="secondary-buttons-heading">
+        <h3 id="secondary-buttons-heading" class="sg-subsection__title">Secondary (Acción secundaria)</h3>
+        <nav class="sg-buttons-demo" role="group" aria-label="Botones secundarios">
+          <app-button variant="secondary" size="lg">Large</app-button>
+          <app-button variant="secondary" size="md">Medium</app-button>
+          <app-button variant="secondary" size="sm">Small</app-button>
+          <app-button variant="secondary" size="md" [disabled]="true">Disabled</app-button>
         </nav>
-      </section>
+      </article>
 
-      <!-- Ghost Large -->
-      <section class="sg-subsection" aria-labelledby="ghost-large-heading">
-        <h3 id="ghost-large-heading" class="sg-subsection__title">Ghost<br><small>Large</small></h3>
-        <nav class="sg-buttons" role="group" aria-label="Botones ghost grandes">
-          <button class="sg-btn sg-btn--ghost sg-btn--lg" type="button">DEFAULT</button>
-          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--hover" type="button">HOVER</button>
-          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--focused" type="button">FOCUSED</button>
-          <button class="sg-btn sg-btn--ghost sg-btn--lg sg-btn--pressed" type="button">PRESSED</button>
+      <!-- Ghost Buttons -->
+      <article class="sg-subsection" aria-labelledby="ghost-buttons-heading">
+        <h3 id="ghost-buttons-heading" class="sg-subsection__title">Ghost (Acción terciaria)</h3>
+        <nav class="sg-buttons-demo" role="group" aria-label="Botones ghost">
+          <app-button variant="ghost" size="lg">Large</app-button>
+          <app-button variant="ghost" size="md">Medium</app-button>
+          <app-button variant="ghost" size="sm">Small</app-button>
+          <app-button variant="ghost" size="md" [disabled]="true">Disabled</app-button>
         </nav>
-      </section>
+      </article>
 
-      <!-- Primary Medium -->
-      <section class="sg-subsection" aria-labelledby="primary-medium-heading">
-        <h3 id="primary-medium-heading" class="sg-subsection__title">Primary<br><small>Medium</small></h3>
-        <nav class="sg-buttons" role="group" aria-label="Botones medianos">
-          <button class="sg-btn sg-btn--primary sg-btn--md sg-btn--small" type="button">VARIANT</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--md sg-btn--small" type="button">DEFAULT</button>
+      <!-- Danger Buttons -->
+      <article class="sg-subsection" aria-labelledby="danger-buttons-heading">
+        <h3 id="danger-buttons-heading" class="sg-subsection__title">Danger (Acciones destructivas)</h3>
+        <nav class="sg-buttons-demo" role="group" aria-label="Botones de peligro">
+          <app-button variant="danger" size="md">Eliminar</app-button>
+          <app-button variant="danger" size="md" [disabled]="true">Disabled</app-button>
         </nav>
-      </section>
+      </article>
 
-      <!-- Primary Small -->
-      <section class="sg-subsection" aria-labelledby="primary-small-heading">
-        <h3 id="primary-small-heading" class="sg-subsection__title">Primary<br><small>Small</small></h3>
-        <nav class="sg-buttons" role="group" aria-label="Botones pequeños">
-          <button class="sg-btn sg-btn--primary sg-btn--sm" type="button">VARIANT</button>
-          <button class="sg-btn sg-btn--secondary sg-btn--sm" type="button">DEFAULT</button>
-        </nav>
-      </section>
+      <!-- Full Width -->
+      <article class="sg-subsection" aria-labelledby="fullwidth-buttons-heading">
+        <h3 id="fullwidth-buttons-heading" class="sg-subsection__title">Full Width</h3>
+        <app-button variant="primary" size="lg" [fullWidth]="true">
+          Botón de ancho completo
+        </app-button>
+      </article>
     </section>
 
-    <!-- SECCIÓN: INPUTS -->
-    <section class="sg-section" aria-labelledby="inputs-heading">
-      <h2 id="inputs-heading" class="sg-section__title">Inputs</h2>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: CARDS -->
+    <!-- ========================================== -->
+    <section id="cards" class="sg-section" aria-labelledby="cards-heading">
+      <h2 id="cards-heading" class="sg-section__title">🃏 Cards</h2>
+      <p class="sg-section__intro">Tarjetas para mostrar contenido estructurado</p>
 
-      <section class="sg-subsection" aria-labelledby="label-inputs-heading">
-        <h3 id="label-inputs-heading" class="sg-subsection__title">Label<br><small>Inputs</small></h3>
-        <form class="sg-inputs" aria-label="Ejemplos de inputs con etiquetas">
-          <fieldset class="sg-input-group">
-            <label class="sg-input-label" for="input-label">Label</label>
-            <input type="text" id="input-label" class="sg-input" [(ngModel)]="inputValues.label" name="label">
-          </fieldset>
-          <fieldset class="sg-input-group">
-            <label class="sg-input-label" for="input-message">Or Message</label>
-            <input type="text" id="input-message" class="sg-input" placeholder="Or Message" [(ngModel)]="inputValues.message" name="message">
-          </fieldset>
-          <fieldset class="sg-input-group">
-            <label class="sg-input-label" for="input-text">Input Text</label>
-            <input type="text" id="input-text" class="sg-input sg-input--info" value="Input Text" name="inputText">
-          </fieldset>
-        </form>
-      </section>
+      <article class="sg-cards-grid">
+        <!-- Card básica -->
+        <app-card
+          imageSrc="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400"
+          imageAlt="París, Francia"
+          title="París, Francia"
+          description="La ciudad del amor con sus icónicos monumentos y encantadoras calles.">
+          <nav slot="actions" class="sg-card-actions">
+            <app-button variant="primary" size="sm">Ver Detalles</app-button>
+            <app-button variant="ghost" size="sm">Guardar</app-button>
+          </nav>
+        </app-card>
 
-      <section class="sg-subsection" aria-label="Estados de inputs">
-        <form class="sg-inputs">
-          <fieldset class="sg-input-group">
-            <label class="sg-input-label" for="input-error">Error</label>
-            <input type="text" id="input-error" class="sg-input sg-input--error" [(ngModel)]="inputValues.error" name="error" aria-invalid="true">
-          </fieldset>
-          <fieldset class="sg-input-group">
-            <label class="sg-input-label" for="input-success">Success</label>
-            <input type="text" id="input-success" class="sg-input sg-input--success" value="Success" name="success">
-          </fieldset>
-          <fieldset class="sg-input-group">
-            <label class="sg-input-label" for="input-disabled">Disabled</label>
-            <input type="text" id="input-disabled" class="sg-input" disabled [(ngModel)]="inputValues.disabled" name="disabled">
-          </fieldset>
-        </form>
-      </section>
+        <!-- Card sin imagen -->
+        <app-card
+          title="Información Importante"
+          description="Tarjeta sin imagen que muestra contenido textual relevante para el usuario.">
+          <nav slot="actions" class="sg-card-actions">
+            <app-button variant="secondary" size="sm">Más Info</app-button>
+          </nav>
+        </app-card>
+
+        <!-- Card con hoverable -->
+        <app-card
+          imageSrc="https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=400"
+          imageAlt="Tokyo, Japón"
+          title="Tokyo, Japón"
+          description="Metrópolis vibrante que combina tradición y modernidad."
+          [hoverable]="true">
+          <nav slot="actions" class="sg-card-actions">
+            <app-button variant="primary" size="sm">Explorar</app-button>
+          </nav>
+        </app-card>
+      </article>
     </section>
 
-    <!-- SECCIÓN: CHECKBOX -->
-    <section class="sg-section" aria-labelledby="checkbox-heading">
-      <h2 id="checkbox-heading" class="sg-section__title">Checkbox</h2>
-      <form class="sg-checkboxes" role="group" aria-labelledby="checkbox-heading">
-        <label class="sg-checkbox">
-          <input type="checkbox" [(ngModel)]="checkboxStates.default" name="checkbox-default">
-          <span class="sg-checkbox__check" aria-hidden="true"></span>
-          <span class="sg-checkbox__label">Default</span>
-        </label>
-        <label class="sg-checkbox">
-          <input type="checkbox" [(ngModel)]="checkboxStates.focused" name="checkbox-focused">
-          <span class="sg-checkbox__check sg-checkbox__check--focused" aria-hidden="true"></span>
-          <span class="sg-checkbox__label">Focused</span>
-        </label>
-        <label class="sg-checkbox">
-          <input type="checkbox" [(ngModel)]="checkboxStates.checked" checked name="checkbox-checked">
-          <span class="sg-checkbox__check" aria-hidden="true"></span>
-          <span class="sg-checkbox__label">Checked</span>
-        </label>
-        <label class="sg-checkbox">
-          <input type="checkbox" [(ngModel)]="checkboxStates.checkedDisabled" checked disabled name="checkbox-disabled">
-          <span class="sg-checkbox__check" aria-hidden="true"></span>
-          <span class="sg-checkbox__label">Checked Disabled</span>
-        </label>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: FORMULARIOS -->
+    <!-- ========================================== -->
+    <section id="formularios" class="sg-section" aria-labelledby="forms-heading">
+      <h2 id="forms-heading" class="sg-section__title">📝 Formularios</h2>
+      <p class="sg-section__intro">Componentes de formulario accesibles y validados</p>
+
+      <form class="sg-form-demo" aria-label="Formulario de ejemplo">
+        <!-- Form Input -->
+        <article class="sg-subsection" aria-labelledby="form-input-heading">
+          <h3 id="form-input-heading" class="sg-subsection__title">Text Input</h3>
+          <fieldset class="sg-form-group">
+            <app-form-input
+              id="demo-name"
+              label="Nombre completo"
+              type="text"
+              name="name"
+              placeholder="Ej: Juan Pérez"
+              [required]="true"
+              helpText="Ingresa tu nombre y apellidos"
+              autocomplete="name">
+            </app-form-input>
+
+            <app-form-input
+              id="demo-email"
+              label="Correo electrónico"
+              type="email"
+              name="email"
+              placeholder="tu&#64;email.com"
+              [required]="true"
+              helpText="Usaremos este email para contactarte"
+              autocomplete="email">
+            </app-form-input>
+          </fieldset>
+        </article>
+
+        <!-- Form Select -->
+        <article class="sg-subsection" aria-labelledby="form-select-heading">
+          <h3 id="form-select-heading" class="sg-subsection__title">Select</h3>
+          <fieldset class="sg-form-group">
+            <app-form-select
+              id="demo-select"
+              label="Selecciona una opción"
+              name="option"
+              [options]="selectOptions"
+              placeholder="Elige una opción"
+              [required]="true"
+              helpText="Selecciona la opción que prefieras">
+            </app-form-select>
+          </fieldset>
+        </article>
+
+        <!-- Form Textarea -->
+        <article class="sg-subsection" aria-labelledby="form-textarea-heading">
+          <h3 id="form-textarea-heading" class="sg-subsection__title">Textarea</h3>
+          <fieldset class="sg-form-group">
+            <app-form-textarea
+              id="demo-message"
+              label="Mensaje"
+              name="message"
+              placeholder="Escribe tu mensaje aquí..."
+              [required]="true"
+              [rows]="4"
+              [maxLength]="500"
+              helpText="Máximo 500 caracteres">
+            </app-form-textarea>
+          </fieldset>
+        </article>
       </form>
     </section>
 
-    <!-- SECCIÓN: RADIO -->
-    <section class="sg-section" aria-labelledby="radio-heading">
-      <h2 id="radio-heading" class="sg-section__title">Radio</h2>
-      <form class="sg-radios" role="radiogroup" aria-labelledby="radio-heading">
-        <label class="sg-radio">
-          <input type="radio" name="radio-demo" value="default" [(ngModel)]="radioStates.default">
-          <span class="sg-radio__check" aria-hidden="true"></span>
-          <span class="sg-radio__label">Default</span>
-        </label>
-        <label class="sg-radio">
-          <input type="radio" name="radio-demo" value="focused" [(ngModel)]="radioStates.focused">
-          <span class="sg-radio__check sg-radio__check--focused" aria-hidden="true"></span>
-          <span class="sg-radio__label">Focused</span>
-        </label>
-        <label class="sg-radio">
-          <input type="radio" name="radio-demo" value="checked" [(ngModel)]="radioStates.checked" checked>
-          <span class="sg-radio__check" aria-hidden="true"></span>
-          <span class="sg-radio__label">Checked</span>
-        </label>
-        <label class="sg-radio">
-          <input type="radio" name="radio-demo-disabled" value="checkedDisabled" checked disabled>
-          <span class="sg-radio__check" aria-hidden="true"></span>
-          <span class="sg-radio__label">Checked Disabled</span>
-        </label>
-      </form>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: FEEDBACK -->
+    <!-- ========================================== -->
+    <section id="feedback" class="sg-section" aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading" class="sg-section__title">💬 Elementos de Feedback</h2>
+      <p class="sg-section__intro">Alertas y notificaciones para comunicar estados</p>
+
+      <!-- Alerts -->
+      <article class="sg-subsection" aria-labelledby="alerts-heading">
+        <h3 id="alerts-heading" class="sg-subsection__title">Alerts</h3>
+
+        <app-alert type="success" title="¡Éxito!" [dismissible]="true">
+          Tu reserva ha sido confirmada correctamente. Recibirás un email con los detalles.
+        </app-alert>
+
+        <app-alert type="info" title="Información" [dismissible]="true">
+          Recuerda que puedes modificar tu reserva hasta 48 horas antes del viaje.
+        </app-alert>
+
+        <app-alert type="warning" title="Advertencia" [dismissible]="true">
+          Tu sesión expirará en 5 minutos. Guarda tus cambios.
+        </app-alert>
+
+        <app-alert type="error" title="Error" [dismissible]="true">
+          No se pudo procesar el pago. Por favor, verifica tus datos.
+        </app-alert>
+      </article>
+
+      <!-- Modal -->
+      <article class="sg-subsection" aria-labelledby="modal-heading">
+        <h3 id="modal-heading" class="sg-subsection__title">Modal</h3>
+        <app-button variant="primary" size="md" (click)="openModal()">
+          Abrir Modal
+        </app-button>
+
+        <app-modal
+          [isOpen]="isModalOpen"
+          title="Confirmar Reserva"
+          size="md"
+          [showCloseButton]="true"
+          (closed)="closeModal()">
+          <p>¿Estás seguro de que deseas confirmar esta reserva?</p>
+          <p>Una vez confirmada, se procesará el pago.</p>
+
+          <nav slot="footer" class="sg-modal-actions">
+            <app-button variant="ghost" size="md" (click)="closeModal()">
+              Cancelar
+            </app-button>
+            <app-button variant="primary" size="md" (click)="closeModal()">
+              Confirmar
+            </app-button>
+          </nav>
+        </app-modal>
+      </article>
+
+      <!-- Loading Spinner -->
+      <article class="sg-subsection" aria-labelledby="spinner-heading">
+        <h3 id="spinner-heading" class="sg-subsection__title">Loading Spinner</h3>
+        <nav class="sg-spinners-demo" role="group">
+          <app-loading-spinner></app-loading-spinner>
+          <app-loading-spinner></app-loading-spinner>
+          <app-loading-spinner></app-loading-spinner>
+        </nav>
+      </article>
     </section>
 
-    <!-- SECCIÓN: SHADOWS & CORNER RADIUS -->
-    <section class="sg-section" aria-labelledby="shadows-heading">
-      <h2 id="shadows-heading" class="sg-section__title">Shadows & Corner radius</h2>
-      <ul class="sg-shadows" role="list">
-        <li class="sg-shadow-item sg-shadow--01">
-          <span class="sg-shadow-label">Shadow 01</span>
-        </li>
-        <li class="sg-shadow-item sg-shadow--02">
-          <span class="sg-shadow-label">Shadow 02</span>
-        </li>
-        <li class="sg-shadow-item sg-shadow--03">
-          <span class="sg-shadow-label">Shadow 03</span>
-        </li>
-        <li class="sg-shadow-item sg-shadow--04">
-          <span class="sg-shadow-label">Shadow 04</span>
-        </li>
-        <li class="sg-shadow-item sg-shadow--corner">
-          <span class="sg-shadow-label">Corner radius</span>
-        </li>
-        <li class="sg-shadow-item sg-shadow--corner-radius">
-          <span class="sg-shadow-label">Corner radius</span>
-        </li>
-      </ul>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: NAVEGACIÓN -->
+    <!-- ========================================== -->
+    <section id="navegacion" class="sg-section" aria-labelledby="navigation-heading">
+      <h2 id="navigation-heading" class="sg-section__title">🧭 Navegación</h2>
+      <p class="sg-section__intro">Componentes de navegación interactivos</p>
+
+      <!-- Tabs -->
+      <article class="sg-subsection" aria-labelledby="tabs-heading">
+        <h3 id="tabs-heading" class="sg-subsection__title">Tabs</h3>
+        <app-tabs [tabs]="tabs" orientation="horizontal"></app-tabs>
+      </article>
+
+      <!-- Accordion -->
+      <article class="sg-subsection" aria-labelledby="accordion-heading">
+        <h3 id="accordion-heading" class="sg-subsection__title">Accordion</h3>
+        <app-accordion [items]="accordionItems" [allowMultiple]="false"></app-accordion>
+      </article>
     </section>
 
-    <!-- SECCIÓN: ICONS -->
-    <section class="sg-section" aria-labelledby="icons-heading">
-      <h2 id="icons-heading" class="sg-section__title">Icons</h2>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: ESTADOS -->
+    <!-- ========================================== -->
+    <section id="estados" class="sg-section" aria-labelledby="states-heading">
+      <h2 id="states-heading" class="sg-section__title">📊 Estados</h2>
+      <p class="sg-section__intro">Componentes para mostrar diferentes estados de la aplicación</p>
 
-      <!-- General -->
-      <section class="sg-subsection" aria-labelledby="general-icons-heading">
-        <h3 id="general-icons-heading" class="sg-subsection__title">General</h3>
-        <ul class="sg-icons" role="list" aria-label="Iconos generales">
-          <li class="sg-icon" role="img" aria-label="Usuario">👤</li>
-          <li class="sg-icon" role="img" aria-label="Favorito">⭐</li>
-          <li class="sg-icon" role="img" aria-label="Portapapeles">📋</li>
-          <li class="sg-icon" role="img" aria-label="Descargar">📥</li>
-          <li class="sg-icon" role="img" aria-label="Carpeta">📁</li>
-          <li class="sg-icon" role="img" aria-label="Información">ℹ️</li>
-          <li class="sg-icon" role="img" aria-label="Me gusta">❤️</li>
-          <li class="sg-icon" role="img" aria-label="Vehículo">🚗</li>
-          <li class="sg-icon" role="img" aria-label="Juego">🎮</li>
-          <li class="sg-icon" role="img" aria-label="Configuración">⚙️</li>
-        </ul>
-      </section>
+      <!-- Loading State -->
+      <article class="sg-subsection" aria-labelledby="loading-heading">
+        <h3 id="loading-heading" class="sg-subsection__title">Loading State</h3>
+        <app-loading-state message="Cargando destinos..."></app-loading-state>
+      </article>
 
-      <!-- Navigation -->
-      <section class="sg-subsection" aria-labelledby="nav-icons-heading">
-        <h3 id="nav-icons-heading" class="sg-subsection__title">Navigation</h3>
-        <ul class="sg-icons" role="list" aria-label="Iconos de navegación">
-          <li class="sg-icon" role="img" aria-label="Inicio">🏠</li>
-          <li class="sg-icon" role="img" aria-label="Buscar">🔍</li>
-          <li class="sg-icon" role="img" aria-label="Tiempo">⏱️</li>
-          <li class="sg-icon" role="img" aria-label="Alerta">⚠️</li>
-        </ul>
-      </section>
+      <!-- Empty State -->
+      <article class="sg-subsection" aria-labelledby="empty-heading">
+        <h3 id="empty-heading" class="sg-subsection__title">Empty State</h3>
+        <app-empty-state
+          title="No hay reservas"
+          message="Aún no has realizado ninguna reserva. ¡Explora nuestros destinos!"
+          icon="inbox"
+          [showAction]="true">
+        </app-empty-state>
+      </article>
 
-      <!-- Action -->
-      <section class="sg-subsection" aria-labelledby="action-icons-heading">
-        <h3 id="action-icons-heading" class="sg-subsection__title">Action</h3>
-        <ul class="sg-icons" role="list" aria-label="Iconos de acción">
-          <li class="sg-icon" role="img" aria-label="Verificado">✓</li>
-          <li class="sg-icon" role="img" aria-label="Portapapeles">📋</li>
-          <li class="sg-icon" role="img" aria-label="Editar">✏️</li>
-          <li class="sg-icon" role="img" aria-label="Advertencia">⚠️</li>
-          <li class="sg-icon" role="img" aria-label="Información">ℹ️</li>
-          <li class="sg-icon" role="img" aria-label="Bloqueado">🔒</li>
-          <li class="sg-icon" role="img" aria-label="Configuración">⚙️</li>
-          <li class="sg-icon" role="img" aria-label="Cerrar">✕</li>
-          <li class="sg-icon" role="img" aria-label="Eliminar">✖</li>
-        </ul>
-      </section>
+      <!-- Error State -->
+      <article class="sg-subsection" aria-labelledby="error-heading">
+        <h3 id="error-heading" class="sg-subsection__title">Error State</h3>
+        <app-error-state
+          title="Error de conexión"
+          message="No se pudo cargar el contenido. Por favor, intenta nuevamente."
+          [showRetry]="true">
+        </app-error-state>
+      </article>
     </section>
 
-  </header>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: ELEVACIONES Y RADIOS -->
+    <!-- ========================================== -->
+    <section id="elevaciones" class="sg-section" aria-labelledby="shadows-heading">
+      <h2 id="shadows-heading" class="sg-section__title">🎭 Sombras y Radios</h2>
+      <p class="sg-section__intro">Sistema de elevaciones y border-radius</p>
+
+      <article class="sg-shadows-demo">
+        <aside class="sg-shadow-box sg-shadow-box--sm" aria-label="Ejemplo de sombra pequeña">
+          <code>shadow-sm</code>
+        </aside>
+        <aside class="sg-shadow-box sg-shadow-box--md" aria-label="Ejemplo de sombra mediana">
+          <code>shadow-md</code>
+        </aside>
+        <aside class="sg-shadow-box sg-shadow-box--lg" aria-label="Ejemplo de sombra grande">
+          <code>shadow-lg</code>
+        </aside>
+        <aside class="sg-shadow-box sg-shadow-box--xl" aria-label="Ejemplo de sombra extra grande">
+          <code>shadow-xl</code>
+        </aside>
+      </article>
+
+      <article class="sg-radius-demo">
+        <aside class="sg-radius-box sg-radius-box--sm" aria-label="Radio pequeño">sm</aside>
+        <aside class="sg-radius-box sg-radius-box--md" aria-label="Radio mediano">md</aside>
+        <aside class="sg-radius-box sg-radius-box--lg" aria-label="Radio grande">lg</aside>
+        <aside class="sg-radius-box sg-radius-box--xl" aria-label="Radio extra grande">xl</aside>
+        <aside class="sg-radius-box sg-radius-box--full" aria-label="Radio completo">full</aside>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="style-guide__footer">
+    <p>&copy; 2026 T4 Traveling - Sistema de Diseño v1.0</p>
+    <p>Diseñado con accesibilidad y usabilidad en mente</p>
+  </footer>
+
+  <!-- Toast Container (siempre presente pero oculto hasta que se muestre una notificación) -->
+  <app-toast-container></app-toast-container>
 </article>
-

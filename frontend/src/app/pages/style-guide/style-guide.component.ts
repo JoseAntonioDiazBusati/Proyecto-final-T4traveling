@@ -2,6 +2,23 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+// Importar TODOS los componentes disponibles
+import { ButtonComponent } from '../../components/shared/button/button.component';
+import { CardComponent } from '../../components/shared/card/card.component';
+import { AlertComponent } from '../../components/shared/alert/alert.component';
+import { FormInputComponent } from '../../components/shared/form-input/form-input.component';
+import { FormTextareaComponent } from '../../components/shared/form-textarea/form-textarea.component';
+import { FormSelectComponent } from '../../components/shared/form-select/form-select.component';
+import { ModalComponent } from '../../components/shared/modal/modal.component';
+import { TabsComponent } from '../../components/shared/tabs/tabs.component';
+import { AccordionComponent } from '../../components/shared/accordion/accordion.component';
+import { LoadingSpinnerComponent } from '../../components/shared/loading-spinner/loading-spinner.component';
+import { LoadingStateComponent } from '../../components/shared/loading-state/loading-state.component';
+import { EmptyStateComponent } from '../../components/shared/empty-state/empty-state.component';
+import { ErrorStateComponent } from '../../components/shared/error-state/error-state.component';
+import { ThemeSwitcherComponent } from '../../components/shared/theme-switcher/theme-switcher.component';
+import { ToastContainerComponent } from '../../components/shared/toast-container/toast-container.component';
+
 interface ColorItem {
   name: string;
   variable: string;
@@ -14,14 +31,87 @@ interface TypographyItem {
   weight: string;
 }
 
+interface SelectOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+
 @Component({
   selector: 'app-style-guide',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ButtonComponent,
+    CardComponent,
+    AlertComponent,
+    FormInputComponent,
+    FormTextareaComponent,
+    FormSelectComponent,
+    ModalComponent,
+    TabsComponent,
+    AccordionComponent,
+    LoadingSpinnerComponent,
+    LoadingStateComponent,
+    EmptyStateComponent,
+    ErrorStateComponent,
+    ThemeSwitcherComponent,
+    ToastContainerComponent
+  ],
   templateUrl: './style-guide.component.html',
   styleUrl: './style-guide.component.scss'
 })
 export class StyleGuideComponent {
+  // Estado del modal
+  isModalOpen = false;
+
+  // Opciones para select
+  selectOptions: SelectOption[] = [
+    { value: '1', label: 'Opción 1' },
+    { value: '2', label: 'Opción 2' },
+    { value: '3', label: 'Opción 3' },
+    { value: '4', label: 'Opción 4 (Deshabilitada)', disabled: true }
+  ];
+
+  // Tabs
+  tabs = [
+    { id: 'tab1', label: 'Tab 1', content: 'Contenido del primer tab' },
+    { id: 'tab2', label: 'Tab 2', content: 'Contenido del segundo tab' },
+    { id: 'tab3', label: 'Tab 3', content: 'Contenido del tercer tab' }
+  ];
+
+  // Accordion
+  accordionItems = [
+    {
+      id: 'acc1',
+      title: '¿Qué es T4 Traveling?',
+      content: 'T4 Traveling es tu agencia de viajes de confianza que te ayuda a descubrir el mundo.'
+    },
+    {
+      id: 'acc2',
+      title: '¿Cómo puedo reservar?',
+      content: 'Puedes reservar directamente desde nuestra web seleccionando tu destino y fechas.'
+    },
+    {
+      id: 'acc3',
+      title: '¿Puedo cancelar mi reserva?',
+      content: 'Sí, puedes cancelar hasta 48 horas antes de tu viaje sin coste adicional.'
+    }
+  ];
+
+  // Métodos
+  openModal(): void {
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+
+  onButtonClick(variant: string): void {
+    console.log(`Botón ${variant} clickeado`);
+  }
   // Colores Primarios
   readonly primaryColors: ColorItem[] = [
     { name: 'Color 1', variable: '--lime-moss', hex: '#8EA604' },
