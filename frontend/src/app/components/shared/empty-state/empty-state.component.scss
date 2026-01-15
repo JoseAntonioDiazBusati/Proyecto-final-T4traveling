@@ -1,0 +1,62 @@
+// ============================================
+// EMPTY STATE COMPONENT
+// ============================================
+
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
+.empty-state {
+  @include flex-center;
+  flex-direction: column;
+  padding: $spacing-12 $spacing-8;
+  text-align: center;
+  min-height: 250px;
+}
+
+.empty-state__icon {
+  width: 80px;
+  height: 80px;
+  color: $color-neutral-700;
+  margin-bottom: $spacing-6;
+
+  [data-theme="dark"] & {
+    color: $color-neutral-300;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.empty-state__title {
+  font-size: $font-md;
+  font-weight: $font-weight-semibold;
+  color: var(--text-primary);
+  margin: 0 0 $spacing-2;
+  font-family: $font-secondary;
+}
+
+.empty-state__message {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  margin: 0 0 $spacing-6;
+  max-width: 400px;
+  line-height: $line-height-relaxed;
+}
+
+.empty-state__action-btn {
+  @include button-base(var(--color-primary), $color-neutral-1000, $spacing-3 $spacing-5);
+  font-size: $font-sm;
+  gap: $spacing-2;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    box-shadow: $shadow-sm;
+  }
+}
+

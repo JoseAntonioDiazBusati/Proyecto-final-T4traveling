@@ -4,6 +4,9 @@
  * Compatible con el sistema de temas
  */
 
+@import '../../../../styles/00-settings/variables';
+@import '../../../../styles/01-tools/mixins';
+
 .tabs {
   display: flex;
   flex-direction: column;
@@ -13,12 +16,12 @@
   &--horizontal {
     .tabs__list {
       flex-direction: row;
-      border-bottom: 1px solid var(--border-color, #333);
+      border-bottom: $border-thin solid var(--border-color);
     }
 
     .tabs__indicator {
       bottom: 0;
-      height: 2px;
+      height: $border-medium;
     }
   }
 
@@ -28,7 +31,7 @@
 
     .tabs__list {
       flex-direction: column;
-      border-right: 1px solid var(--border-color, #333);
+      border-right: $border-thin solid var(--border-color);
       min-width: 200px;
     }
 
@@ -39,7 +42,7 @@
 
     .tabs__panels {
       flex: 1;
-      padding-left: 1.5rem;
+      padding-left: $spacing-6;
     }
   }
 
@@ -55,20 +58,20 @@
   &__tab {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.25rem;
+    gap: $spacing-2;
+    padding: $spacing-4 $spacing-5;
     background: transparent;
     border: none;
-    color: var(--text-secondary, #999);
-    font-size: 0.9375rem;
-    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: $font-base;
+    font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color $transition-fast, background-color $transition-fast;
     white-space: nowrap;
 
     &:hover:not(:disabled) {
-      color: var(--text-primary, #fff);
-      background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+      color: var(--text-primary);
+      background-color: var(--bg-hover);
     }
 
     &:focus {
@@ -76,16 +79,16 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-primary, #4f46e5);
-      outline-offset: -2px;
-      background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+      outline: $border-medium solid var(--color-primary);
+      outline-offset: -$spacing-1;
+      background-color: var(--bg-hover);
     }
 
     &--active {
-      color: var(--color-primary, #4f46e5);
+      color: var(--color-primary);
 
       &:hover:not(:disabled) {
-        color: var(--color-primary, #4f46e5);
+        color: var(--color-primary);
       }
     }
 
@@ -94,16 +97,14 @@
       cursor: not-allowed;
 
       &:hover {
-        color: var(--text-secondary, #999);
+        color: var(--text-secondary);
         background-color: transparent;
       }
     }
   }
 
   &__tab-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     width: 18px;
     height: 18px;
 
@@ -118,28 +119,26 @@
   }
 
   &__tab-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     min-width: 18px;
     height: 18px;
-    padding: 0 6px;
-    background-color: var(--color-error, #ef4444);
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 600;
-    border-radius: 9999px;
+    padding: 0 $spacing-2;
+    background-color: var(--color-error);
+    color: $color-neutral-1000;
+    font-size: $font-xs;
+    font-weight: $font-weight-semibold;
+    border-radius: $radius-full;
   }
 
   &__indicator {
     position: absolute;
-    background-color: var(--color-primary, #4f46e5);
-    transition: all 0.3s ease;
+    background-color: var(--color-primary);
+    transition: all $transition-base;
     pointer-events: none;
   }
 
   &__panels {
-    margin-top: 1rem;
+    margin-top: $spacing-4;
   }
 
   &__panel {
@@ -147,19 +146,19 @@
 
     &--active {
       display: block;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn $transition-base;
     }
   }
 
   &__panel-content {
-    color: var(--text-primary, #fff);
-    line-height: 1.6;
+    color: var(--text-primary);
+    line-height: $line-height-relaxed;
 
     p {
       margin: 0;
 
       & + p {
-        margin-top: 1rem;
+        margin-top: $spacing-4;
       }
     }
   }
@@ -169,7 +168,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-5px);
+    transform: translateY(-$spacing-2);
   }
   to {
     opacity: 1;
@@ -178,7 +177,7 @@
 }
 
 // Responsive
-@media (max-width: 640px) {
+@include respond-to('sm') {
   .tabs {
     &--vertical {
       flex-direction: column;
@@ -186,20 +185,20 @@
       .tabs__list {
         flex-direction: row;
         border-right: none;
-        border-bottom: 1px solid var(--border-color, #333);
+        border-bottom: $border-thin solid var(--border-color);
         min-width: auto;
         overflow-x: auto;
       }
 
       .tabs__panels {
         padding-left: 0;
-        padding-top: 1rem;
+        padding-top: $spacing-4;
       }
     }
 
     &__tab {
-      padding: 0.75rem 1rem;
-      font-size: 0.875rem;
+      padding: $spacing-3 $spacing-4;
+      font-size: $font-sm;
     }
   }
 }

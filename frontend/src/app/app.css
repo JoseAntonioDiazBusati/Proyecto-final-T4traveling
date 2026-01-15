@@ -2,8 +2,9 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #FFFFFF;
-  color: #333333;
+  background: var(--bg-body);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Debug: Asegurar que app-root sea visible */
@@ -22,7 +23,8 @@ router-outlet {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #FFFFFF;
+  background: var(--bg-body);
+  transition: background-color 0.3s ease;
 }
 
 /* Animación fade-in para contenido */

@@ -12,11 +12,12 @@ body {
   font-size: $font-base;
   font-weight: $font-weight-regular;
   line-height: $line-height-normal;
-  color: #333333;
-  background-color: #FFFFFF;
+  color: var(--text-primary);
+  background-color: var(--bg-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 // Encabezados - Diseño Figma T4-Traveling
@@ -24,8 +25,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $font-secondary;
   font-weight: $font-weight-bold;
   line-height: $line-height-tight;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: $spacing-4;
+  transition: color 0.3s ease;
 }
 
 h1 {
