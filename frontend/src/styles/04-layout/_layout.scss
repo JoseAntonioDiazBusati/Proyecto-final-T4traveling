@@ -8,7 +8,7 @@
 
 .container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 80rem;  // 1280px convertido a rem (1280/16)
   margin-left: auto;
   margin-right: auto;
   padding-left: $spacing-4;
@@ -26,12 +26,12 @@
 
   // Variante ancha
   &--wide {
-    max-width: 1536px;
+    max-width: 96rem;  // 1536px convertido a rem (1536/16)
   }
 
   // Variante estrecha
   &--narrow {
-    max-width: 768px;
+    max-width: 48rem;  // 768px convertido a rem (768/16)
   }
 }
 
@@ -84,7 +84,7 @@
 
   // Grid automático (ajusta columnas según contenido)
   &--auto {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));  // 250px convertido a rem
   }
 
   // Modificadores de gap

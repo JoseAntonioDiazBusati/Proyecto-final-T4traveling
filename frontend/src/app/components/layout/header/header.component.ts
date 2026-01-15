@@ -19,7 +19,7 @@ import { ThemeSwitcherComponent } from '../../shared/theme-switcher/theme-switch
   standalone: true,
   imports: [RouterLink, RouterLinkActive, ThemeSwitcherComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
   // Estado del menú móvil

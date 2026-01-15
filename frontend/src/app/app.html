@@ -1,6 +1,22 @@
-<router-outlet></router-outlet>
+<!-- Layout principal de la aplicación -->
+<div class="app-container">
+  <!-- Header con navegación -->
+  <app-header></app-header>
+
+  <!-- Contenido principal con router-outlet -->
+  <app-main>
+    <router-outlet></router-outlet>
+  </app-main>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
+</div>
 
 <!-- Componentes globales -->
 <app-toast-container></app-toast-container>
-<app-loading-spinner></app-loading-spinner>
+
+<!-- Debug: Verificar que Angular carga -->
+<div style="position: fixed; bottom: 10px; right: 10px; background: #4CAF50; color: white; padding: 10px; border-radius: 5px; font-size: 12px; z-index: 9999;">
+  ✓ Angular cargado
+</div>
 

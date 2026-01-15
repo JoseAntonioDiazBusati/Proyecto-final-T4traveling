@@ -3,6 +3,13 @@
   display: block;
   min-height: 100vh;
   background: #FFFFFF;
+  color: #333333;
+}
+
+/* Debug: Asegurar que app-root sea visible */
+app-root {
+  display: block;
+  min-height: 100vh;
 }
 
 /* Router outlet */

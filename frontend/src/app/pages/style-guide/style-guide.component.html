@@ -1,403 +1,459 @@
-<div class="style-guide">
-  <div class="style-guide__container container">
-    <!-- Header -->
-    <header class="style-guide__header">
-      <h1 class="style-guide__title">T4 Traveling - Style Guide</h1>
-      <p class="style-guide__subtitle">
-        Biblioteca de componentes UI - Todas las variantes, tamaños y estados
-      </p>
-    </header>
+<article class="style-guide" role="main" aria-label="Guía de estilos de T4 Traveling">
+  <header class="style-guide__header">
+    <h1 class="style-guide__main-title">Guía de Estilos - T4 Traveling</h1>
+    <p class="style-guide__description">Sistema de diseño completo con componentes reutilizables y accesibles</p>
+    <app-theme-switcher></app-theme-switcher>
+  </header>
 
-    <!-- Tabla de Contenidos -->
-    <nav class="style-guide__toc">
-      <h2 class="style-guide__toc-title">Tabla de Contenidos</h2>
-      <ul class="style-guide__toc-list">
-        <li><a href="#buttons">Botones</a></li>
-        <li><a href="#cards">Cards</a></li>
-        <li><a href="#forms">Formularios</a></li>
-        <li><a href="#alerts">Alertas</a></li>
-        <li><a href="#colors">Colores</a></li>
-        <li><a href="#typography">Tipografía</a></li>
-      </ul>
-    </nav>
+  <nav class="style-guide__nav" role="navigation" aria-label="Navegación de la guía">
+    <ul class="style-guide__nav-list" role="list">
+      <li><a href="#colores" class="style-guide__nav-link">Colores</a></li>
+      <li><a href="#tipografia" class="style-guide__nav-link">Tipografía</a></li>
+      <li><a href="#botones" class="style-guide__nav-link">Botones</a></li>
+      <li><a href="#cards" class="style-guide__nav-link">Cards</a></li>
+      <li><a href="#formularios" class="style-guide__nav-link">Formularios</a></li>
+      <li><a href="#feedback" class="style-guide__nav-link">Feedback</a></li>
+      <li><a href="#navegacion" class="style-guide__nav-link">Navegación</a></li>
+      <li><a href="#estados" class="style-guide__nav-link">Estados</a></li>
+    </ul>
+  </nav>
 
+  <main class="style-guide__container">
+
+    <!-- ========================================== -->
+    <!-- SECCIÓN: COLORES -->
+    <!-- ========================================== -->
+    <section id="colores" class="sg-section" aria-labelledby="colors-heading">
+      <h2 id="colors-heading" class="sg-section__title">🎨 Colores</h2>
+      <p class="sg-section__intro">Paleta de colores basada en el diseño de T4 Traveling</p>
+
+      <!-- Primarios -->
+      <article class="sg-subsection" aria-labelledby="primary-colors-heading">
+        <h3 id="primary-colors-heading" class="sg-subsection__title">Primarios</h3>
+        <ul class="sg-colors" role="list">
+          <li *ngFor="let color of primaryColors" class="sg-color-item">
+            <div class="sg-color-swatch"
+                 [ngStyle]="{ 'background-color': color.hex }"></div>
+            <div class="sg-color-info">
+              <span class="sg-color-name">{{ color.name }}</span>
+              <code class="sg-color-variable">{{ color.variable }}</code>
+              <code class="sg-color-hex">{{ color.hex }}</code>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Secundarios -->
+      <article class="sg-subsection" aria-labelledby="secondary-colors-heading">
+        <h3 id="secondary-colors-heading" class="sg-subsection__title">Secundarios</h3>
+        <ul class="sg-colors" role="list">
+          <li *ngFor="let color of secondaryColors" class="sg-color-item">
+            <div class="sg-color-swatch"
+                 [ngStyle]="{ 'background-color': color.hex }"></div>
+            <div class="sg-color-info">
+              <span class="sg-color-name">{{ color.name }}</span>
+              <code class="sg-color-variable">{{ color.variable }}</code>
+              <code class="sg-color-hex">{{ color.hex }}</code>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Semánticos -->
+      <article class="sg-subsection" aria-labelledby="semantic-colors-heading">
+        <h3 id="semantic-colors-heading" class="sg-subsection__title">Semánticos (Estados)</h3>
+        <ul class="sg-colors" role="list">
+          <li *ngFor="let color of semanticColors" class="sg-color-item">
+            <div class="sg-color-swatch"
+                 [ngStyle]="{ 'background-color': color.hex }"></div>
+            <div class="sg-color-info">
+              <span class="sg-color-name">{{ color.name }}</span>
+              <code class="sg-color-variable">{{ color.variable }}</code>
+              <code class="sg-color-hex">{{ color.hex }}</code>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Neutrales -->
+      <article class="sg-subsection" aria-labelledby="neutral-colors-heading">
+        <h3 id="neutral-colors-heading" class="sg-subsection__title">Neutrales (Escala de Grises)</h3>
+        <ul class="sg-colors sg-colors--grid" role="list">
+          <li *ngFor="let color of neutralColors" class="sg-color-item">
+            <div class="sg-color-swatch"
+                 [ngStyle]="{ 'background-color': color.hex }"
+                 [class.sg-color-swatch--light]="color.hex === '#FFFFFF' || color.hex === '#F5F5F5' || color.hex === '#E0E0E0'"></div>
+            <div class="sg-color-info">
+              <span class="sg-color-name">{{ color.name }}</span>
+              <code class="sg-color-variable">{{ color.variable }}</code>
+              <code class="sg-color-hex">{{ color.hex }}</code>
+            </div>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECCIÓN: TIPOGRAFÍA -->
+    <!-- ========================================== -->
+    <section id="tipografia" class="sg-section" aria-labelledby="typography-heading">
+      <h2 id="typography-heading" class="sg-section__title">✍️ Tipografía</h2>
+      <p class="sg-section__intro">Escala tipográfica con Roboto (texto) y Montserrat (títulos)</p>
+
+      <article class="sg-typography-demo">
+        <h1 class="sg-typo-example sg-typo-example--h1">Heading 1 - La aventura comienza aquí</h1>
+        <h2 class="sg-typo-example sg-typo-example--h2">Heading 2 - Descubre nuevos destinos</h2>
+        <h3 class="sg-typo-example sg-typo-example--h3">Heading 3 - Explora el mundo</h3>
+        <h4 class="sg-typo-example sg-typo-example--h4">Heading 4 - Viaja con nosotros</h4>
+        <h5 class="sg-typo-example sg-typo-example--h5">Heading 5 - Tu próxima aventura</h5>
+        <h6 class="sg-typo-example sg-typo-example--h6">Heading 6 - Reserva ahora</h6>
+        <p class="sg-typo-example sg-typo-example--p">
+          Párrafo: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <p class="sg-typo-example sg-typo-example--small">
+          <small>Texto pequeño: Términos y condiciones aplicables</small>
+        </p>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
     <!-- SECCIÓN: BOTONES -->
-    <section id="buttons" class="style-guide__section">
-      <h2 class="style-guide__section-title">Botones</h2>
-      <p class="style-guide__section-intro">
-        Componente button con 4 variantes, 3 tamaños y estados hover/focus/active/disabled.
-      </p>
+    <!-- ========================================== -->
+    <section id="botones" class="sg-section" aria-labelledby="buttons-heading">
+      <h2 id="buttons-heading" class="sg-section__title">🔘 Botones</h2>
+      <p class="sg-section__intro">Componentes de botón con múltiples variantes y tamaños</p>
 
-      <!-- Variantes -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Variantes</h3>
-        <div class="demo-group__content">
-          <app-button variant="primary" (click)="onButtonClick('primary')">
-            Primary Button
+      <!-- Primary Buttons -->
+      <article class="sg-subsection" aria-labelledby="primary-buttons-heading">
+        <h3 id="primary-buttons-heading" class="sg-subsection__title">Primary (Acción principal)</h3>
+        <nav class="sg-buttons-demo" role="group" aria-label="Botones primarios">
+          <app-button variant="primary" size="lg" (click)="onButtonClick('primary-lg')">
+            Large
           </app-button>
-          <app-button variant="secondary" (click)="onButtonClick('secondary')">
-            Secondary Button
+          <app-button variant="primary" size="md" (click)="onButtonClick('primary-md')">
+            Medium
           </app-button>
-          <app-button variant="ghost" (click)="onButtonClick('ghost')">
-            Ghost Button
+          <app-button variant="primary" size="sm" (click)="onButtonClick('primary-sm')">
+            Small
           </app-button>
-          <app-button variant="danger" (click)="onButtonClick('danger')">
-            Danger Button
+          <app-button variant="primary" size="md" [disabled]="true">
+            Disabled
           </app-button>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-button variant="primary"&gt;Primary Button&lt;/app-button&gt;
-&lt;app-button variant="secondary"&gt;Secondary Button&lt;/app-button&gt;
-&lt;app-button variant="ghost"&gt;Ghost Button&lt;/app-button&gt;
-&lt;app-button variant="danger"&gt;Danger Button&lt;/app-button&gt;</code></pre>
-      </div>
+        </nav>
+      </article>
 
-      <!-- Tamaños -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Tamaños</h3>
-        <div class="demo-group__content" style="align-items: center;">
-          <app-button variant="primary" size="sm">Small</app-button>
-          <app-button variant="primary" size="md">Medium</app-button>
-          <app-button variant="primary" size="lg">Large</app-button>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-button size="sm"&gt;Small&lt;/app-button&gt;
-&lt;app-button size="md"&gt;Medium&lt;/app-button&gt;
-&lt;app-button size="lg"&gt;Large&lt;/app-button&gt;</code></pre>
-      </div>
+      <!-- Secondary Buttons -->
+      <article class="sg-subsection" aria-labelledby="secondary-buttons-heading">
+        <h3 id="secondary-buttons-heading" class="sg-subsection__title">Secondary (Acción secundaria)</h3>
+        <nav class="sg-buttons-demo" role="group" aria-label="Botones secundarios">
+          <app-button variant="secondary" size="lg">Large</app-button>
+          <app-button variant="secondary" size="md">Medium</app-button>
+          <app-button variant="secondary" size="sm">Small</app-button>
+          <app-button variant="secondary" size="md" [disabled]="true">Disabled</app-button>
+        </nav>
+      </article>
 
-      <!-- Estados -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Estados</h3>
-        <div class="demo-group__content">
-          <app-button variant="primary">Normal</app-button>
-          <app-button variant="primary" [disabled]="true">Disabled</app-button>
-          <app-button variant="secondary">Hover me!</app-button>
-          <app-button variant="ghost">Focus me!</app-button>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-button [disabled]="true"&gt;Disabled&lt;/app-button&gt;</code></pre>
-      </div>
+      <!-- Ghost Buttons -->
+      <article class="sg-subsection" aria-labelledby="ghost-buttons-heading">
+        <h3 id="ghost-buttons-heading" class="sg-subsection__title">Ghost (Acción terciaria)</h3>
+        <nav class="sg-buttons-demo" role="group" aria-label="Botones ghost">
+          <app-button variant="ghost" size="lg">Large</app-button>
+          <app-button variant="ghost" size="md">Medium</app-button>
+          <app-button variant="ghost" size="sm">Small</app-button>
+          <app-button variant="ghost" size="md" [disabled]="true">Disabled</app-button>
+        </nav>
+      </article>
+
+      <!-- Danger Buttons -->
+      <article class="sg-subsection" aria-labelledby="danger-buttons-heading">
+        <h3 id="danger-buttons-heading" class="sg-subsection__title">Danger (Acciones destructivas)</h3>
+        <nav class="sg-buttons-demo" role="group" aria-label="Botones de peligro">
+          <app-button variant="danger" size="md">Eliminar</app-button>
+          <app-button variant="danger" size="md" [disabled]="true">Disabled</app-button>
+        </nav>
+      </article>
 
       <!-- Full Width -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Full Width</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-button variant="primary" [fullWidth]="true">Full Width Primary</app-button>
-          <app-button variant="secondary" [fullWidth]="true">Full Width Secondary</app-button>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-button [fullWidth]="true"&gt;Full Width&lt;/app-button&gt;</code></pre>
-      </div>
+      <article class="sg-subsection" aria-labelledby="fullwidth-buttons-heading">
+        <h3 id="fullwidth-buttons-heading" class="sg-subsection__title">Full Width</h3>
+        <app-button variant="primary" size="lg" [fullWidth]="true">
+          Botón de ancho completo
+        </app-button>
+      </article>
     </section>
 
+    <!-- ========================================== -->
     <!-- SECCIÓN: CARDS -->
-    <section id="cards" class="style-guide__section">
-      <h2 class="style-guide__section-title">Cards</h2>
-      <p class="style-guide__section-intro">
-        Componente card con imagen, título, descripción y acciones. Incluye variante horizontal.
-      </p>
+    <!-- ========================================== -->
+    <section id="cards" class="sg-section" aria-labelledby="cards-heading">
+      <h2 id="cards-heading" class="sg-section__title">🃏 Cards</h2>
+      <p class="sg-section__intro">Tarjetas para mostrar contenido estructurado</p>
 
-      <!-- Card Básica -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Card Básica</h3>
-        <div class="demo-group__content">
-          <app-card
-            imageSrc="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400"
-            imageAlt="París"
-            title="París, Francia"
-            description="La ciudad del amor, con sus icónicos monumentos y rica cultura.">
-            <div slot="actions">
-              <app-button variant="primary" size="sm">Ver Detalles</app-button>
-              <app-button variant="ghost" size="sm">Guardar</app-button>
-            </div>
-          </app-card>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-card
-  imageSrc="..."
-  title="París, Francia"
-  description="..."&gt;
-  &lt;div slot="actions"&gt;
-    &lt;app-button&gt;Ver Detalles&lt;/app-button&gt;
-  &lt;/div&gt;
-&lt;/app-card&gt;</code></pre>
-      </div>
+      <article class="sg-cards-grid">
+        <!-- Card básica -->
+        <app-card
+          imageSrc="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400"
+          imageAlt="París, Francia"
+          title="París, Francia"
+          description="La ciudad del amor con sus icónicos monumentos y encantadoras calles.">
+          <nav slot="actions" class="sg-card-actions">
+            <app-button variant="primary" size="sm">Ver Detalles</app-button>
+            <app-button variant="ghost" size="sm">Guardar</app-button>
+          </nav>
+        </app-card>
 
-      <!-- Card sin Imagen -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Card sin Imagen</h3>
-        <div class="demo-group__content">
-          <app-card
-            title="Información Importante"
-            description="Esta card no tiene imagen. Ideal para contenido textual o datos.">
-            <div slot="actions">
-              <app-button variant="secondary" size="sm">Más Info</app-button>
-            </div>
-          </app-card>
-        </div>
-      </div>
+        <!-- Card sin imagen -->
+        <app-card
+          title="Información Importante"
+          description="Tarjeta sin imagen que muestra contenido textual relevante para el usuario.">
+          <nav slot="actions" class="sg-card-actions">
+            <app-button variant="secondary" size="sm">Más Info</app-button>
+          </nav>
+        </app-card>
 
-      <!-- Card Horizontal -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Card Horizontal</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-card
-            [horizontal]="true"
-            imageSrc="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400"
-            imageAlt="Tokyo"
-            title="Tokyo, Japón"
-            description="Una metrópolis vibrante que combina tradición con modernidad.">
-            <div slot="actions">
-              <app-button variant="primary" size="sm">Explorar</app-button>
-            </div>
-          </app-card>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-card [horizontal]="true" ...&gt;&lt;/app-card&gt;</code></pre>
-      </div>
-
-      <!-- Grid de Cards -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Grid de Cards</h3>
-        <div class="demo-group__content grid-3">
-          <app-card
-            imageSrc="https://images.unsplash.com/photo-1543716091-a840c05249ec?w=400"
-            title="Destino 1"
-            description="Descripción breve del destino.">
-          </app-card>
-          <app-card
-            imageSrc="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?w=400"
-            title="Destino 2"
-            description="Descripción breve del destino.">
-          </app-card>
-          <app-card
-            imageSrc="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400"
-            title="Destino 3"
-            description="Descripción breve del destino.">
-          </app-card>
-        </div>
-      </div>
+        <!-- Card con hoverable -->
+        <app-card
+          imageSrc="https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=400"
+          imageAlt="Tokyo, Japón"
+          title="Tokyo, Japón"
+          description="Metrópolis vibrante que combina tradición y modernidad."
+          [hoverable]="true">
+          <nav slot="actions" class="sg-card-actions">
+            <app-button variant="primary" size="sm">Explorar</app-button>
+          </nav>
+        </app-card>
+      </article>
     </section>
 
+    <!-- ========================================== -->
     <!-- SECCIÓN: FORMULARIOS -->
-    <section id="forms" class="style-guide__section">
-      <h2 class="style-guide__section-title">Formularios</h2>
-      <p class="style-guide__section-intro">
-        Componentes de formulario: input, textarea y select. Todos con estados de error y ayuda.
-      </p>
+    <!-- ========================================== -->
+    <section id="formularios" class="sg-section" aria-labelledby="forms-heading">
+      <h2 id="forms-heading" class="sg-section__title">📝 Formularios</h2>
+      <p class="sg-section__intro">Componentes de formulario accesibles y validados</p>
 
-      <form [formGroup]="demoForm">
+      <form class="sg-form-demo" aria-label="Formulario de ejemplo">
         <!-- Form Input -->
-        <div class="demo-group">
-          <h3 class="demo-group__title">Form Input</h3>
-          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
+        <article class="sg-subsection" aria-labelledby="form-input-heading">
+          <h3 id="form-input-heading" class="sg-subsection__title">Text Input</h3>
+          <fieldset class="sg-form-group">
             <app-form-input
-              id="demo-input-1"
-              label="Nombre"
+              id="demo-name"
+              label="Nombre completo"
               type="text"
-              name="nombre"
-              placeholder="Ingresa tu nombre"
+              name="name"
+              placeholder="Ej: Juan Pérez"
               [required]="true"
-              helpText="Este es un texto de ayuda"
-              formControlName="demoInput">
+              helpText="Ingresa tu nombre y apellidos"
+              autocomplete="name">
             </app-form-input>
 
             <app-form-input
-              id="demo-input-2"
-              label="Email"
+              id="demo-email"
+              label="Correo electrónico"
               type="email"
               name="email"
-              placeholder="tu@email.com"
+              placeholder="tu&#64;email.com"
               [required]="true"
-              errorMessage="Este campo tiene un error"
-              formControlName="demoInput">
+              helpText="Usaremos este email para contactarte"
+              autocomplete="email">
             </app-form-input>
-
-            <app-form-input
-              id="demo-input-3"
-              label="Campo Deshabilitado"
-              type="text"
-              name="disabled"
-              [disabled]="true"
-              placeholder="Este campo está deshabilitado">
-            </app-form-input>
-          </div>
-          <pre class="demo-group__code"><code>&lt;app-form-input
-  id="nombre"
-  label="Nombre"
-  type="text"
-  [required]="true"
-  helpText="..."&gt;
-&lt;/app-form-input&gt;</code></pre>
-        </div>
-
-        <!-- Form Textarea -->
-        <div class="demo-group">
-          <h3 class="demo-group__title">Form Textarea</h3>
-          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
-            <app-form-textarea
-              id="demo-textarea"
-              label="Mensaje"
-              name="mensaje"
-              placeholder="Escribe tu mensaje aquí..."
-              [required]="true"
-              [rows]="5"
-              [maxLength]="200"
-              helpText="Máximo 200 caracteres"
-              formControlName="demoTextarea">
-            </app-form-textarea>
-          </div>
-          <pre class="demo-group__code"><code>&lt;app-form-textarea
-  id="mensaje"
-  label="Mensaje"
-  [rows]="5"
-  [maxLength]="200"&gt;
-&lt;/app-form-textarea&gt;</code></pre>
-        </div>
+          </fieldset>
+        </article>
 
         <!-- Form Select -->
-        <div class="demo-group">
-          <h3 class="demo-group__title">Form Select</h3>
-          <div class="demo-group__content" style="flex-direction: column; max-width: 500px;">
+        <article class="sg-subsection" aria-labelledby="form-select-heading">
+          <h3 id="form-select-heading" class="sg-subsection__title">Select</h3>
+          <fieldset class="sg-form-group">
             <app-form-select
               id="demo-select"
               label="Selecciona una opción"
-              name="opcion"
+              name="option"
               [options]="selectOptions"
+              placeholder="Elige una opción"
               [required]="true"
-              helpText="Selecciona una de las opciones disponibles"
-              formControlName="demoSelect">
+              helpText="Selecciona la opción que prefieras">
             </app-form-select>
-          </div>
-          <pre class="demo-group__code"><code>&lt;app-form-select
-  id="opcion"
-  label="Selecciona..."
-  [options]="options"
-  [required]="true"&gt;
-&lt;/app-form-select&gt;</code></pre>
-        </div>
+          </fieldset>
+        </article>
+
+        <!-- Form Textarea -->
+        <article class="sg-subsection" aria-labelledby="form-textarea-heading">
+          <h3 id="form-textarea-heading" class="sg-subsection__title">Textarea</h3>
+          <fieldset class="sg-form-group">
+            <app-form-textarea
+              id="demo-message"
+              label="Mensaje"
+              name="message"
+              placeholder="Escribe tu mensaje aquí..."
+              [required]="true"
+              [rows]="4"
+              [maxLength]="500"
+              helpText="Máximo 500 caracteres">
+            </app-form-textarea>
+          </fieldset>
+        </article>
       </form>
     </section>
 
-    <!-- SECCIÓN: ALERTAS -->
-    <section id="alerts" class="style-guide__section">
-      <h2 class="style-guide__section-title">Alertas</h2>
-      <p class="style-guide__section-intro">
-        Componente alert con 4 tipos: success, error, warning, info. Con opción de cerrar.
-      </p>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: FEEDBACK -->
+    <!-- ========================================== -->
+    <section id="feedback" class="sg-section" aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading" class="sg-section__title">💬 Elementos de Feedback</h2>
+      <p class="sg-section__intro">Alertas y notificaciones para comunicar estados</p>
 
-      <div class="demo-group">
-        <h3 class="demo-group__title">Tipos de Alertas</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-alert type="success" title="Éxito" (dismissed)="onAlertDismissed('success')">
-            La operación se completó exitosamente.
-          </app-alert>
+      <!-- Alerts -->
+      <article class="sg-subsection" aria-labelledby="alerts-heading">
+        <h3 id="alerts-heading" class="sg-subsection__title">Alerts</h3>
 
-          <app-alert type="error" title="Error" (dismissed)="onAlertDismissed('error')">
-            Hubo un error al procesar tu solicitud.
-          </app-alert>
+        <app-alert type="success" title="¡Éxito!" [dismissible]="true">
+          Tu reserva ha sido confirmada correctamente. Recibirás un email con los detalles.
+        </app-alert>
 
-          <app-alert type="warning" title="Advertencia" (dismissed)="onAlertDismissed('warning')">
-            Esta acción puede tener consecuencias. Procede con precaución.
-          </app-alert>
+        <app-alert type="info" title="Información" [dismissible]="true">
+          Recuerda que puedes modificar tu reserva hasta 48 horas antes del viaje.
+        </app-alert>
 
-          <app-alert type="info" title="Información" (dismissed)="onAlertDismissed('info')">
-            Esta es una alerta informativa para comunicar datos importantes.
-          </app-alert>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-alert type="success" title="Éxito"&gt;
-  Mensaje de éxito...
-&lt;/app-alert&gt;</code></pre>
-      </div>
+        <app-alert type="warning" title="Advertencia" [dismissible]="true">
+          Tu sesión expirará en 5 minutos. Guarda tus cambios.
+        </app-alert>
 
-      <!-- Sin Título -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">Sin Título</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-alert type="info">
-            Esta alerta no tiene título, solo el mensaje.
-          </app-alert>
-        </div>
-      </div>
+        <app-alert type="error" title="Error" [dismissible]="true">
+          No se pudo procesar el pago. Por favor, verifica tus datos.
+        </app-alert>
+      </article>
 
-      <!-- No Dismissible -->
-      <div class="demo-group">
-        <h3 class="demo-group__title">No Dismissible</h3>
-        <div class="demo-group__content" style="flex-direction: column;">
-          <app-alert type="warning" title="Importante" [dismissible]="false">
-            Esta alerta no se puede cerrar.
-          </app-alert>
-        </div>
-        <pre class="demo-group__code"><code>&lt;app-alert [dismissible]="false"&gt;...&lt;/app-alert&gt;</code></pre>
-      </div>
+      <!-- Modal -->
+      <article class="sg-subsection" aria-labelledby="modal-heading">
+        <h3 id="modal-heading" class="sg-subsection__title">Modal</h3>
+        <app-button variant="primary" size="md" (click)="openModal()">
+          Abrir Modal
+        </app-button>
+
+        <app-modal
+          [isOpen]="isModalOpen"
+          title="Confirmar Reserva"
+          size="md"
+          [showCloseButton]="true"
+          (closed)="closeModal()">
+          <p>¿Estás seguro de que deseas confirmar esta reserva?</p>
+          <p>Una vez confirmada, se procesará el pago.</p>
+
+          <nav slot="footer" class="sg-modal-actions">
+            <app-button variant="ghost" size="md" (click)="closeModal()">
+              Cancelar
+            </app-button>
+            <app-button variant="primary" size="md" (click)="closeModal()">
+              Confirmar
+            </app-button>
+          </nav>
+        </app-modal>
+      </article>
+
+      <!-- Loading Spinner -->
+      <article class="sg-subsection" aria-labelledby="spinner-heading">
+        <h3 id="spinner-heading" class="sg-subsection__title">Loading Spinner</h3>
+        <nav class="sg-spinners-demo" role="group">
+          <app-loading-spinner></app-loading-spinner>
+          <app-loading-spinner></app-loading-spinner>
+          <app-loading-spinner></app-loading-spinner>
+        </nav>
+      </article>
     </section>
 
-    <!-- SECCIÓN: COLORES -->
-    <section id="colors" class="style-guide__section">
-      <h2 class="style-guide__section-title">Paleta de Colores</h2>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: NAVEGACIÓN -->
+    <!-- ========================================== -->
+    <section id="navegacion" class="sg-section" aria-labelledby="navigation-heading">
+      <h2 id="navigation-heading" class="sg-section__title">🧭 Navegación</h2>
+      <p class="sg-section__intro">Componentes de navegación interactivos</p>
 
-      <div class="color-palette">
-        <div class="color-group">
-          <h3>Primarios</h3>
-          <div class="color-swatches">
-            <div class="color-swatch" style="background: #FF5D1C;">
-              <span>Primary</span>
-              <code>#FF5D1C</code>
-            </div>
-            <div class="color-swatch" style="background: #FFE5A1;">
-              <span>Secondary</span>
-              <code>#FFE5A1</code>
-            </div>
-          </div>
-        </div>
+      <!-- Tabs -->
+      <article class="sg-subsection" aria-labelledby="tabs-heading">
+        <h3 id="tabs-heading" class="sg-subsection__title">Tabs</h3>
+        <app-tabs [tabs]="tabs" orientation="horizontal"></app-tabs>
+      </article>
 
-        <div class="color-group">
-          <h3>Semánticos</h3>
-          <div class="color-swatches">
-            <div class="color-swatch" style="background: #10B981;">
-              <span>Success</span>
-              <code>#10B981</code>
-            </div>
-            <div class="color-swatch" style="background: #EF4444;">
-              <span>Error</span>
-              <code>#EF4444</code>
-            </div>
-            <div class="color-swatch" style="background: #F59E0B;">
-              <span>Warning</span>
-              <code>#F59E0B</code>
-            </div>
-            <div class="color-swatch" style="background: #3B82F6;">
-              <span>Info</span>
-              <code>#3B82F6</code>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Accordion -->
+      <article class="sg-subsection" aria-labelledby="accordion-heading">
+        <h3 id="accordion-heading" class="sg-subsection__title">Accordion</h3>
+        <app-accordion [items]="accordionItems" [allowMultiple]="false"></app-accordion>
+      </article>
     </section>
 
-    <!-- SECCIÓN: TIPOGRAFÍA -->
-    <section id="typography" class="style-guide__section">
-      <h2 class="style-guide__section-title">Tipografía</h2>
+    <!-- ========================================== -->
+    <!-- SECCIÓN: ESTADOS -->
+    <!-- ========================================== -->
+    <section id="estados" class="sg-section" aria-labelledby="states-heading">
+      <h2 id="states-heading" class="sg-section__title">📊 Estados</h2>
+      <p class="sg-section__intro">Componentes para mostrar diferentes estados de la aplicación</p>
 
-      <div class="typography-samples">
-        <div class="typography-sample">
-          <h1>Heading 1 - Display XL</h1>
-          <code>font-size: 3.5rem (56px)</code>
-        </div>
-        <div class="typography-sample">
-          <h2>Heading 2 - Display Large</h2>
-          <code>font-size: 2.5rem (40px)</code>
-        </div>
-        <div class="typography-sample">
-          <h3>Heading 3 - Display Medium</h3>
-          <code>font-size: 2rem (32px)</code>
-        </div>
-        <div class="typography-sample">
-          <h4>Heading 4 - Display Small</h4>
-          <code>font-size: 1.5rem (24px)</code>
-        </div>
-        <div class="typography-sample">
-          <p style="font-size: 1.125rem;">Paragraph Large - 1.125rem (18px)</p>
-          <p>Paragraph Base - 1rem (16px)</p>
-          <p style="font-size: 0.875rem;">Paragraph Small - 0.875rem (14px)</p>
-        </div>
-      </div>
+      <!-- Loading State -->
+      <article class="sg-subsection" aria-labelledby="loading-heading">
+        <h3 id="loading-heading" class="sg-subsection__title">Loading State</h3>
+        <app-loading-state message="Cargando destinos..."></app-loading-state>
+      </article>
+
+      <!-- Empty State -->
+      <article class="sg-subsection" aria-labelledby="empty-heading">
+        <h3 id="empty-heading" class="sg-subsection__title">Empty State</h3>
+        <app-empty-state
+          title="No hay reservas"
+          message="Aún no has realizado ninguna reserva. ¡Explora nuestros destinos!"
+          icon="inbox">
+        </app-empty-state>
+      </article>
+
+      <!-- Error State -->
+      <article class="sg-subsection" aria-labelledby="error-heading">
+        <h3 id="error-heading" class="sg-subsection__title">Error State</h3>
+        <app-error-state
+          title="Error de conexión"
+          message="No se pudo cargar el contenido. Por favor, intenta nuevamente."
+          [showRetry]="true">
+        </app-error-state>
+      </article>
     </section>
-  </div>
-</div>
 
+    <!-- ========================================== -->
+    <!-- SECCIÓN: ELEVACIONES Y RADIOS -->
+    <!-- ========================================== -->
+    <section id="elevaciones" class="sg-section" aria-labelledby="shadows-heading">
+      <h2 id="shadows-heading" class="sg-section__title">🎭 Sombras y Radios</h2>
+      <p class="sg-section__intro">Sistema de elevaciones y border-radius</p>
+
+      <article class="sg-shadows-demo">
+        <aside class="sg-shadow-box sg-shadow-box--sm" aria-label="Ejemplo de sombra pequeña">
+          <code>shadow-sm</code>
+        </aside>
+        <aside class="sg-shadow-box sg-shadow-box--md" aria-label="Ejemplo de sombra mediana">
+          <code>shadow-md</code>
+        </aside>
+        <aside class="sg-shadow-box sg-shadow-box--lg" aria-label="Ejemplo de sombra grande">
+          <code>shadow-lg</code>
+        </aside>
+        <aside class="sg-shadow-box sg-shadow-box--xl" aria-label="Ejemplo de sombra extra grande">
+          <code>shadow-xl</code>
+        </aside>
+      </article>
+
+      <article class="sg-radius-demo">
+        <aside class="sg-radius-box sg-radius-box--sm" aria-label="Radio pequeño">sm</aside>
+        <aside class="sg-radius-box sg-radius-box--md" aria-label="Radio mediano">md</aside>
+        <aside class="sg-radius-box sg-radius-box--lg" aria-label="Radio grande">lg</aside>
+        <aside class="sg-radius-box sg-radius-box--xl" aria-label="Radio extra grande">xl</aside>
+        <aside class="sg-radius-box sg-radius-box--full" aria-label="Radio completo">full</aside>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="style-guide__footer">
+    <p>&copy; 2026 T4 Traveling - Sistema de Diseño v1.0</p>
+    <p>Diseñado con accesibilidad y usabilidad en mente</p>
+  </footer>
+
+  <!-- Toast Container (siempre presente pero oculto hasta que se muestre una notificación) -->
+  <app-toast-container></app-toast-container>
+</article>
