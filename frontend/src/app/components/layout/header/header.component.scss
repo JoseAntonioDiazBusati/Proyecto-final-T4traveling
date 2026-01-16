@@ -44,7 +44,7 @@
     }
 
     &:focus {
-      outline: 2px solid $color-neutral-1000;
+      outline: 2px solid #FFFFFF;
       outline-offset: 4px;
       border-radius: $radius-sm;
     }
@@ -68,7 +68,7 @@
     font-family: $font-secondary;
     font-size: $font-lg;
     font-weight: $font-weight-bold;
-    color: $color-neutral-1000;
+    color: #FFFFFF; // Blanco para mejor contraste en el header naranja
     white-space: nowrap;
 
     @include respond-to('md') {
@@ -123,7 +123,7 @@
   }
 
   &__nav-item {
-    border-bottom: 1px solid rgba($color-neutral-1000, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
     @include respond-to('lg') {
       border-bottom: none;
@@ -138,7 +138,7 @@
     display: flex;
     align-items: center;
     padding: $spacing-4 $spacing-6;
-    color: $color-neutral-1000;
+    color: #FFFFFF; // Blanco para mejor contraste en el header naranja
     font-weight: $font-weight-medium;
     text-decoration: none;
     transition: all $transition-base;
@@ -152,27 +152,27 @@
     }
 
     &:hover {
-      background-color: rgba($color-neutral-1000, 0.1);
+      background-color: rgba(255, 255, 255, 0.15);
       padding-left: $spacing-8;
 
       @include respond-to('lg') {
         padding-left: $spacing-4;
-        background-color: rgba($color-neutral-1000, 0.15);
+        background-color: rgba(255, 255, 255, 0.2);
       }
     }
 
     &:focus {
-      outline: 2px solid $color-neutral-1000;
+      outline: 2px solid #FFFFFF;
       outline-offset: -2px;
     }
 
     // Estado activo
     &--active {
-      background-color: rgba($color-neutral-1000, 0.2);
+      background-color: rgba(255, 255, 255, 0.25);
       font-weight: $font-weight-bold;
 
       @include respond-to('lg') {
-        background-color: rgba($color-neutral-1000, 0.25);
+        background-color: rgba(255, 255, 255, 0.3);
 
         &::after {
           content: '';
@@ -181,7 +181,7 @@
           left: $spacing-4;
           right: $spacing-4;
           height: 3px;
-          background-color: $color-primary-3;
+          background-color: #FFFFFF;
           border-radius: $radius-full;
         }
       }
@@ -203,20 +203,20 @@
     height: 44px;
     flex-shrink: 0;
     background-color: transparent;
-    border: 2px solid rgba($color-neutral-1000, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: $radius-md;
-    color: $color-neutral-1000;
+    color: #FFFFFF;
     cursor: pointer;
     transition: all $transition-base;
 
     &:hover {
-      background-color: rgba($color-neutral-1000, 0.1);
-      border-color: $color-neutral-1000;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-color: #FFFFFF;
       transform: translateY(-2px);
     }
 
     &:focus {
-      outline: 2px solid $color-neutral-1000;
+      outline: 2px solid #FFFFFF;
       outline-offset: 2px;
     }
 
@@ -241,7 +241,7 @@
     height: 44px;
     flex-shrink: 0;
     background-color: transparent;
-    border: 2px solid rgba($color-neutral-1000, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: $radius-md;
     cursor: pointer;
     transition: all $transition-base;
@@ -252,12 +252,12 @@
     }
 
     &:hover {
-      background-color: rgba($color-neutral-1000, 0.1);
-      border-color: $color-neutral-1000;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-color: #FFFFFF;
     }
 
     &:focus {
-      outline: 2px solid $color-neutral-1000;
+      outline: 2px solid #FFFFFF;
       outline-offset: 2px;
     }
 
@@ -281,7 +281,7 @@
   &__menu-toggle-bar {
     width: 24px;
     height: 3px;
-    background-color: $color-neutral-1000;
+    background-color: #FFFFFF;
     border-radius: $radius-full;
     transition: all $transition-base;
   }

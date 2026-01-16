@@ -8,9 +8,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  background-color: $color-neutral-1000;
+  background-color: var(--bg-surface);
   border-radius: $radius-lg;
-  box-shadow: $shadow-sm;
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
   transition: all $transition-base;
 
@@ -21,7 +21,7 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    background-color: $color-neutral-900;
+    background-color: var(--bg-secondary);
   }
 
   &__image {
@@ -46,14 +46,14 @@
   &__title {
     font-size: $font-xl;
     font-weight: $font-weight-bold;
-    color: $color-neutral-0;
+    color: var(--text-primary);
     margin: 0;
     line-height: $line-height-tight;
   }
 
   &__description {
     font-size: $font-base;
-    color: $color-neutral-400;
+    color: var(--text-secondary);
     line-height: $line-height-relaxed;
     margin: 0;
   }
