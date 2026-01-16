@@ -116,9 +116,11 @@
 // ============================================
 
 [data-theme="dark"] {
-  --bg-body: #{$color-neutral-0};
-  --bg-surface: #{$color-neutral-50};
-  --bg-hover: #{$color-neutral-100};
+  --bg-body: #{$color-neutral-50};
+  --bg-primary: #{$color-neutral-100};
+  --bg-secondary: #{$color-neutral-200};
+  --bg-surface: #{$color-neutral-100};
+  --bg-hover: #{$color-neutral-200};
 
   --text-primary: #{$color-neutral-1000};
   --text-secondary: #{$color-neutral-700};
@@ -129,10 +131,10 @@
   --border-color-light: #{$color-neutral-200};
   --border-color-dark: #{$color-neutral-400};
 
-  --shadow-sm: 0 1px 3px rgba(255, 255, 255, 0.12), 0 1px 2px rgba(255, 255, 255, 0.24);
-  --shadow-md: 0 3px 6px rgba(255, 255, 255, 0.16), 0 3px 6px rgba(255, 255, 255, 0.23);
-  --shadow-lg: 0 14px 28px rgba(255, 255, 255, 0.25), 0 10px 10px rgba(255, 255, 255, 0.22);
-  --shadow-xl: 0 19px 38px rgba(255, 255, 255, 0.30), 0 15px 12px rgba(255, 255, 255, 0.22);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.4), 0 3px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 14px 28px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 19px 38px rgba(0, 0, 0, 0.6), 0 15px 12px rgba(0, 0, 0, 0.7);
 }
 
 // ============================================

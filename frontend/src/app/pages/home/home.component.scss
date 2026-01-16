@@ -1,0 +1,189 @@
+// ============================================
+// HOME COMPONENT - Página de inicio
+// ============================================
+
+@import '../../../styles/00-settings/variables';
+@import '../../../styles/01-tools/mixins';
+
+.home {
+  background: var(--bg-body);
+  min-height: 100%;
+  transition: background-color $transition-base;
+}
+
+// ----------------
+// HERO SECTION
+// ----------------
+.hero {
+  text-align: center;
+  padding: $spacing-16 $spacing-8;
+  background: var(--color-primary);
+  color: $color-neutral-1000;
+  border-radius: $radius-2xl;
+  margin: 0 $spacing-8 $spacing-8;
+  box-shadow: $shadow-lg;
+  transition: all $transition-base;
+
+  @include respond-to('md') {
+    padding: $spacing-20 $spacing-12;
+    margin: 0 $spacing-12 $spacing-12;
+  }
+
+  &__content {
+    max-width: 50rem; // 800px
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: $font-2xl;
+    font-family: $font-secondary;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-4;
+    color: $color-neutral-1000;
+    line-height: $line-height-tight;
+
+    @include respond-to('md') {
+      font-size: $font-3xl;
+      margin-bottom: $spacing-6;
+    }
+
+    @include respond-to('lg') {
+      font-size: $font-4xl;
+    }
+  }
+
+  p {
+    font-size: $font-md;
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-8;
+    color: $color-neutral-1000;
+    opacity: 0.95;
+
+    @include respond-to('md') {
+      font-size: $font-lg;
+    }
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: $spacing-4;
+    flex-wrap: wrap;
+  }
+}
+
+// ----------------
+// FEATURED SECTION
+// ----------------
+.featured {
+  padding: 0 $spacing-8 $spacing-12;
+
+  @include respond-to('md') {
+    padding: 0 $spacing-12 $spacing-16;
+  }
+
+  h2 {
+    font-size: $font-xl;
+    font-family: $font-secondary;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-6;
+    transition: color $transition-base;
+
+    @include respond-to('md') {
+      font-size: $font-2xl;
+      margin-bottom: $spacing-8;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr)); // 250px
+    gap: $spacing-6;
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+// ----------------
+// CARDS
+// ----------------
+.card {
+  background: var(--bg-surface);
+  padding: $spacing-6;
+  border-radius: $radius-lg;
+  border: $border-thin solid var(--border-color);
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+
+  &:hover {
+    transform: translateY(-$spacing-2);
+    box-shadow: $shadow-lg;
+    border-color: var(--color-primary);
+  }
+
+  h3 {
+    font-size: $font-lg;
+    font-family: $font-secondary;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-2;
+    transition: color $transition-base;
+  }
+
+  p {
+    font-size: $font-base;
+    color: var(--text-secondary);
+    margin-bottom: $spacing-5;
+    line-height: $line-height-normal;
+    transition: color $transition-base;
+  }
+}
+
+// ----------------
+// BUTTONS
+// ----------------
+.btn {
+  @include button-base(var(--color-primary), $color-neutral-1000);
+  font-size: $font-base;
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-md;
+  text-align: center;
+  gap: $spacing-2;
+
+  &--primary {
+    background: $color-neutral-1000;
+    color: var(--color-primary);
+    padding: $spacing-4 $spacing-8;
+    box-shadow: $shadow-md;
+
+    &:hover {
+      background: var(--bg-secondary);
+      transform: translateY(-$spacing-1);
+      box-shadow: $shadow-lg;
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  &--sm {
+    padding: $spacing-3 $spacing-5;
+    font-size: $font-sm;
+    background: var(--color-primary);
+    color: $color-neutral-1000;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-$spacing-1);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+

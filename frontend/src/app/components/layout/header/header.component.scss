@@ -17,8 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: $spacing-4;
-    padding-bottom: $spacing-4;
+    height: 72px;
     gap: $spacing-6;
   }
 
@@ -27,6 +26,9 @@
   // ----------------
   &__logo {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    height: 44px;
   }
 
   &__logo-link {
@@ -35,6 +37,7 @@
     gap: $spacing-3;
     text-decoration: none;
     transition: transform $transition-base;
+    height: 100%;
 
     &:hover {
       transform: scale(1.05);
@@ -52,7 +55,7 @@
     width: auto;
 
     @include respond-to('md') {
-      height: 48px;
+      height: 44px;
     }
   }
 
@@ -66,6 +69,7 @@
     font-size: $font-lg;
     font-weight: $font-weight-bold;
     color: $color-neutral-1000;
+    white-space: nowrap;
 
     @include respond-to('md') {
       font-size: $font-xl;
@@ -131,16 +135,19 @@
   }
 
   &__nav-link {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: $spacing-4 $spacing-6;
     color: $color-neutral-1000;
     font-weight: $font-weight-medium;
     text-decoration: none;
     transition: all $transition-base;
     position: relative;
+    white-space: nowrap;
 
     @include respond-to('lg') {
       padding: $spacing-3 $spacing-4;
+      height: 44px;
       border-radius: $radius-md;
     }
 
@@ -194,6 +201,7 @@
     @include flex-center;
     width: 44px;
     height: 44px;
+    flex-shrink: 0;
     background-color: transparent;
     border: 2px solid rgba($color-neutral-1000, 0.3);
     border-radius: $radius-md;
@@ -231,6 +239,7 @@
     gap: 5px;
     width: 44px;
     height: 44px;
+    flex-shrink: 0;
     background-color: transparent;
     border: 2px solid rgba($color-neutral-1000, 0.3);
     border-radius: $radius-md;
