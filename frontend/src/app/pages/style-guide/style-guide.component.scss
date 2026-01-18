@@ -26,12 +26,14 @@
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
+    color: var(--text-inverse);
     text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
   }
 
   &__description {
     font-size: 1.125rem;
     margin-bottom: 1.5rem;
+    color: var(--text-inverse);
     opacity: 0.95;
   }
 

@@ -6,7 +6,6 @@ import { FormService } from '../../services/form.service';
 import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
 import { DomManipulationService } from '../../services/dom-manipulation.service';
-
 interface Traveler {
   firstName: string;
   lastName: string;
@@ -55,7 +54,7 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
     { id: 3, name: 'Barcelona, España', price: 399 },
     { id: 4, name: 'Londres, Reino Unido', price: 799 },
     { id: 5, name: 'Ámsterdam, Países Bajos', price: 549 }
-  ];
+  destinations: Destination[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -63,7 +62,8 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
     private notificationService: NotificationService,
     private loadingService: LoadingService,
     private renderer: Renderer2,
-    private domService: DomManipulationService
+    private domService: DomManipulationService,
+    private destinationService: DestinationService
   ) {
     // Establecer fechas mínimas y máximas
     const today = new Date();
@@ -77,6 +77,16 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.initForm();
     this.formService.registerForm(this.formId, this.bookingForm);
+
+    // Cargar destinos reales desde el servicio
+    this.destinationService.getDestinations().subscribe({
+      next: (destinations) => {
+        this.destinations = destinations;
+      },
+      error: (error) => {
+        console.error('Error al cargar destinos:', error);
+      }
+    });
 
     // Añadir al menos un viajero por defecto
     this.addTraveler();
@@ -357,7 +367,7 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getSelectedDestination() {
     const destinationId = this.bookingForm.get('destination')?.value;
-    return this.destinations.find(d => d.id === parseInt(destinationId));
+    return this.destinations.find(d => d.id === destinationId);
   }
 
   calculateTotalPrice(): number {
