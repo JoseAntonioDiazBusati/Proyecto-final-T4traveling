@@ -16,6 +16,12 @@
 
   &__container {
     // Usa .container para ancho y padding responsive automático
+    width: 100%;
+    max-width: 80rem;  // 1280px
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $spacing-4;
+    padding-right: $spacing-4;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -28,8 +34,15 @@
     }
 
     @include respond-to('md') {
+      padding-left: $spacing-6;
+      padding-right: $spacing-6;
       height: 72px;
       gap: $spacing-6;
+    }
+
+    @include respond-to('lg') {
+      padding-left: $spacing-8;
+      padding-right: $spacing-8;
     }
   }
 
@@ -122,7 +135,7 @@
   &__nav {
     // Móvil: menú oculto por defecto
     position: fixed;
-    top: 72px; // Altura del header
+    top: 60px; // Altura del header en móvil
     left: 0;
     right: 0;
     background-color: $color-primary-0;
@@ -130,6 +143,14 @@
     overflow: hidden;
     transition: max-height $transition-base;
     box-shadow: $shadow-md;
+
+    @include respond-to('sm') {
+      top: 64px; // Altura del header en sm
+    }
+
+    @include respond-to('md') {
+      top: 72px; // Altura del header en md
+    }
 
     @include respond-to('lg') {
       // Desktop: navegación visible en línea
