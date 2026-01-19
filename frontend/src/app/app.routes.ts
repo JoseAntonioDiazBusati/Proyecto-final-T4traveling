@@ -114,13 +114,14 @@ export const routes: Routes = [
   },
 
   /**
-   * Reservas - Página de creación manual de reservas
+   * Reservas - Página de gestión de reservas (REQUIERE AUTENTICACIÓN)
    */
   {
     path: 'reservas',
     loadComponent: () => import('./pages/reservations/reservations.component').then(m => m.ReservationsComponent),
+    canActivate: [authGuard],
     data: {
-      breadcrumb: 'Reservas',
+      breadcrumb: 'Mis Reservas',
       breadcrumbIcon: '📋'
     }
   },

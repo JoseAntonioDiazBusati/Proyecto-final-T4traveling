@@ -1,11 +1,16 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CustomValidators } from '../../validators/custom-validators';
 import { FormService } from '../../services/form.service';
 import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
 import { DestinationService, Destination } from '../../services/destination.service';
+import { TransportService, Transport } from '../../services/transport.service';
+import { ReservationService } from '../../services/reservation.service';
+import { AuthService } from '../../services/auth.service';
+import type { CreateReservationDto } from '../../models/reservation.models';
 
 /**
  * BookingFormComponent - Formulario de reserva de viajes
@@ -36,6 +41,12 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
   maxDate: string;
 
   destinations: Destination[] = [];
+  transports: Transport[] = [];
+
+  private reservationService = inject(ReservationService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private transportService = inject(TransportService);
 
   constructor(
     private fb: FormBuilder,
@@ -64,6 +75,16 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       error: (error) => {
         console.error('Error al cargar destinos:', error);
+      }
+    });
+
+    // Cargar transportes
+    this.transportService.getTransports().subscribe({
+      next: (transports) => {
+        this.transports = transports;
+      },
+      error: (error) => {
+        console.error('Error al cargar transportes:', error);
       }
     });
 
@@ -292,44 +313,92 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
+    // Verificar autenticación
+    const currentUser = this.authService.currentUser();
+    if (!currentUser) {
+      this.notificationService.warning('Debes iniciar sesión para crear una reserva');
+      this.router.navigate(['/login'], { queryParams: { returnUrl: '/reservar' } });
+      return;
+    }
+
     this.formService.setSubmitting(this.formId, true);
     this.loadingService.show('booking-submit', 'Procesando reserva...');
 
     try {
-      await this.simulateApiCall();
+      const formValue = this.bookingForm.value;
 
-      const total = this.calculateTotalPrice();
-      this.notificationService.success(
-        `¡Reserva confirmada! Total: ${total}€`,
-        {
-          title: 'Reserva exitosa',
-          duration: 7000
+      // Buscar destino y transporte seleccionados
+      const destination = this.destinations.find(d => d.id === formValue.destination);
+      const transport = this.transports.find(t => t.id === formValue.transportType);
+
+      if (!destination || !transport) {
+        throw new Error('Destino o transporte no encontrado');
+      }
+
+      // Calcular precio total
+      const totalPrice = this.calculateTotalPrice();
+
+      // Crear DTO para la reserva
+      const reservationDto: CreateReservationDto = {
+        destinationId: destination.id,
+        destinationName: destination.name,
+        transportType: transport.type,
+        passengers: this.travelers.length,
+        departureDate: formValue.departureDate,
+        returnDate: formValue.returnDate,
+        totalPrice: totalPrice,
+        customerName: formValue.contactFullName || currentUser.name,
+        customerEmail: formValue.contactEmail || currentUser.email,
+        customerPhone: formValue.contactPhone || '',
+        specialRequests: formValue.specialRequests || ''
+      };
+
+      // Guardar la reserva
+      this.reservationService.createReservation(currentUser.id, reservationDto).subscribe({
+        next: (reservation) => {
+          this.notificationService.success(
+            `¡Reserva confirmada! Total: ${totalPrice}€`,
+            {
+              title: 'Reserva exitosa',
+              duration: 7000
+            }
+          );
+
+          this.bookingForm.reset();
+          this.travelers.clear();
+          this.addTraveler();
+
+          // Redirigir a la página de reservas
+          setTimeout(() => {
+            this.router.navigate(['/reservas']);
+          }, 2000);
+        },
+        error: (error) => {
+          console.error('Error al crear reserva:', error);
+          this.notificationService.error('Error al procesar la reserva. Inténtelo de nuevo.', {
+            title: 'Error',
+            duration: 0,
+            dismissible: true
+          });
+          this.formService.setSubmitting(this.formId, false);
+          this.loadingService.hide('booking-submit');
+        },
+        complete: () => {
+          this.formService.setSubmitting(this.formId, false);
+          this.loadingService.hide('booking-submit');
         }
-      );
-
-      this.bookingForm.reset();
-      this.travelers.clear();
-      this.addTraveler();
+      });
     } catch (error) {
       this.notificationService.error('Error al procesar la reserva. Inténtelo de nuevo.', {
         title: 'Error',
         duration: 0,
         dismissible: true
       });
-    } finally {
       this.formService.setSubmitting(this.formId, false);
       this.loadingService.hide('booking-submit');
     }
   }
 
-  private simulateApiCall(): Promise<void> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        console.log('Booking Data:', this.bookingForm.value);
-        resolve();
-      }, 2000);
-    });
-  }
 
   resetForm(): void {
     this.formService.resetForm(this.formId, this.bookingForm);
