@@ -16,7 +16,6 @@ import { LoadingSpinnerComponent } from '../../components/shared/loading-spinner
 import { LoadingStateComponent } from '../../components/shared/loading-state/loading-state.component';
 import { EmptyStateComponent } from '../../components/shared/empty-state/empty-state.component';
 import { ErrorStateComponent } from '../../components/shared/error-state/error-state.component';
-import { ThemeSwitcherComponent } from '../../components/shared/theme-switcher/theme-switcher.component';
 import { ToastContainerComponent } from '../../components/shared/toast-container/toast-container.component';
 
 interface ColorItem {
@@ -56,7 +55,6 @@ interface SelectOption {
     LoadingStateComponent,
     EmptyStateComponent,
     ErrorStateComponent,
-    ThemeSwitcherComponent,
     ToastContainerComponent
   ],
   templateUrl: './style-guide.component.html',

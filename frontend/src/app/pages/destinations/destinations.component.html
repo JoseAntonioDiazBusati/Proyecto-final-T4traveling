@@ -1,0 +1,27 @@
+<div class="destinations">
+  <header class="header">
+    <h1>Nuestros destinos</h1>
+    <p>Descubre lugares increíbles en todo el mundo</p>
+  </header>
+  <div class="filters">
+    <button *ngFor="let cat of categories" (click)="filterByCategory(cat)"
+      [class.active]="selectedCategory === cat">{{ cat }}</button>
+    <button (click)="filterByCategory('')" [class.active]="!selectedCategory">Todos</button>
+  </div>
+  <div class="grid">
+    <article *ngFor="let d of filteredDestinations" class="card">
+      <div class="card__header">
+        <span class="category">{{ d.category }}</span>
+        <span class="rating">{{ d.rating }}</span>
+      </div>
+      <h2>{{ d.name }}</h2>
+      <p class="country">{{ d.country }}</p>
+      <p class="desc">{{ d.description }}</p>
+      <div class="card__footer">
+        <span class="price">{{ d.price | currency:'EUR' }}</span>
+        <a [routerLink]="['/destinos', d.id]" class="btn">Ver detalles</a>
+      </div>
+    </article>
+  </div>
+</div>
+

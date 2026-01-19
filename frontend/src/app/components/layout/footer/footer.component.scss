@@ -8,15 +8,26 @@
 .footer {
   background-color: $color-neutral-100;
   color: $color-neutral-800;
-  padding-top: $spacing-12;
-  padding-bottom: $spacing-6;
+  padding-top: $spacing-8;
+  padding-bottom: $spacing-4;
+  width: 100%;
+
+  @include respond-to('sm') {
+    padding-top: $spacing-10;
+    padding-bottom: $spacing-5;
+  }
 
   @include respond-to('md') {
+    padding-top: $spacing-12;
+    padding-bottom: $spacing-6;
+  }
+
+  @include respond-to('lg') {
     padding-top: $spacing-16;
   }
 
   &__container {
-    // Ya tiene estilos de .container global
+    // Usa .container para ancho y padding responsive automático
   }
 
   // ----------------
@@ -195,7 +206,11 @@
   &__divider {
     border: none;
     border-top: 1px solid rgba($color-neutral-1000, 0.1);
-    margin: $spacing-8 0;
+    margin: $spacing-6 0;
+
+    @include respond-to('sm') {
+      margin: $spacing-8 0;
+    }
   }
 
   // ----------------
@@ -205,8 +220,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: $spacing-3;
+    gap: $spacing-2;
     text-align: center;
+
+    @include respond-to('sm') {
+      gap: $spacing-3;
+    }
 
     @include respond-to('md') {
       flex-direction: row;
@@ -216,13 +235,21 @@
   }
 
   &__copyright {
-    font-size: $font-sm;
+    font-size: $font-xs;
     color: $color-neutral-600;
+
+    @include respond-to('sm') {
+      font-size: $font-sm;
+    }
   }
 
   &__credits {
-    font-size: $font-sm;
+    font-size: $font-xs;
     color: $color-neutral-600;
+
+    @include respond-to('sm') {
+      font-size: $font-sm;
+    }
   }
 
   &__heart {

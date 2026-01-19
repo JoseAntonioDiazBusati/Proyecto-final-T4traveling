@@ -1,19 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { CustomValidators } from '../../validators/custom-validators';
 import { FormService } from '../../services/form.service';
 import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
-import { DomManipulationService } from '../../services/dom-manipulation.service';
-
-interface Traveler {
-  firstName: string;
-  lastName: string;
-  nif: string;
-  birthDate: string;
-  specialNeeds?: string;
-}
+import { DestinationService, Destination } from '../../services/destination.service';
 
 /**
  * BookingFormComponent - Formulario de reserva de viajes
@@ -37,33 +29,20 @@ interface Traveler {
 export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
   // ViewChild para acceso al DOM (requisito 1.1)
   @ViewChild('travelersContainer') travelersContainer!: ElementRef<HTMLDivElement>;
-  @ViewChild('contactEmailInput') contactEmailInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('formContainer') formContainer!: ElementRef<HTMLFormElement>;
-  @ViewChild('tagsContainer') tagsContainer?: ElementRef<HTMLDivElement>;
 
   bookingForm!: FormGroup;
   formId = 'booking-form';
   minDate: string;
   maxDate: string;
 
-  // Tags dinámicos para extras seleccionados
-  selectedTags: string[] = [];
-
-  destinations = [
-    { id: 1, name: 'París, Francia', price: 599 },
-    { id: 2, name: 'Roma, Italia', price: 699 },
-    { id: 3, name: 'Barcelona, España', price: 399 },
-    { id: 4, name: 'Londres, Reino Unido', price: 799 },
-    { id: 5, name: 'Ámsterdam, Países Bajos', price: 549 }
-  ];
+  destinations: Destination[] = [];
 
   constructor(
     private fb: FormBuilder,
     private formService: FormService,
     private notificationService: NotificationService,
     private loadingService: LoadingService,
-    private renderer: Renderer2,
-    private domService: DomManipulationService
+    private destinationService: DestinationService
   ) {
     // Establecer fechas mínimas y máximas
     const today = new Date();
@@ -78,6 +57,16 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.initForm();
     this.formService.registerForm(this.formId, this.bookingForm);
 
+    // Cargar destinos reales desde el servicio
+    this.destinationService.getDestinations().subscribe({
+      next: (destinations) => {
+        this.destinations = destinations;
+      },
+      error: (error) => {
+        console.error('Error al cargar destinos:', error);
+      }
+    });
+
     // Añadir al menos un viajero por defecto
     this.addTraveler();
   }
@@ -87,14 +76,8 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
    * Requisito 1.1: Acceso al DOM en ngAfterViewInit()
    */
   ngAfterViewInit(): void {
-    // Foco automático en el primer campo del formulario
-    this.focusFirstInput();
-
-    // Medir dimensiones del formulario para estadísticas
-    this.measureFormDimensions();
-
-    // Aplicar estilos iniciales con Renderer2
-    this.initializeFormStyles();
+    // Medir dimensiones del contenedor de viajeros para estadísticas
+    this.measureContainerDimensions();
   }
 
   ngOnDestroy(): void {
@@ -102,105 +85,13 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * Enfoca el primer input del formulario
-   * Demuestra uso de ViewChild + ElementRef
-   */
-  private focusFirstInput(): void {
-    if (this.contactEmailInput?.nativeElement) {
-      // Usar setTimeout para asegurar que el DOM esté listo
-      setTimeout(() => {
-        this.contactEmailInput.nativeElement.focus();
-      }, 100);
-    }
-  }
-
-  /**
-   * Mide las dimensiones del formulario
+   * Mide las dimensiones del contenedor de viajeros
    * Demuestra uso de ViewChild para medición del DOM
    */
-  private measureFormDimensions(): void {
-    if (this.formContainer?.nativeElement) {
-      const rect = this.formContainer.nativeElement.getBoundingClientRect();
-      console.log(`📐 Dimensiones del formulario: ${rect.width}px x ${rect.height}px`);
-    }
-  }
-
-  /**
-   * Inicializa estilos del formulario con Renderer2
-   * Requisito 1.2: Uso de Renderer2 para estilos
-   */
-  private initializeFormStyles(): void {
-    if (this.formContainer?.nativeElement) {
-      this.renderer.addClass(this.formContainer.nativeElement, 'form-initialized');
-      this.renderer.setStyle(this.formContainer.nativeElement, 'opacity', '1');
-    }
-  }
-
-  /**
-   * Scroll programado a la sección de viajeros
-   * Demuestra uso de ViewChild para scroll programático
-   */
-  scrollToTravelers(): void {
+  private measureContainerDimensions(): void {
     if (this.travelersContainer?.nativeElement) {
-      this.travelersContainer.nativeElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  }
-
-  /**
-   * Añade un tag dinámico usando DomManipulationService
-   * Requisito 1.3: Creación dinámica de elementos
-   */
-  addTag(tagName: string): void {
-    if (this.selectedTags.includes(tagName)) return;
-
-    this.selectedTags.push(tagName);
-
-    if (this.tagsContainer?.nativeElement) {
-      this.domService.createChip(
-        tagName,
-        (_id: string) => {
-          // Callback cuando se elimina el tag
-          const index = this.selectedTags.indexOf(tagName);
-          if (index > -1) {
-            this.selectedTags.splice(index, 1);
-          }
-        },
-        this.tagsContainer.nativeElement
-      );
-    }
-  }
-
-  /**
-   * Maneja el evento de focus en campos
-   * Requisito 2.2: Eventos específicos de focus
-   */
-  onFieldFocus(event: FocusEvent, fieldName: string): void {
-    const target = event.target as HTMLElement;
-    this.renderer.addClass(target.parentElement, 'field-focused');
-  }
-
-  /**
-   * Maneja el evento de blur en campos
-   */
-  onFieldBlur(event: FocusEvent, fieldName: string): void {
-    const target = event.target as HTMLElement;
-    this.renderer.removeClass(target.parentElement, 'field-focused');
-  }
-
-  /**
-   * Maneja eventos de teclado en el formulario
-   * Requisito 2.2: Eventos específicos de teclado
-   */
-  onKeyDown(event: KeyboardEvent): void {
-    // Ctrl + Enter para enviar formulario
-    if (event.ctrlKey && event.key === 'Enter') {
-      event.preventDefault();
-      if (this.bookingForm.valid) {
-        this.onSubmit();
-      }
+      const rect = this.travelersContainer.nativeElement.getBoundingClientRect();
+      console.log(`📐 Dimensiones del contenedor: ${rect.width}px x ${rect.height}px`);
     }
   }
 
@@ -258,9 +149,6 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.bookingForm.get('travelers') as FormArray;
   }
 
-  get f() {
-    return this.bookingForm.controls;
-  }
 
   createTravelerFormGroup(): FormGroup {
     return this.fb.group({
@@ -331,9 +219,6 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  getTravelerFormGroup(index: number): FormGroup {
-    return this.travelers.at(index) as FormGroup;
-  }
 
   getErrorMessage(fieldName: string, label: string): string {
     const control = this.bookingForm.get(fieldName);
@@ -357,7 +242,7 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getSelectedDestination() {
     const destinationId = this.bookingForm.get('destination')?.value;
-    return this.destinations.find(d => d.id === parseInt(destinationId));
+    return this.destinations.find(d => d.id === destinationId);
   }
 
   calculateTotalPrice(): number {

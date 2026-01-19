@@ -101,6 +101,30 @@ export const routes: Routes = [
     }
   },
 
+  /**
+   * Transportes - Página de búsqueda de transportes
+   */
+  {
+    path: 'transportes',
+    loadComponent: () => import('./pages/transports/transports.component').then(m => m.TransportsComponent),
+    data: {
+      breadcrumb: 'Transportes',
+      breadcrumbIcon: '🚗'
+    }
+  },
+
+  /**
+   * Reservas - Página de creación manual de reservas
+   */
+  {
+    path: 'reservas',
+    loadComponent: () => import('./pages/reservations/reservations.component').then(m => m.ReservationsComponent),
+    data: {
+      breadcrumb: 'Reservas',
+      breadcrumbIcon: '📋'
+    }
+  },
+
   // =====================================
   // RUTAS DE DESTINOS (con rutas hijas)
   // =====================================
