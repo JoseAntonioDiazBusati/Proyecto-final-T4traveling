@@ -22,11 +22,11 @@
 }
 
 .form-card {
-  background: var(--color-surface);
-  border-radius: var(--border-radius-md);
+  background: $color-neutral-1000;
+  border-radius: $radius-md;
   padding: 1rem;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--color-border);
+  box-shadow: $shadow-md;
+  border: 1px solid $color-neutral-700;
 
   @include respond-to('sm') {
     padding: 1.5rem;
@@ -34,7 +34,7 @@
 
   @include respond-to('md') {
     padding: 2rem;
-    border-radius: var(--border-radius-lg);
+    border-radius: $radius-lg;
   }
 }
 
@@ -42,7 +42,7 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: var(--color-text);
+  color: $color-neutral-100;
 
   @include respond-to('sm') {
     font-size: 1.75rem;

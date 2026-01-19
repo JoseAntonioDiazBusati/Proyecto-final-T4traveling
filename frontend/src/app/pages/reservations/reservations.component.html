@@ -1,18 +1,45 @@
 <div class="reservations">
-  <header class="reservations__header">
-    <h1>Crear Nueva Reserva</h1>
-    <p>Complete el formulario para realizar una reserva manual</p>
-  </header>
+  <!-- VISTA: MENÚ PRINCIPAL -->
+  <div *ngIf="currentView === 'menu'" class="reservations__menu">
+    <header class="reservations__header">
+      <h1>Mis Reservas</h1>
+      <p>Bienvenido, <strong>{{ currentUser()?.name }}</strong></p>
+    </header>
 
-  <div class="reservations__container">
-    <!-- Formulario de Reserva -->
-    <form [formGroup]="reservationForm" (ngSubmit)="onPreviewReservation()" class="reservation-form">
+    <div class="menu-options">
+      <div class="menu-card" (click)="showCreateReservation()">
+        <div class="menu-card__icon">➕</div>
+        <h2 class="menu-card__title">Crear Nueva Reserva</h2>
+        <p class="menu-card__description">Reserva tu próximo viaje</p>
+      </div>
 
-      <!-- Sección: Selección de Viaje -->
+      <div class="menu-card" (click)="showReservationsList()">
+        <div class="menu-card__icon">📋</div>
+        <h2 class="menu-card__title">Ver Mis Reservas</h2>
+        <p class="menu-card__description">Consulta y gestiona tus reservas</p>
+        <span class="menu-card__badge" *ngIf="userReservations.length > 0">
+          {{ userReservations.length }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA: CREAR RESERVA -->
+  <div *ngIf="currentView === 'create'" class="reservations__create">
+    <header class="reservations__header">
+      <button class="btn-back" (click)="showMenu()" aria-label="Volver al menú">
+        ← Volver
+      </button>
+      <h1>Crear Nueva Reserva</h1>
+      <p>Completa el formulario para reservar tu viaje</p>
+    </header>
+
+    <form [formGroup]="reservationForm" (ngSubmit)="onSubmitReservation()" class="reservation-form">
+      <!-- Sección: Destino y Transporte -->
       <section class="form-section">
         <h2 class="section-title">
           <span class="section-icon">🌍</span>
-          Selección de Viaje
+          Destino y Transporte
         </h2>
 
         <div class="form-row">
@@ -25,14 +52,14 @@
               formControlName="destination"
               class="form-control"
               [class.invalid]="shouldShowError('destination')">
-              <option value="">Seleccione un destino</option>
+              <option value="">Selecciona un destino</option>
               <option *ngFor="let dest of destinations" [value]="dest.id">
-                {{ dest.name }}, {{ dest.country }} - {{ dest.price | currency:'EUR' }}/persona
+                {{ dest.name }}, {{ dest.country }} - {{ dest.price | currency:'EUR' }}
               </option>
             </select>
-            <small class="error-message" *ngIf="shouldShowError('destination')">
+            <span class="error-message" *ngIf="shouldShowError('destination')">
               {{ getErrorMessage('destination') }}
-            </small>
+            </span>
           </div>
 
           <div class="form-group">
@@ -45,54 +72,41 @@
               class="form-control"
               [class.invalid]="shouldShowError('transport')"
               [disabled]="!reservationForm.get('destination')?.value">
-              <option value="">Seleccione un transporte</option>
-              <option *ngFor="let trans of filteredTransports" [value]="trans.id">
-                {{ trans.icon }} {{ trans.name }} - {{ trans.company }} ({{ trans.price | currency:'EUR' }}/persona)
+              <option value="">Selecciona transporte</option>
+              <option *ngFor="let transport of filteredTransports" [value]="transport.id">
+                {{ transport.type }} - {{ transport.company }} ({{ transport.price | currency:'EUR' }})
               </option>
             </select>
-            <small class="error-message" *ngIf="shouldShowError('transport')">
+            <span class="error-message" *ngIf="shouldShowError('transport')">
               {{ getErrorMessage('transport') }}
-            </small>
-            <small class="help-text" *ngIf="!reservationForm.get('destination')?.value">
-              Seleccione primero un destino
-            </small>
+            </span>
           </div>
         </div>
+      </section>
+
+      <!-- Sección: Fechas y Pasajeros -->
+      <section class="form-section">
+        <h2 class="section-title">
+          <span class="section-icon">📅</span>
+          Fechas y Pasajeros
+        </h2>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="passengers" class="form-label">
-              Número de Pasajeros <span class="required">*</span>
-            </label>
-            <input
-              id="passengers"
-              type="number"
-              formControlName="passengers"
-              class="form-control"
-              [class.invalid]="shouldShowError('passengers')"
-              min="1"
-              max="10"
-              placeholder="1">
-            <small class="error-message" *ngIf="shouldShowError('passengers')">
-              {{ getErrorMessage('passengers') }}
-            </small>
-          </div>
-
           <div class="form-group">
             <label for="departureDate" class="form-label">
               Fecha de Salida <span class="required">*</span>
             </label>
             <input
-              id="departureDate"
               type="date"
+              id="departureDate"
               formControlName="departureDate"
               class="form-control"
               [class.invalid]="shouldShowError('departureDate')"
               [min]="minDate"
-              [max]="maxDate">
-            <small class="error-message" *ngIf="shouldShowError('departureDate')">
+              [max]="maxDate" />
+            <span class="error-message" *ngIf="shouldShowError('departureDate')">
               {{ getErrorMessage('departureDate') }}
-            </small>
+            </span>
           </div>
 
           <div class="form-group">
@@ -100,21 +114,37 @@
               Fecha de Regreso <span class="required">*</span>
             </label>
             <input
-              id="returnDate"
               type="date"
+              id="returnDate"
               formControlName="returnDate"
               class="form-control"
               [class.invalid]="shouldShowError('returnDate')"
               [min]="minDate"
-              [max]="maxDate">
-            <small class="error-message" *ngIf="shouldShowError('returnDate')">
+              [max]="maxDate" />
+            <span class="error-message" *ngIf="shouldShowError('returnDate')">
               {{ getErrorMessage('returnDate') }}
-            </small>
+            </span>
+            <span class="error-message" *ngIf="reservationForm.errors?.['invalidDateRange']">
+              La fecha de regreso debe ser posterior a la de salida
+            </span>
           </div>
         </div>
 
-        <div class="form-error" *ngIf="getFormError()">
-          {{ getFormError() }}
+        <div class="form-group">
+          <label for="passengers" class="form-label">
+            Número de Pasajeros <span class="required">*</span>
+          </label>
+          <input
+            type="number"
+            id="passengers"
+            formControlName="passengers"
+            class="form-control"
+            [class.invalid]="shouldShowError('passengers')"
+            min="1"
+            max="10" />
+          <span class="error-message" *ngIf="shouldShowError('passengers')">
+            {{ getErrorMessage('passengers') }}
+          </span>
         </div>
       </section>
 
@@ -130,15 +160,15 @@
             Nombre Completo <span class="required">*</span>
           </label>
           <input
-            id="customerName"
             type="text"
+            id="customerName"
             formControlName="customerName"
             class="form-control"
             [class.invalid]="shouldShowError('customerName')"
-            placeholder="Juan Pérez">
-          <small class="error-message" *ngIf="shouldShowError('customerName')">
+            placeholder="Ej: Juan Pérez" />
+          <span class="error-message" *ngIf="shouldShowError('customerName')">
             {{ getErrorMessage('customerName') }}
-          </small>
+          </span>
         </div>
 
         <div class="form-row">
@@ -147,15 +177,15 @@
               Email <span class="required">*</span>
             </label>
             <input
-              id="customerEmail"
               type="email"
+              id="customerEmail"
               formControlName="customerEmail"
               class="form-control"
               [class.invalid]="shouldShowError('customerEmail')"
-              placeholder="juan@example.com">
-            <small class="error-message" *ngIf="shouldShowError('customerEmail')">
+              placeholder="email@ejemplo.com" />
+            <span class="error-message" *ngIf="shouldShowError('customerEmail')">
               {{ getErrorMessage('customerEmail') }}
-            </small>
+            </span>
           </div>
 
           <div class="form-group">
@@ -163,15 +193,16 @@
               Teléfono <span class="required">*</span>
             </label>
             <input
-              id="customerPhone"
               type="tel"
+              id="customerPhone"
               formControlName="customerPhone"
               class="form-control"
               [class.invalid]="shouldShowError('customerPhone')"
-              placeholder="612345678">
-            <small class="error-message" *ngIf="shouldShowError('customerPhone')">
+              placeholder="123456789"
+              maxlength="9" />
+            <span class="error-message" *ngIf="shouldShowError('customerPhone')">
               {{ getErrorMessage('customerPhone') }}
-            </small>
+            </span>
           </div>
         </div>
 
@@ -184,160 +215,101 @@
             formControlName="specialRequests"
             class="form-control"
             rows="4"
-            placeholder="Dieta especial, necesidades de movilidad, etc."></textarea>
-          <small class="help-text">Opcional - Máximo 500 caracteres</small>
+            placeholder="Alergias, preferencias de asiento, etc."></textarea>
         </div>
       </section>
 
-      <!-- Información del Precio -->
-      <div class="price-info" *ngIf="getSelectedDestination() && getSelectedTransport()">
-        <div class="price-info__item">
-          <span>Destino:</span>
-          <strong>{{ getSelectedDestination()?.price | currency:'EUR' }} × {{ reservationForm.get('passengers')?.value || 0 }}</strong>
-        </div>
-        <div class="price-info__item">
-          <span>Transporte:</span>
-          <strong>{{ getSelectedTransport()?.price | currency:'EUR' }} × {{ reservationForm.get('passengers')?.value || 0 }}</strong>
-        </div>
-        <div class="price-info__item">
-          <span>Duración:</span>
-          <strong>{{ calculateDays() }} día(s)</strong>
-        </div>
-        <div class="price-info__total">
-          <span>Total:</span>
-          <strong>{{ calculateTotalPrice() | currency:'EUR' }}</strong>
-        </div>
-      </div>
-
-      <!-- Botón de Envío -->
+      <!-- Acciones -->
       <div class="form-actions">
-        <button type="submit" class="btn btn--primary" [disabled]="reservationForm.invalid">
-          <span>👁️</span> Vista Previa de Reserva
+        <button type="button" class="btn btn-secondary" (click)="showMenu()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="reservationForm.invalid">
+          Crear Reserva
         </button>
       </div>
     </form>
+  </div>
 
-    <!-- Resumen de la Reserva -->
-    <div id="reservation-summary" class="reservation-summary" *ngIf="showSummary && reservationSummary">
-      <div class="summary-card">
-        <div class="summary-card__header">
-          <h2>Resumen de la Reserva</h2>
-          <button type="button" class="close-btn" (click)="onCancelPreview()" aria-label="Cerrar">×</button>
+  <!-- VISTA: LISTA DE RESERVAS -->
+  <div *ngIf="currentView === 'list'" class="reservations__list">
+    <header class="reservations__header">
+      <button class="btn-back" (click)="showMenu()" aria-label="Volver al menú">
+        ← Volver
+      </button>
+      <h1>Mis Reservas</h1>
+      <p>{{ userReservations.length }} reserva(s) encontrada(s)</p>
+    </header>
+
+    <div class="list-actions">
+      <button class="btn btn-primary" (click)="showCreateReservation()">
+        ➕ Nueva Reserva
+      </button>
+    </div>
+
+    <!-- Sin reservas -->
+    <div *ngIf="userReservations.length === 0" class="empty-state">
+      <div class="empty-state__icon">📭</div>
+      <h2 class="empty-state__title">No tienes reservas</h2>
+      <p class="empty-state__message">Crea tu primera reserva para comenzar a viajar</p>
+      <button class="btn btn-primary" (click)="showCreateReservation()">
+        Crear Primera Reserva
+      </button>
+    </div>
+
+    <!-- Lista de reservas -->
+    <div *ngIf="userReservations.length > 0" class="reservations-grid">
+      <article *ngFor="let reservation of userReservations" class="reservation-card">
+        <div class="reservation-card__header">
+          <h3 class="reservation-card__title">{{ reservation.destinationName }}</h3>
+          <span class="reservation-card__status" [ngClass]="getStatusClass(reservation.status)">
+            {{ getStatusLabel(reservation.status) }}
+          </span>
         </div>
 
-        <div class="summary-card__body">
-          <!-- Destino -->
-          <div class="summary-section">
-            <h3>
-              <span class="icon">🌍</span>
-              Destino
-            </h3>
-            <div class="summary-detail">
-              <div class="detail-item">
-                <span class="label">Lugar:</span>
-                <span class="value">{{ reservationSummary.destination.name }}, {{ reservationSummary.destination.country }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Categoría:</span>
-                <span class="value">{{ reservationSummary.destination.category }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Rating:</span>
-                <span class="value">⭐ {{ reservationSummary.destination.rating }}/5</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Precio por persona:</span>
-                <span class="value">{{ reservationSummary.destination.price | currency:'EUR' }}</span>
-              </div>
-            </div>
+        <div class="reservation-card__body">
+          <div class="reservation-info">
+            <span class="info-icon">🚗</span>
+            <span class="info-text">{{ reservation.transportType }}</span>
           </div>
 
-          <!-- Transporte -->
-          <div class="summary-section">
-            <h3>
-              <span class="icon">{{ reservationSummary.transport.icon }}</span>
-              Transporte
-            </h3>
-            <div class="summary-detail">
-              <div class="detail-item">
-                <span class="label">Tipo:</span>
-                <span class="value">{{ reservationSummary.transport.name }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Compañía:</span>
-                <span class="value">{{ reservationSummary.transport.company }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Precio por persona:</span>
-                <span class="value">{{ reservationSummary.transport.price | currency:'EUR' }}</span>
-              </div>
-            </div>
+          <div class="reservation-info">
+            <span class="info-icon">👥</span>
+            <span class="info-text">{{ reservation.passengers }} pasajero(s)</span>
           </div>
 
-          <!-- Detalles del Viaje -->
-          <div class="summary-section">
-            <h3>
-              <span class="icon">📅</span>
-              Detalles del Viaje
-            </h3>
-            <div class="summary-detail">
-              <div class="detail-item">
-                <span class="label">Pasajeros:</span>
-                <span class="value">{{ reservationSummary.passengers }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Fecha de salida:</span>
-                <span class="value">{{ reservationSummary.departureDate | date:'dd/MM/yyyy' }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Fecha de regreso:</span>
-                <span class="value">{{ reservationSummary.returnDate | date:'dd/MM/yyyy' }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Duración:</span>
-                <span class="value">{{ calculateDays() }} día(s)</span>
-              </div>
-            </div>
+          <div class="reservation-info">
+            <span class="info-icon">📅</span>
+            <span class="info-text">
+              {{ reservation.departureDate | date:'dd/MM/yyyy' }} -
+              {{ reservation.returnDate | date:'dd/MM/yyyy' }}
+            </span>
           </div>
 
-          <!-- Datos del Cliente -->
-          <div class="summary-section">
-            <h3>
-              <span class="icon">👤</span>
-              Cliente
-            </h3>
-            <div class="summary-detail">
-              <div class="detail-item">
-                <span class="label">Nombre:</span>
-                <span class="value">{{ reservationForm.get('customerName')?.value }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Email:</span>
-                <span class="value">{{ reservationForm.get('customerEmail')?.value }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="label">Teléfono:</span>
-                <span class="value">{{ reservationForm.get('customerPhone')?.value }}</span>
-              </div>
-            </div>
+          <div class="reservation-info">
+            <span class="info-icon">💰</span>
+            <span class="info-text">{{ reservation.totalPrice | currency:'EUR' }}</span>
           </div>
 
-          <!-- Precio Total -->
-          <div class="summary-total">
-            <span class="label">Precio Total:</span>
-            <span class="value">{{ reservationSummary.totalPrice | currency:'EUR' }}</span>
+          <div class="reservation-info" *ngIf="reservation.specialRequests">
+            <span class="info-icon">📝</span>
+            <span class="info-text">{{ reservation.specialRequests }}</span>
           </div>
         </div>
 
-        <div class="summary-card__footer">
-          <button type="button" class="btn btn--secondary" (click)="onCancelPreview()">
-            ← Modificar
-          </button>
-          <button type="button" class="btn btn--primary" (click)="onConfirmReservation()">
-            ✓ Confirmar Reserva
+        <div class="reservation-card__footer">
+          <small class="reservation-card__date">
+            Creada: {{ reservation.createdAt | date:'dd/MM/yyyy HH:mm' }}
+          </small>
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="deleteReservation(reservation.id)"
+            [disabled]="reservation.status === 'cancelled'">
+            🗑️ Eliminar
           </button>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </div>
+

@@ -17,26 +17,20 @@ export interface Transport {
 })
 export class TransportService {
   private mockTransports: Transport[] = [
-    // Automóviles
-    { id: 't1', type: 'automovil', name: 'Renault Clio', company: 'EuropCar', price: 45, continent: 'Europa', description: 'Compacto económico', icon: '🚗' },
-    { id: 't2', type: 'automovil', name: 'Toyota Corolla', company: 'Hertz', price: 55, continent: 'Asia', description: 'Sedán confortable', icon: '🚗' },
-    { id: 't3', type: 'automovil', name: 'Ford Focus', company: 'Avis', price: 50, continent: 'América', description: 'Sedán familiar', icon: '🚗' },
-    { id: 't4', type: 'automovil', name: 'Peugeot 308', company: 'Sixt', price: 48, continent: 'Europa', description: 'Berlina moderna', icon: '🚗' },
-    { id: 't5', type: 'automovil', name: 'Honda Civic', company: 'Budget', price: 52, continent: 'Asia', description: 'Sedán deportivo', icon: '🚗' },
+    // Automóviles (3)
+    { id: 't1', type: 'automovil', name: 'Renault Clio Económico', company: 'EuropCar', price: 35, continent: 'Europa', description: 'Compacto ideal para ciudad', icon: '🚗' },
+    { id: 't2', type: 'automovil', name: 'Toyota Corolla Sedán', company: 'Hertz', price: 50, continent: 'Asia', description: 'Sedán confortable 5 plazas', icon: '🚗' },
+    { id: 't3', type: 'automovil', name: 'Ford Explorer SUV', company: 'Avis', price: 75, continent: 'América', description: 'SUV familiar 7 plazas', icon: '🚙' },
 
-    // Autobuses
-    { id: 't6', type: 'autobus', name: 'FlixBus', company: 'FlixBus', price: 25, continent: 'Europa', description: 'Bus interurbano', icon: '🚌' },
-    { id: 't7', type: 'autobus', name: 'Greyhound', company: 'Greyhound', price: 30, continent: 'América', description: 'Bus de larga distancia', icon: '🚌' },
-    { id: 't8', type: 'autobus', name: 'ALSA', company: 'ALSA', price: 22, continent: 'Europa', description: 'Bus premium', icon: '🚌' },
-    { id: 't9', type: 'autobus', name: 'Willer Express', company: 'Willer', price: 28, continent: 'Asia', description: 'Bus de lujo', icon: '🚌' },
-    { id: 't10', type: 'autobus', name: 'Intercape', company: 'Intercape', price: 20, continent: 'África', description: 'Bus turístico', icon: '🚌' },
+    // Autobuses (3)
+    { id: 't4', type: 'autobus', name: 'FlixBus Estándar', company: 'FlixBus', price: 15, continent: 'Europa', description: 'Bus interurbano económico', icon: '🚌' },
+    { id: 't5', type: 'autobus', name: 'Greyhound Premium', company: 'Greyhound', price: 25, continent: 'América', description: 'Bus de larga distancia con WiFi', icon: '🚌' },
+    { id: 't6', type: 'autobus', name: 'Willer Express Luxury', company: 'Willer', price: 35, continent: 'Asia', description: 'Bus de lujo con asientos reclinables', icon: '🚌' },
 
-    // Aviones
-    { id: 't11', type: 'avion', name: 'Vuelo Economy', company: 'Iberia', price: 250, continent: 'Europa', description: 'Clase económica', icon: '✈️' },
-    { id: 't12', type: 'avion', name: 'Vuelo Economy', company: 'American Airlines', price: 450, continent: 'América', description: 'Clase económica', icon: '✈️' },
-    { id: 't13', type: 'avion', name: 'Vuelo Economy', company: 'Japan Airlines', price: 650, continent: 'Asia', description: 'Clase económica', icon: '✈️' },
-    { id: 't14', type: 'avion', name: 'Vuelo Business', company: 'Air France', price: 800, continent: 'Europa', description: 'Clase business', icon: '✈️' },
-    { id: 't15', type: 'avion', name: 'Vuelo Business', company: 'Emirates', price: 1200, continent: 'Asia', description: 'Clase business', icon: '✈️' },
+    // Aviones (3)
+    { id: 't7', type: 'avion', name: 'Vuelo Economy Europa', company: 'Iberia / Vueling', price: 150, continent: 'Europa', description: 'Clase económica, equipaje incluido', icon: '✈️' },
+    { id: 't8', type: 'avion', name: 'Vuelo Economy Intercontinental', company: 'American Airlines', price: 400, continent: 'América', description: 'Vuelo largo, comidas incluidas', icon: '✈️' },
+    { id: 't9', type: 'avion', name: 'Vuelo Business Premium', company: 'Emirates / Qatar', price: 1200, continent: 'Asia', description: 'Clase business, lounge y prioridad', icon: '🛫' },
   ];
 
   getTransports(): Observable<Transport[]> {
