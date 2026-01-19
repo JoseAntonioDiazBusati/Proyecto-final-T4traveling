@@ -17,8 +17,12 @@ export class DestinationDetailComponent {
 
   navigateToBooking(): void {
     if (!this.destination) return;
-    this.router.navigate(['/reservar'], {
-      queryParams: { destinationId: this.destination.id },
+    // Redirigir a la página de reservas con el destino preseleccionado
+    this.router.navigate(['/reservas'], {
+      queryParams: {
+        destinationId: this.destination.id,
+        view: 'create' // Indicar que debe mostrar el formulario de crear reserva
+      },
       state: { destination: this.destination }
     });
   }

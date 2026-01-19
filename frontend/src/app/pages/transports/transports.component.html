@@ -1,0 +1,56 @@
+<div class="transports">
+  <header class="header">
+    <h1>Transportes</h1>
+    <p>Encuentra el medio de transporte perfecto para tu viaje</p>
+  </header>
+
+  <div class="transport-types">
+    <article *ngFor="let transportType of transportTypes" class="transport-card">
+      <div class="transport-card__icon">{{ transportType.icon }}</div>
+      <h2 class="transport-card__title">{{ transportType.name }}</h2>
+      <p class="transport-card__description">{{ transportType.description }}</p>
+      <button (click)="searchTransport(transportType.type)" class="btn">
+        Ver {{ transportType.name }}s
+      </button>
+    </article>
+  </div>
+
+  <div *ngIf="filteredTransports.length > 0" class="results">
+    <div class="results-header">
+      <h3>{{ getResultsTitle() }}</h3>
+      <button class="btn-clear" (click)="clearFilters()">
+        ✕ Limpiar filtros
+      </button>
+    </div>
+
+    <div class="transport-list">
+      <article *ngFor="let transport of filteredTransports" class="transport-item">
+        <div class="transport-item__header">
+          <span class="transport-item__icon">{{ transport.icon }}</span>
+          <div class="transport-item__info">
+            <h4 class="transport-item__name">{{ transport.name }}</h4>
+            <p class="transport-item__company">{{ transport.company }}</p>
+          </div>
+          <div class="transport-item__price">
+            <span class="price-amount">{{ transport.price }}€</span>
+            <span class="price-label">por día</span>
+          </div>
+        </div>
+        <p class="transport-item__description">{{ transport.description }}</p>
+        <div class="transport-item__footer">
+          <span class="transport-item__continent">📍 {{ transport.continent }}</span>
+          <button class="btn-select">Reservar</button>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div *ngIf="selectedTransportType && filteredTransports.length === 0" class="no-results">
+    <p class="no-results__icon">😕</p>
+    <p class="no-results__message">
+      No hay transportes disponibles de este tipo en este momento.
+      <br>
+      Por favor, intenta con otro tipo de transporte.
+    </p>
+  </div>
+</div>
