@@ -6,11 +6,6 @@ import { FormService } from '../../services/form.service';
 import { NotificationService } from '../../services/notification.service';
 import { LoadingService } from '../../services/loading.service';
 
-interface ContactOption {
-  type: string;
-  value: string;
-  preferred: boolean;
-}
 
 @Component({
   selector: 'app-contact-form',
@@ -133,9 +128,6 @@ export class ContactFormComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.contactForm.get('contactMethods') as FormArray;
   }
 
-  get f() {
-    return this.contactForm.controls;
-  }
 
   createContactMethodFormGroup(): FormGroup {
     return this.fb.group({

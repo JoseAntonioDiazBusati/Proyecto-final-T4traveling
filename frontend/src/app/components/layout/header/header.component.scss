@@ -12,13 +12,25 @@
   top: 0;
   z-index: $z-sticky;
   transition: box-shadow $transition-base;
+  width: 100%;
 
   &__container {
+    // Usa .container para ancho y padding responsive automático
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
-    gap: $spacing-6;
+    height: 60px;
+    gap: $spacing-3;
+
+    @include respond-to('sm') {
+      height: 64px;
+      gap: $spacing-4;
+    }
+
+    @include respond-to('md') {
+      height: 72px;
+      gap: $spacing-6;
+    }
   }
 
   // ----------------
@@ -28,16 +40,28 @@
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    height: 44px;
+    height: 32px;
+
+    @include respond-to('sm') {
+      height: 36px;
+    }
+
+    @include respond-to('md') {
+      height: 44px;
+    }
   }
 
   &__logo-link {
     display: flex;
     align-items: center;
-    gap: $spacing-3;
+    gap: $spacing-2;
     text-decoration: none;
     transition: transform $transition-base;
     height: 100%;
+
+    @include respond-to('sm') {
+      gap: $spacing-3;
+    }
 
     &:hover {
       transform: scale(1.05);
@@ -51,28 +75,44 @@
   }
 
   &__logo-image {
-    height: 40px;
+    height: 28px;
     width: auto;
 
+    @include respond-to('sm') {
+      height: 32px;
+    }
+
     @include respond-to('md') {
-      height: 44px;
+      height: 40px;
     }
   }
 
   &__logo-icon {
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1;
+
+    @include respond-to('md') {
+      font-size: 2rem;
+    }
   }
 
   &__logo-text {
     font-family: $font-secondary;
-    font-size: $font-lg;
+    font-size: $font-sm;
     font-weight: $font-weight-bold;
-    color: #FFFFFF; // Blanco para mejor contraste en el header naranja
+    color: #FFFFFF;
     white-space: nowrap;
 
+    @include respond-to('sm') {
+      font-size: $font-base;
+    }
+
     @include respond-to('md') {
-      font-size: $font-xl;
+      font-size: $font-md;
+    }
+
+    @include respond-to('lg') {
+      font-size: $font-lg;
     }
   }
 
@@ -236,9 +276,9 @@
   &__menu-toggle {
     @include flex-center;
     flex-direction: column;
-    gap: 5px;
-    width: 44px;
-    height: 44px;
+    gap: 4px;
+    width: 36px;
+    height: 36px;
     flex-shrink: 0;
     background-color: transparent;
     border: 2px solid rgba(255, 255, 255, 0.4);
@@ -246,6 +286,17 @@
     cursor: pointer;
     transition: all $transition-base;
     padding: $spacing-2;
+
+    @include respond-to('sm') {
+      width: 40px;
+      height: 40px;
+      gap: 5px;
+    }
+
+    @include respond-to('md') {
+      width: 44px;
+      height: 44px;
+    }
 
     @include respond-to('lg') {
       display: none; // Oculto en desktop
@@ -264,7 +315,11 @@
     &--active {
       .header__menu-toggle-bar {
         &:nth-child(1) {
-          transform: rotate(45deg) translateY(10px);
+          transform: rotate(45deg) translateY(8px);
+
+          @include respond-to('sm') {
+            transform: rotate(45deg) translateY(10px);
+          }
         }
 
         &:nth-child(2) {
@@ -272,18 +327,27 @@
         }
 
         &:nth-child(3) {
-          transform: rotate(-45deg) translateY(-10px);
+          transform: rotate(-45deg) translateY(-8px);
+
+          @include respond-to('sm') {
+            transform: rotate(-45deg) translateY(-10px);
+          }
         }
       }
     }
   }
 
   &__menu-toggle-bar {
-    width: 24px;
-    height: 3px;
+    width: 20px;
+    height: 2px;
     background-color: #FFFFFF;
     border-radius: $radius-full;
     transition: all $transition-base;
+
+    @include respond-to('sm') {
+      width: 24px;
+      height: 3px;
+    }
   }
 }
 

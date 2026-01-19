@@ -1,54 +1,116 @@
+// ============================================
+// INTERACTIVE DEMO COMPONENT - Responsive Mobile-First
+// ============================================
+
+@import '../../../styles/00-settings/variables';
+@import '../../../styles/01-tools/mixins';
+
 .demo-page {
-  padding: 3rem 0;
+  padding: 1.5rem 0;
   min-height: 100vh;
+
+  @include respond-to('md') {
+    padding: 2rem 0;
+  }
+
+  @include respond-to('lg') {
+    padding: 3rem 0;
+  }
 
   &__header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
+
+    @include respond-to('md') {
+      margin-bottom: 3rem;
+    }
+
+    @include respond-to('lg') {
+      margin-bottom: 4rem;
+    }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 1.75rem;
       font-weight: 700;
       color: var(--text-primary);
       margin-bottom: 1rem;
 
-      @media (max-width: 768px) {
+      @include respond-to('sm') {
         font-size: 2rem;
+      }
+
+      @include respond-to('md') {
+        font-size: 2.5rem;
       }
     }
   }
 
   &__subtitle {
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto;
+    padding: 0 1rem;
+
+    @include respond-to('md') {
+      font-size: 1.125rem;
+    }
   }
 }
 
 .demo-section {
-  margin-bottom: 4rem;
-  padding: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
   background: var(--bg-surface);
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   border: 1px solid var(--border-color);
 
+  @include respond-to('sm') {
+    padding: 1.5rem;
+  }
+
+  @include respond-to('md') {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    border-radius: 1rem;
+  }
+
+  @include respond-to('lg') {
+    margin-bottom: 4rem;
+  }
+
   &__title {
-    font-size: 1.75rem;
+    font-size: 1.375rem;
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 0.75rem;
+
+    @include respond-to('sm') {
+      font-size: 1.5rem;
+    }
+
+    @include respond-to('md') {
+      font-size: 1.75rem;
+    }
   }
 
   &__description {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
     line-height: 1.6;
+
+    @include respond-to('md') {
+      font-size: 1rem;
+    }
   }
 
   &__content {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+
+    @include respond-to('md') {
+      margin-top: 1.5rem;
+    }
   }
 }
 

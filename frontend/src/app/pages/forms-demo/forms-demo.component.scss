@@ -1,3 +1,10 @@
+// ============================================
+// FORMS DEMO COMPONENT - Responsive Mobile-First
+// ============================================
+
+@import '../../../styles/00-settings/variables';
+@import '../../../styles/01-tools/mixins';
+
 .forms-demo-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -24,31 +31,45 @@
 /* Tabs Navigation */
 .tabs-navigation {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0;
   margin-bottom: 2rem;
-  border-bottom: 2px solid var(--color-border);
-  overflow-x: auto;
+  border-bottom: none;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    border-bottom: none;
+  @include respond-to('md') {
+    flex-direction: row;
+    gap: 1rem;
+    border-bottom: 2px solid var(--color-border);
+    overflow-x: auto;
   }
 }
 
 .tab-button {
   background: transparent;
   border: none;
-  padding: 1rem 1.5rem;
+  border-left: 3px solid transparent;
+  padding: 0.875rem 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--color-text-secondary);
-  border-bottom: 3px solid transparent;
   transition: all 0.2s ease;
   white-space: nowrap;
+
+  @include respond-to('sm') {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  @include respond-to('md') {
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    justify-content: center;
+  }
 
   &:hover {
     color: var(--color-primary);
@@ -57,7 +78,14 @@
 
   &.active {
     color: var(--color-primary);
-    border-bottom-color: var(--color-primary);
+    border-left-color: var(--color-primary);
+    background: var(--color-primary-alpha);
+
+    @include respond-to('md') {
+      border-left-color: transparent;
+      border-bottom-color: var(--color-primary);
+      background: transparent;
+    }
 
     .tab-icon {
       transform: scale(1.2);
@@ -67,18 +95,6 @@
   &:focus {
     outline: 2px solid var(--color-primary);
     outline-offset: -2px;
-  }
-
-  @media (max-width: 768px) {
-    border-bottom: none;
-    border-left: 3px solid transparent;
-    justify-content: flex-start;
-
-    &.active {
-      border-bottom-color: transparent;
-      border-left-color: var(--color-primary);
-      background: var(--color-primary-alpha);
-    }
   }
 }
 

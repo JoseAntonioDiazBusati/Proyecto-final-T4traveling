@@ -1,22 +1,56 @@
+// ============================================
+// CONTACT FORM COMPONENT - Responsive Mobile-First
+// ============================================
+
+@import '../../../styles/00-settings/variables';
+@import '../../../styles/01-tools/mixins';
+
 .contact-form-container {
   max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin: 0.5rem auto;
+  padding: 0 0.5rem;
+
+  @include respond-to('sm') {
+    margin: 1rem auto;
+    padding: 0 0.75rem;
+  }
+
+  @include respond-to('md') {
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
 }
 
 .form-card {
   background: var(--color-surface);
-  border-radius: var(--border-radius-lg);
-  padding: 2rem;
+  border-radius: var(--border-radius-md);
+  padding: 1rem;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-border);
+
+  @include respond-to('sm') {
+    padding: 1.5rem;
+  }
+
+  @include respond-to('md') {
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+  }
 }
 
 .form-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: var(--color-text);
+
+  @include respond-to('sm') {
+    font-size: 1.75rem;
+  }
+
+  @include respond-to('md') {
+    font-size: 2rem;
+  }
 }
 
 .form-description {

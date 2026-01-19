@@ -1,0 +1,38 @@
+<div class="detail" *ngIf="destination">
+  <header class="hero">
+    <span class="category">{{ destination.category }}</span>
+    <h1>{{ destination.name }}</h1>
+    <p>{{ destination.country }}</p>
+  </header>
+  <div class="content">
+    <div class="main">
+      <section>
+        <h2>Descripción</h2>
+        <p>{{ destination.description }}</p>
+      </section>
+      <section>
+        <h2>Qué incluye</h2>
+        <ul>
+          <li>Vuelo ida y vuelta</li>
+          <li>Alojamiento 4 estrellas</li>
+          <li>Desayuno incluido</li>
+          <li>Traslados aeropuerto-hotel</li>
+          <li>Seguro de viaje básico</li>
+          <li>Guía turística en español</li>
+        </ul>
+      </section>
+    </div>
+    <aside class="sidebar">
+      <div class="booking-card">
+        <div class="price">
+          <span>Desde</span>
+          <strong>{{ destination.price | currency:'EUR' }}</strong>
+        </div>
+        <div class="rating">{{ destination.rating }} / 5</div>
+        <button (click)="navigateToBooking()" class="btn btn--primary">Reservar ahora</button>
+      </div>
+    </aside>
+  </div>
+  <a routerLink="/destinos" class="back">Volver a destinos</a>
+</div>
+

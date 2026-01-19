@@ -1,6 +1,9 @@
 // ============================================
-// RESERVATIONS PAGE - Página de Reservas
+// RESERVATIONS PAGE - Página de Reservas Mobile-First
 // ============================================
+
+@import '../../../styles/00-settings/variables';
+@import '../../../styles/01-tools/mixins';
 
 .reservations {
   padding: 2rem;
@@ -37,15 +40,37 @@
 .reservation-form {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
-  border-radius: 1rem;
-  padding: 2rem;
+  border-radius: 0.75rem;
+  padding: 1rem;
   box-shadow: var(--shadow-sm);
+
+  @include respond-to('sm') {
+    padding: 1.5rem;
+  }
+
+  @include respond-to('md') {
+    padding: 2rem;
+    border-radius: 1rem;
+  }
 }
 
 .form-section {
-  margin-bottom: 2.5rem;
-  padding-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
+
+  @include respond-to('sm') {
+    padding-bottom: 1.5rem;
+  }
+
+  @include respond-to('md') {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  @include respond-to('lg') {
+    margin-bottom: 2.5rem;
+  }
 
   &:last-of-type {
     border-bottom: none;
@@ -55,22 +80,44 @@
 .section-title {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   color: var(--text-primary);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
+
+  @include respond-to('sm') {
+    font-size: 1.375rem;
+    gap: 0.75rem;
+  }
+
+  @include respond-to('md') {
+    font-size: 1.5rem;
+  }
 }
 
 .section-icon {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
+
+  @include respond-to('md') {
+    font-size: 1.75rem;
+  }
 }
 
 .form-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
   margin-bottom: 1.5rem;
+
+  @include respond-to('sm') {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+
+  @include respond-to('md') {
+    gap: 1.5rem;
+  }
 
   &:last-child {
     margin-bottom: 0;
