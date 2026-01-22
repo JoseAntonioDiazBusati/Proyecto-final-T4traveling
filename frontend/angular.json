@@ -63,6 +63,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "Maquetar-Proyecto:build:development",
+            "port": 4200,
+            "host": "0.0.0.0"
+          },
           "configurations": {
             "production": {
               "buildTarget": "Maquetar-Proyecto:build:production"
