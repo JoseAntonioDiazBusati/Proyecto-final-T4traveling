@@ -24,7 +24,7 @@
     </div>
 
     <div class="transport-list">
-      <article *ngFor="let transport of filteredTransports" class="transport-item">
+      <article *ngFor="let transport of filteredTransports()" class="transport-item">
         <div class="transport-item__header">
           <span class="transport-item__icon">{{ transport.icon }}</span>
           <div class="transport-item__info">

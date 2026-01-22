@@ -1,5 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TransportService, Transport } from '../../services/transport.service';
 
 @Component({
@@ -7,7 +8,8 @@ import { TransportService, Transport } from '../../services/transport.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './transports.component.html',
-  styleUrls: ['./transports.component.scss']
+  styleUrls: ['./transports.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransportsComponent implements OnInit {
   private transportService = inject(TransportService);
@@ -33,19 +35,52 @@ export class TransportsComponent implements OnInit {
     }
   ];
 
-  allTransports: Transport[] = [];
-  filteredTransports: Transport[] = [];
-  selectedTransportType: 'automovil' | 'autobus' | 'avion' | '' = '';
+  // Signals para estado reactivo
+  private allTransportsSignal = signal<Transport[]>([]);
+  private selectedTransportTypeSignal = signal<'automovil' | 'autobus' | 'avion' | ''>('');
+  private currentPageSignal = signal<number>(1);
+  private itemsPerPageSignal = signal<number>(6);
+
+  // Computed signals
+  allTransports = computed(() => this.allTransportsSignal());
+  selectedTransportType = computed(() => this.selectedTransportTypeSignal());
+
+  filteredTransports = computed(() => {
+    const type = this.selectedTransportTypeSignal();
+    const all = this.allTransportsSignal();
+
+    if (!type) {
+      return all;
+    }
+
+    return all.filter(transport => transport.type === type);
+  });
+
+  paginatedTransports = computed(() => {
+    const filtered = this.filteredTransports();
+    const page = this.currentPageSignal();
+    const perPage = this.itemsPerPageSignal();
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    return filtered.slice(start, end);
+  });
+
+  totalPages = computed(() =>
+    Math.ceil(this.filteredTransports().length / this.itemsPerPageSignal())
+  );
+
+  hasResults = computed(() => this.filteredTransports().length > 0);
 
   ngOnInit(): void {
     this.loadTransports();
   }
 
   loadTransports(): void {
-    this.transportService.getTransports().subscribe({
+    this.transportService.getTransports().pipe(
+      takeUntilDestroyed()
+    ).subscribe({
       next: (transports) => {
-        this.allTransports = transports;
-        this.filteredTransports = transports; // Mostrar todos al inicio
+        this.allTransportsSignal.set(transports);
       },
       error: (error) => {
         console.error('Error al cargar transportes:', error);
@@ -54,20 +89,42 @@ export class TransportsComponent implements OnInit {
   }
 
   searchTransport(type: 'automovil' | 'autobus' | 'avion'): void {
-    this.selectedTransportType = type;
-    this.filteredTransports = this.allTransports.filter(transport => transport.type === type);
+    this.selectedTransportTypeSignal.set(type);
+    this.currentPageSignal.set(1); // Reset a primera página
   }
 
   getResultsTitle(): string {
-    if (this.selectedTransportType) {
-      const typeName = this.transportTypes.find(t => t.type === this.selectedTransportType)?.name || '';
+    const type = this.selectedTransportTypeSignal();
+    if (type) {
+      const typeName = this.transportTypes.find(t => t.type === type)?.name || '';
       return `${typeName}s disponibles`;
     }
     return 'Todos los transportes';
   }
 
   clearFilters(): void {
-    this.selectedTransportType = '';
-    this.filteredTransports = this.allTransports; // Mostrar todos en lugar de vacío
+    this.selectedTransportTypeSignal.set('');
+    this.currentPageSignal.set(1);
+  }
+
+  // Paginación
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPageSignal.set(page);
+      document.querySelector('.transports-grid')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  nextPage(): void {
+    this.goToPage(this.currentPageSignal() + 1);
+  }
+
+  prevPage(): void {
+    this.goToPage(this.currentPageSignal() - 1);
+  }
+
+  // TrackBy function
+  trackByTransportId(index: number, transport: Transport): string {
+    return transport.id;
   }
 }

@@ -1,31 +1,36 @@
 <div class="reservations">
   <!-- VISTA: MENÚ PRINCIPAL -->
-  <div *ngIf="currentView === 'menu'" class="reservations__menu">
-    <header class="reservations__header">
-      <h1>Mis Reservas</h1>
-      <p>Bienvenido, <strong>{{ currentUser()?.name }}</strong></p>
-    </header>
+  @if (currentView() === 'menu') {
+    <div class="reservations__menu">
+      <header class="reservations__header">
+        <h1>Mis Reservas</h1>
+        <p>Bienvenido, <strong>{{ currentUser()?.name }}</strong></p>
+      </header>
 
-    <div class="menu-options">
-      <div class="menu-card" (click)="showCreateReservation()">
-        <div class="menu-card__icon">➕</div>
-        <h2 class="menu-card__title">Crear Nueva Reserva</h2>
-        <p class="menu-card__description">Reserva tu próximo viaje</p>
-      </div>
+      <div class="menu-options">
+        <div class="menu-card" (click)="showCreateReservation()">
+          <div class="menu-card__icon">➕</div>
+          <h2 class="menu-card__title">Crear Nueva Reserva</h2>
+          <p class="menu-card__description">Reserva tu próximo viaje</p>
+        </div>
 
-      <div class="menu-card" (click)="showReservationsList()">
-        <div class="menu-card__icon">📋</div>
-        <h2 class="menu-card__title">Ver Mis Reservas</h2>
-        <p class="menu-card__description">Consulta y gestiona tus reservas</p>
-        <span class="menu-card__badge" *ngIf="userReservations.length > 0">
-          {{ userReservations.length }}
-        </span>
+        <div class="menu-card" (click)="showReservationsList()">
+          <div class="menu-card__icon">📋</div>
+          <h2 class="menu-card__title">Ver Mis Reservas</h2>
+          <p class="menu-card__description">Consulta y gestiona tus reservas</p>
+          @if (userReservations().length > 0) {
+            <span class="menu-card__badge">
+              {{ userReservations().length }}
+            </span>
+          }
+        </div>
       </div>
     </div>
-  </div>
+  }
 
   <!-- VISTA: CREAR RESERVA -->
-  <div *ngIf="currentView === 'create'" class="reservations__create">
+  @if (currentView() === 'create') {
+    <div class="reservations__create">
     <header class="reservations__header">
       <button class="btn-back" (click)="showMenu()" aria-label="Volver al menú">
         ← Volver
@@ -53,7 +58,7 @@
               class="form-control"
               [class.invalid]="shouldShowError('destination')">
               <option value="">Selecciona un destino</option>
-              <option *ngFor="let dest of destinations" [value]="dest.id">
+              <option *ngFor="let dest of destinations()" [value]="dest.id">
                 {{ dest.name }}, {{ dest.country }} - {{ dest.price | currency:'EUR' }}
               </option>
             </select>
@@ -230,15 +235,17 @@
       </div>
     </form>
   </div>
+  }
 
   <!-- VISTA: LISTA DE RESERVAS -->
-  <div *ngIf="currentView === 'list'" class="reservations__list">
+  @if (currentView() === 'list') {
+    <div class="reservations__list">
     <header class="reservations__header">
       <button class="btn-back" (click)="showMenu()" aria-label="Volver al menú">
         ← Volver
       </button>
       <h1>Mis Reservas</h1>
-      <p>{{ userReservations.length }} reserva(s) encontrada(s)</p>
+      <p>{{ userReservations().length }} reserva(s) encontrada(s)</p>
     </header>
 
     <div class="list-actions">
@@ -248,68 +255,77 @@
     </div>
 
     <!-- Sin reservas -->
-    <div *ngIf="userReservations.length === 0" class="empty-state">
-      <div class="empty-state__icon">📭</div>
-      <h2 class="empty-state__title">No tienes reservas</h2>
-      <p class="empty-state__message">Crea tu primera reserva para comenzar a viajar</p>
-      <button class="btn btn-primary" (click)="showCreateReservation()">
-        Crear Primera Reserva
-      </button>
-    </div>
+    @if (userReservations().length === 0) {
+      <div class="empty-state">
+        <div class="empty-state__icon">📭</div>
+        <h2 class="empty-state__title">No tienes reservas</h2>
+        <p class="empty-state__message">Crea tu primera reserva para comenzar a viajar</p>
+        <button class="btn btn-primary" (click)="showCreateReservation()">
+          Crear Primera Reserva
+        </button>
+      </div>
+    }
 
     <!-- Lista de reservas -->
-    <div *ngIf="userReservations.length > 0" class="reservations-grid">
-      <article *ngFor="let reservation of userReservations" class="reservation-card">
-        <div class="reservation-card__header">
-          <h3 class="reservation-card__title">{{ reservation.destinationName }}</h3>
-          <span class="reservation-card__status" [ngClass]="getStatusClass(reservation.status)">
-            {{ getStatusLabel(reservation.status) }}
-          </span>
-        </div>
+    @if (userReservations().length > 0) {
+      <div class="reservations-grid">
+        @for (reservation of userReservations(); track trackByReservationId($index, reservation)) {
+          <article class="reservation-card">
+            <div class="reservation-card__header">
+              <h3 class="reservation-card__title">{{ reservation.destinationName }}</h3>
+              <span class="reservation-card__status" [ngClass]="getStatusClass(reservation.status)">
+                {{ getStatusLabel(reservation.status) }}
+              </span>
+            </div>
 
-        <div class="reservation-card__body">
-          <div class="reservation-info">
-            <span class="info-icon">🚗</span>
-            <span class="info-text">{{ reservation.transportType }}</span>
-          </div>
+            <div class="reservation-card__body">
+              <div class="reservation-info">
+                <span class="info-icon">🚗</span>
+                <span class="info-text">{{ reservation.transportType }}</span>
+              </div>
 
-          <div class="reservation-info">
-            <span class="info-icon">👥</span>
-            <span class="info-text">{{ reservation.passengers }} pasajero(s)</span>
-          </div>
+              <div class="reservation-info">
+                <span class="info-icon">👥</span>
+                <span class="info-text">{{ reservation.passengers }} pasajero(s)</span>
+              </div>
 
-          <div class="reservation-info">
-            <span class="info-icon">📅</span>
-            <span class="info-text">
-              {{ reservation.departureDate | date:'dd/MM/yyyy' }} -
-              {{ reservation.returnDate | date:'dd/MM/yyyy' }}
-            </span>
-          </div>
+              <div class="reservation-info">
+                <span class="info-icon">📅</span>
+                <span class="info-text">
+                  {{ reservation.departureDate | date:'dd/MM/yyyy' }} -
+                  {{ reservation.returnDate | date:'dd/MM/yyyy' }}
+                </span>
+              </div>
 
-          <div class="reservation-info">
-            <span class="info-icon">💰</span>
-            <span class="info-text">{{ reservation.totalPrice | currency:'EUR' }}</span>
-          </div>
+              <div class="reservation-info">
+                <span class="info-icon">💰</span>
+                <span class="info-text">{{ reservation.totalPrice | currency:'EUR' }}</span>
+              </div>
 
-          <div class="reservation-info" *ngIf="reservation.specialRequests">
-            <span class="info-icon">📝</span>
-            <span class="info-text">{{ reservation.specialRequests }}</span>
-          </div>
-        </div>
+              @if (reservation.specialRequests) {
+                <div class="reservation-info">
+                  <span class="info-icon">📝</span>
+                  <span class="info-text">{{ reservation.specialRequests }}</span>
+                </div>
+              }
+            </div>
 
-        <div class="reservation-card__footer">
-          <small class="reservation-card__date">
-            Creada: {{ reservation.createdAt | date:'dd/MM/yyyy HH:mm' }}
-          </small>
-          <button
-            class="btn btn-danger btn-sm"
-            (click)="deleteReservation(reservation.id)"
-            [disabled]="reservation.status === 'cancelled'">
-            🗑️ Eliminar
-          </button>
-        </div>
-      </article>
-    </div>
+            <div class="reservation-card__footer">
+              <small class="reservation-card__date">
+                Creada: {{ reservation.createdAt | date:'dd/MM/yyyy HH:mm' }}
+              </small>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteReservation(reservation.id)"
+                [disabled]="reservation.status === 'cancelled'">
+                🗑️ Eliminar
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    }
   </div>
+  }
 </div>
 
