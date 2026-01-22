@@ -10,15 +10,15 @@
       <h2 class="transport-card__title">{{ transportType.name }}</h2>
       <p class="transport-card__description">{{ transportType.description }}</p>
       <button (click)="searchTransport(transportType.type)" class="btn">
-        Ver {{ transportType.name }}s
+        Ver {{ transportType.plural }}
       </button>
     </article>
   </div>
 
-  <div *ngIf="filteredTransports.length > 0" class="results">
+  <div *ngIf="filteredTransports().length > 0" class="results">
     <div class="results-header">
       <h3>{{ getResultsTitle() }}</h3>
-      <button *ngIf="selectedTransportType" class="btn-clear" (click)="clearFilters()">
+      <button *ngIf="selectedTransportType()" class="btn-clear" (click)="clearFilters()">
         ✕ Ver todos
       </button>
     </div>
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <div *ngIf="filteredTransports.length === 0" class="no-results">
+  <div *ngIf="filteredTransports().length === 0" class="no-results">
     <p class="no-results__icon">🚗✈️🚌</p>
     <p class="no-results__message">
       Cargando transportes disponibles...
