@@ -19,18 +19,21 @@ export class TransportsComponent implements OnInit {
       type: 'automovil' as const,
       icon: '🚗',
       name: 'Automóvil',
+      plural: 'Automóviles',
       description: 'Alquila un coche y explora a tu ritmo'
     },
     {
       type: 'autobus' as const,
       icon: '🚌',
       name: 'Autobús',
+      plural: 'Autobuses',
       description: 'Viaja cómodamente y de forma económica'
     },
     {
       type: 'avion' as const,
       icon: '✈️',
       name: 'Avión',
+      plural: 'Aviones',
       description: 'Llega rápido a tu destino'
     }
   ];
@@ -96,8 +99,8 @@ export class TransportsComponent implements OnInit {
   getResultsTitle(): string {
     const type = this.selectedTransportTypeSignal();
     if (type) {
-      const typeName = this.transportTypes.find(t => t.type === type)?.name || '';
-      return `${typeName}s disponibles`;
+      const typePlural = this.transportTypes.find(t => t.type === type)?.plural || '';
+      return `${typePlural} disponibles`;
     }
     return 'Todos los transportes';
   }

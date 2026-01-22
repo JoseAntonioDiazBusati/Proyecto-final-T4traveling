@@ -162,17 +162,17 @@ describe('TransportsComponent', () => {
 
     it('should show specific type when filtered', () => {
       component.searchTransport('automovil');
-      expect(component.getResultsTitle()).toBe('Automóvils disponibles');
+      expect(component.getResultsTitle()).toBe('Automóviles disponibles');
     });
 
     it('should show autobus title', () => {
       component.searchTransport('autobus');
-      expect(component.getResultsTitle()).toBe('Autobúss disponibles');
+      expect(component.getResultsTitle()).toBe('Autobuses disponibles');
     });
 
     it('should show avion title', () => {
       component.searchTransport('avion');
-      expect(component.getResultsTitle()).toBe('Avións disponibles');
+      expect(component.getResultsTitle()).toBe('Aviones disponibles');
     });
   });
 
