@@ -31,8 +31,6 @@ El proyecto usa `render.yaml` para configuración automática:
 - Publish: `./frontend/dist/t4traveling/browser`
 - Rewrite rules: Todas las rutas → `index.html` (SPA)
 
-Ver [Guía de Render](docs/RENDER-CONFIGURACION-FINAL.md) para más detalles.
-
 ---
 
 ## 📋 Descripción
@@ -221,15 +219,6 @@ npm run lint:fix       # Corregir errores automáticos
 Para probar la funcionalidad de autenticación:
 
 ```javascript
-// Usuario 1
-Email: juan@t4traveling.com
-Password: password123
-
-// Usuario 2
-Email: maria@t4traveling.com
-Password: password123
-
-// Usuario 3
 Email: admin@t4traveling.com
 Password: admin123
 ```
@@ -295,17 +284,6 @@ TrackBy Lists:     -80% renderizado
 Debounce Search:   -90% llamadas
 Image Optim:       -95% peso (10.1MB → 0.5MB)
 ```
-
----
-
-## 📚 Documentación Adicional
-
-- **[Frontend README](frontend/README.md)** - Documentación técnica detallada
-- **[Guía de Despliegue](docs/GUIA-DESPLIEGUE.md)** - Instrucciones de deploy
-- **[Documentación de Diseño](docs/design/Documentacion.md)** - 7 secciones completas
-- **[Fase 6: Gestión de Estado](docs/client/README-FASE6.md)** - Signals y optimización
-- **[Fase 7: Testing](docs/client/README-FASE7.md)** - Tests y entrega
-- **[Resumen del Proyecto](docs/RESUMEN-PROYECTO.md)** - Overview completo
 
 ---
 
