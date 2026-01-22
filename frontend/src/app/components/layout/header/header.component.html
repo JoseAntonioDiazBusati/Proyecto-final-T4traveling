@@ -83,27 +83,41 @@
       <!-- Theme Switcher -->
       <app-theme-switcher></app-theme-switcher>
 
-      <!-- Búsqueda -->
-      <button
-        class="header__utility-btn"
-        aria-label="Buscar destinos"
-        type="button"
-        (keydown.enter)="$event.stopPropagation()">
-        <svg class="header__utility-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+      <!-- Usuario con Dropdown -->
+      <div class="header__user-dropdown" [class.header__user-dropdown--open]="isUserDropdownOpen">
+        <button
+          class="header__utility-btn"
+          aria-label="Cuenta de usuario"
+          type="button"
+          (click)="toggleUserDropdown()"
+          (keydown.enter)="$event.stopPropagation()">
+          <svg class="header__utility-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
 
-      <!-- Usuario -->
-      <button
-        class="header__utility-btn"
-        aria-label="Cuenta de usuario"
-        type="button"
-        (keydown.enter)="$event.stopPropagation()">
-        <svg class="header__utility-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+        <!-- Dropdown Menu -->
+        <div class="header__user-menu" *ngIf="isUserDropdownOpen">
+          <div class="header__user-info" *ngIf="isAuthenticated()">
+            <span class="header__user-name">{{ currentUser()?.name || 'Usuario' }}</span>
+            <span class="header__user-email">{{ currentUser()?.email }}</span>
+          </div>
+          <div class="header__user-actions">
+            <button *ngIf="!isAuthenticated()" class="header__user-action" (click)="navigateToLogin()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>
+              </svg>
+              Iniciar Sesión
+            </button>
+            <button *ngIf="isAuthenticated()" class="header__user-action" (click)="logout()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+              </svg>
+              Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
 
       <!-- Menú móvil toggle -->
       <button

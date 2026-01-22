@@ -24,7 +24,7 @@
     padding-right: $spacing-4;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; // Espacio entre elementos
     height: 60px;
     gap: $spacing-3;
 
@@ -43,6 +43,7 @@
     @include respond-to('lg') {
       padding-left: $spacing-8;
       padding-right: $spacing-8;
+      gap: $spacing-8;
     }
   }
 
@@ -143,6 +144,7 @@
     overflow: hidden;
     transition: max-height $transition-base;
     box-shadow: $shadow-md;
+    z-index: 999;
 
     @include respond-to('sm') {
       top: 64px; // Altura del header en sm
@@ -153,18 +155,22 @@
     }
 
     @include respond-to('lg') {
-      // Desktop: navegación visible en línea
+      // Desktop: navegación visible EN LÍNEA con el resto
       position: static;
       max-height: none;
       overflow: visible;
       background-color: transparent;
       box-shadow: none;
-      flex: 1;
+      flex: 1; // Ocupa el espacio central
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: auto;
     }
 
     // Estado abierto (móvil)
     &--open {
-      max-height: 400px;
+      max-height: 500px;
     }
   }
 
@@ -173,12 +179,14 @@
     flex-direction: column;
     list-style: none;
     padding: $spacing-4 0;
+    margin: 0;
 
     @include respond-to('lg') {
+      // Desktop: lista horizontal centrada
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: $spacing-2;
+      gap: 0;
       padding: 0;
     }
   }
@@ -371,6 +379,95 @@
     @include respond-to('sm') {
       width: 24px;
       height: 3px;
+    }
+  }
+
+  // ----------------
+  // USER DROPDOWN
+  // ----------------
+  &__user-dropdown {
+    position: relative;
+  }
+
+  &__user-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+    min-width: 220px;
+    padding: $spacing-3;
+    z-index: 1000;
+    animation: slideDown 0.2s ease;
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &__user-info {
+    padding: $spacing-3;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: $spacing-2;
+  }
+
+  &__user-name {
+    display: block;
+    font-weight: $font-weight-semibold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-1;
+    font-size: $font-base;
+  }
+
+  &__user-email {
+    display: block;
+    font-size: $font-sm;
+    color: var(--text-secondary);
+  }
+
+  &__user-actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__user-action {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    width: 100%;
+    padding: $spacing-3;
+    background: transparent;
+    border: none;
+    border-radius: $radius-md;
+    color: var(--text-primary);
+    font-size: $font-base;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all $transition-base;
+    text-align: left;
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background: var(--bg-hover);
+      color: $color-primary-0;
+    }
+
+    &:focus {
+      outline: 2px solid $color-primary-0;
+      outline-offset: 2px;
     }
   }
 }
