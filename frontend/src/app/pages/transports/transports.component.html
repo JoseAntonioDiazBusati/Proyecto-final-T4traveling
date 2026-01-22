@@ -18,8 +18,8 @@
   <div *ngIf="filteredTransports.length > 0" class="results">
     <div class="results-header">
       <h3>{{ getResultsTitle() }}</h3>
-      <button class="btn-clear" (click)="clearFilters()">
-        ✕ Limpiar filtros
+      <button *ngIf="selectedTransportType" class="btn-clear" (click)="clearFilters()">
+        ✕ Ver todos
       </button>
     </div>
 
@@ -45,12 +45,10 @@
     </div>
   </div>
 
-  <div *ngIf="selectedTransportType && filteredTransports.length === 0" class="no-results">
-    <p class="no-results__icon">😕</p>
+  <div *ngIf="filteredTransports.length === 0" class="no-results">
+    <p class="no-results__icon">🚗✈️🚌</p>
     <p class="no-results__message">
-      No hay transportes disponibles de este tipo en este momento.
-      <br>
-      Por favor, intenta con otro tipo de transporte.
+      Cargando transportes disponibles...
     </p>
   </div>
 </div>

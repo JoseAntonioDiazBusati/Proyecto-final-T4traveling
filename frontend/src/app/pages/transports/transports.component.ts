@@ -45,6 +45,7 @@ export class TransportsComponent implements OnInit {
     this.transportService.getTransports().subscribe({
       next: (transports) => {
         this.allTransports = transports;
+        this.filteredTransports = transports; // Mostrar todos al inicio
       },
       error: (error) => {
         console.error('Error al cargar transportes:', error);
@@ -62,11 +63,11 @@ export class TransportsComponent implements OnInit {
       const typeName = this.transportTypes.find(t => t.type === this.selectedTransportType)?.name || '';
       return `${typeName}s disponibles`;
     }
-    return 'Resultados';
+    return 'Todos los transportes';
   }
 
   clearFilters(): void {
     this.selectedTransportType = '';
-    this.filteredTransports = [];
+    this.filteredTransports = this.allTransports; // Mostrar todos en lugar de vacío
   }
 }

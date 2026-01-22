@@ -202,7 +202,7 @@
     color: #FFFFFF; // Blanco para mejor contraste en el header naranja
     font-weight: $font-weight-medium;
     text-decoration: none;
-    transition: all $transition-base;
+    transition: all 250ms ease;
     position: relative;
     white-space: nowrap;
 
@@ -215,10 +215,12 @@
     &:hover {
       background-color: rgba(255, 255, 255, 0.15);
       padding-left: $spacing-8;
+      transform: translateX(2px);
 
       @include respond-to('lg') {
         padding-left: $spacing-4;
         background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
       }
     }
 
@@ -244,6 +246,7 @@
           height: 3px;
           background-color: #FFFFFF;
           border-radius: $radius-full;
+          animation: slideInRight 300ms ease-out;
         }
       }
     }

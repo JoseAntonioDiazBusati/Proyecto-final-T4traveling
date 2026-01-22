@@ -29,7 +29,7 @@
     height: 200px;
     object-fit: cover;
     display: block;
-    transition: transform $transition-slow;
+    transition: transform 300ms ease, opacity 300ms ease;
   }
 
   // ----------------
