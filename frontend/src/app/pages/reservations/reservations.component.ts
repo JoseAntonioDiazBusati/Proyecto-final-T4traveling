@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../services/auth.service';
 import { ReservationService } from '../../services/reservation.service';
 import { DestinationService, Destination } from '../../services/destination.service';
@@ -17,7 +18,8 @@ type ViewMode = 'menu' | 'create' | 'list';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './reservations.component.html',
-  styleUrls: ['./reservations.component.scss']
+  styleUrls: ['./reservations.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReservationsComponent implements OnInit {
   private authService = inject(AuthService);
@@ -30,17 +32,41 @@ export class ReservationsComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  // Estado
+  // Signals para estado reactivo
   isAuthenticated = this.authService.isAuthenticated;
   currentUser = this.authService.currentUser;
-  currentView: ViewMode = 'menu'; // Cambiar temporalmente a 'create' o 'list' para testear
+  private currentViewSignal = signal<ViewMode>('menu');
+  currentView = computed(() => this.currentViewSignal());
+
+  private destinationsSignal = signal<Destination[]>([]);
+  private transportsSignal = signal<Transport[]>([]);
+  private userReservationsSignal = signal<Reservation[]>([]);
+  private currentPageSignal = signal<number>(1);
+  private itemsPerPageSignal = signal<number>(5);
+
+  // Computed signals
+  destinations = computed(() => this.destinationsSignal());
+  transports = computed(() => this.transportsSignal());
+  userReservations = computed(() => this.userReservationsSignal());
+
+  paginatedReservations = computed(() => {
+    const reservations = this.userReservationsSignal();
+    const page = this.currentPageSignal();
+    const perPage = this.itemsPerPageSignal();
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    return reservations.slice(start, end);
+  });
+
+  totalPages = computed(() =>
+    Math.ceil(this.userReservationsSignal().length / this.itemsPerPageSignal())
+  );
+
+  hasReservations = computed(() => this.userReservationsSignal().length > 0);
 
   // Datos
   reservationForm!: FormGroup;
-  destinations: Destination[] = [];
-  transports: Transport[] = [];
   filteredTransports: Transport[] = [];
-  userReservations: Reservation[] = [];
 
   // Configuración de fechas
   minDate: string;
@@ -52,10 +78,27 @@ export class ReservationsComponent implements OnInit {
     const maxDateObj = new Date();
     maxDateObj.setFullYear(maxDateObj.getFullYear() + 1);
     this.maxDate = maxDateObj.toISOString().split('T')[0];
+
+    // Configurar query params con takeUntilDestroyed
+    this.route.queryParams.pipe(
+      takeUntilDestroyed()
+    ).subscribe(params => {
+      if (params['view'] === 'create') {
+        this.currentViewSignal.set('create');
+      }
+
+      if (params['destinationId']) {
+        setTimeout(() => {
+          this.reservationForm.patchValue({
+            destination: params['destinationId']
+          });
+          this.filterTransportsByDestination();
+        }, 500);
+      }
+    });
   }
 
   ngOnInit(): void {
-    // Si no está autenticado, redirigir al login
     if (!this.isAuthenticated()) {
       this.notificationService.warning('Debes iniciar sesión para acceder a las reservas');
       this.router.navigate(['/login'], {
@@ -66,24 +109,6 @@ export class ReservationsComponent implements OnInit {
 
     this.initForm();
     this.loadData();
-
-    // Manejar query params para preseleccionar destino y mostrar formulario de creación
-    this.route.queryParams.subscribe(params => {
-      if (params['view'] === 'create') {
-        this.currentView = 'create';
-      }
-
-      if (params['destinationId']) {
-        // Esperar a que se carguen los destinos para preseleccionar
-        setTimeout(() => {
-          this.reservationForm.patchValue({
-            destination: params['destinationId']
-          });
-          // Esto disparará el filtrado de transportes automáticamente
-          this.filterTransportsByDestination();
-        }, 500);
-      }
-    });
   }
 
   private initForm(): void {
@@ -103,8 +128,10 @@ export class ReservationsComponent implements OnInit {
       validators: this.dateRangeValidator
     });
 
-    // Filtrar transportes cuando cambia el destino
-    this.reservationForm.get('destination')?.valueChanges.subscribe(() => {
+    // Filtrar transportes cuando cambia el destino con takeUntilDestroyed
+    this.reservationForm.get('destination')?.valueChanges.pipe(
+      takeUntilDestroyed()
+    ).subscribe(() => {
       this.filterTransportsByDestination();
       this.reservationForm.patchValue({ transport: '' });
     });
@@ -123,10 +150,12 @@ export class ReservationsComponent implements OnInit {
   private loadData(): void {
     this.loadingService.show('reservations-data', 'Cargando datos...');
 
-    // Cargar destinos
-    this.destinationService.getDestinations().subscribe({
+    // Cargar destinos con takeUntilDestroyed
+    this.destinationService.getDestinations().pipe(
+      takeUntilDestroyed()
+    ).subscribe({
       next: (destinations) => {
-        this.destinations = destinations;
+        this.destinationsSignal.set(destinations);
       },
       error: (error) => {
         console.error('Error al cargar destinos:', error);
@@ -134,10 +163,12 @@ export class ReservationsComponent implements OnInit {
       }
     });
 
-    // Cargar transportes
-    this.transportService.getTransports().subscribe({
+    // Cargar transportes con takeUntilDestroyed
+    this.transportService.getTransports().pipe(
+      takeUntilDestroyed()
+    ).subscribe({
       next: (transports) => {
-        this.transports = transports;
+        this.transportsSignal.set(transports);
         this.loadingService.hide('reservations-data');
       },
       error: (error) => {
@@ -155,9 +186,12 @@ export class ReservationsComponent implements OnInit {
     const user = this.currentUser();
     if (!user) return;
 
-    this.reservationService.getUserReservations(user.id).subscribe({
+    this.reservationService.getUserReservations(user.id).pipe(
+      takeUntilDestroyed()
+    ).subscribe({
       next: (reservations) => {
-        this.userReservations = reservations;
+        this.userReservationsSignal.set(reservations);
+        this.currentPageSignal.set(1); // Reset a primera página
       },
       error: (error) => {
         console.error('Error al cargar reservas:', error);
@@ -173,8 +207,7 @@ export class ReservationsComponent implements OnInit {
       return;
     }
 
-    // Mostrar todos los transportes (no hay propiedad 'available' en Transport)
-    this.filteredTransports = this.transports;
+    this.filteredTransports = this.transportsSignal();
   }
 
   // ============================================
@@ -182,11 +215,11 @@ export class ReservationsComponent implements OnInit {
   // ============================================
 
   showMenu(): void {
-    this.currentView = 'menu';
+    this.currentViewSignal.set('menu');
   }
 
   showCreateReservation(): void {
-    this.currentView = 'create';
+    this.currentViewSignal.set('create');
     this.reservationForm.reset({
       passengers: 1,
       customerName: this.currentUser()?.name || '',
@@ -195,7 +228,7 @@ export class ReservationsComponent implements OnInit {
   }
 
   showReservationsList(): void {
-    this.currentView = 'list';
+    this.currentViewSignal.set('list');
     this.loadUserReservations();
   }
 
@@ -218,8 +251,8 @@ export class ReservationsComponent implements OnInit {
     }
 
     const formValue = this.reservationForm.value;
-    const destination = this.destinations.find(d => d.id === formValue.destination);
-    const transport = this.transports.find(t => t.id === formValue.transport);
+    const destination = this.destinationsSignal().find(d => d.id === formValue.destination);
+    const transport = this.transportsSignal().find(t => t.id === formValue.transport);
 
     if (!destination || !transport) {
       this.notificationService.error('Destino o transporte no válido');
@@ -242,7 +275,9 @@ export class ReservationsComponent implements OnInit {
 
     this.loadingService.show('create-reservation', 'Creando reserva...');
 
-    this.reservationService.createReservation(user.id, dto).subscribe({
+    this.reservationService.createReservation(user.id, dto).pipe(
+      takeUntilDestroyed()
+    ).subscribe({
       next: (reservation) => {
         this.loadingService.hide('create-reservation');
         this.notificationService.success('¡Reserva creada exitosamente!', {
@@ -276,7 +311,9 @@ export class ReservationsComponent implements OnInit {
 
     this.loadingService.show('delete-reservation', 'Eliminando reserva...');
 
-    this.reservationService.deleteReservation(reservationId).subscribe({
+    this.reservationService.deleteReservation(reservationId).pipe(
+      takeUntilDestroyed()
+    ).subscribe({
       next: (success: boolean) => {
         this.loadingService.hide('delete-reservation');
         if (success) {
@@ -295,11 +332,45 @@ export class ReservationsComponent implements OnInit {
   }
 
   // ============================================
+  // PAGINACIÓN
+  // ============================================
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPageSignal.set(page);
+    }
+  }
+
+  nextPage(): void {
+    this.goToPage(this.currentPageSignal() + 1);
+  }
+
+  prevPage(): void {
+    this.goToPage(this.currentPageSignal() - 1);
+  }
+
+  // ============================================
+  // TRACK BY FUNCTIONS
+  // ============================================
+
+  trackByReservationId(index: number, reservation: Reservation): string {
+    return reservation.id;
+  }
+
+  trackByDestinationId(index: number, destination: Destination): string {
+    return destination.id;
+  }
+
+  trackByTransportId(index: number, transport: Transport): string {
+    return transport.id;
+  }
+
+  // ============================================
   // UTILIDADES
   // ============================================
 
   getDestinationName(destinationId: string): string {
-    const destination = this.destinations.find(d => d.id === destinationId);
+    const destination = this.destinationsSignal().find(d => d.id === destinationId);
     return destination?.name || 'Desconocido';
   }
 

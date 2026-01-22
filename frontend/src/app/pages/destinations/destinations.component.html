@@ -3,28 +3,104 @@
     <h1>Nuestros destinos</h1>
     <p>Descubre lugares increíbles en todo el mundo</p>
   </header>
+
+  <!-- Búsqueda -->
+  <div class="search-section">
+    <input
+      type="text"
+      class="search-input"
+      [ngModel]="searchQuery()"
+      (ngModelChange)="onSearchChange($event)"
+      placeholder="Buscar destinos por nombre, país o descripción..."
+    />
+    @if (searchQuery() || selectedCategory()) {
+      <button class="btn-clear" (click)="clearFilters()">Limpiar filtros</button>
+    }
+  </div>
+
+  <!-- Filtros por categoría -->
   <div class="filters">
-    <button *ngFor="let cat of categories" (click)="filterByCategory(cat)"
-      [class.active]="selectedCategory === cat">{{ cat }}</button>
-    <button (click)="filterByCategory('')" [class.active]="!selectedCategory">Todos</button>
+    @for (cat of categories(); track cat) {
+      <button
+        (click)="filterByCategory(cat)"
+        [class.active]="selectedCategory() === cat">
+        {{ cat }}
+      </button>
+    }
+    <button
+      (click)="filterByCategory('')"
+      [class.active]="!selectedCategory()">
+      Todos
+    </button>
   </div>
-  <div class="grid">
-    <article *ngFor="let d of filteredDestinations" class="card">
-      <div class="card__image">
-        <img [src]="d.image" [alt]="d.name" />
-      </div>
-      <div class="card__header">
-        <span class="category">{{ d.category }}</span>
-        <span class="rating">{{ d.rating }}</span>
-      </div>
-      <h2>{{ d.name }}</h2>
-      <p class="country">{{ d.country }}</p>
-      <p class="desc">{{ d.description }}</p>
-      <div class="card__footer">
-        <span class="price">{{ d.price | currency:'EUR' }}</span>
-        <a [routerLink]="['/destinos', d.id]" class="btn">Ver detalles</a>
-      </div>
-    </article>
+
+  <!-- Resultados -->
+  <div class="results-info">
+    <p>
+      Mostrando {{ paginatedDestinations().length }} de {{ filteredDestinations().length }} destinos
+      @if (selectedCategory()) {
+        <span> en {{ selectedCategory() }}</span>
+      }
+    </p>
   </div>
+
+  <!-- Grid de destinos con trackBy -->
+  @if (hasResults()) {
+    <div class="grid destinations-grid">
+      @for (d of paginatedDestinations(); track trackByDestinationId($index, d)) {
+        <article class="card">
+          <div class="card__image">
+            <img [src]="d.image" [alt]="d.name" loading="lazy" />
+          </div>
+          <div class="card__header">
+            <span class="category">{{ d.category }}</span>
+            <span class="rating">⭐ {{ d.rating }}</span>
+          </div>
+          <h2>{{ d.name }}</h2>
+          <p class="country">{{ d.country }}</p>
+          <p class="desc">{{ d.description }}</p>
+          <div class="card__footer">
+            <span class="price">{{ d.price | currency:'EUR' }}</span>
+            <a [routerLink]="['/destinos', d.id]" class="btn">Ver detalles</a>
+          </div>
+        </article>
+      }
+    </div>
+
+    <!-- Paginación -->
+    @if (totalPages() > 1) {
+      <div class="pagination">
+        <button
+          class="pagination__btn"
+          (click)="prevPage()"
+          [disabled]="currentPage() === 1">
+          ← Anterior
+        </button>
+
+        <div class="pagination__pages">
+          @for (page of [].constructor(totalPages()); track $index) {
+            <button
+              class="pagination__page"
+              [class.active]="currentPage() === $index + 1"
+              (click)="goToPage($index + 1)">
+              {{ $index + 1 }}
+            </button>
+          }
+        </div>
+
+        <button
+          class="pagination__btn"
+          (click)="nextPage()"
+          [disabled]="currentPage() === totalPages()">
+          Siguiente →
+        </button>
+      </div>
+    }
+  } @else {
+    <div class="no-results">
+      <p>No se encontraron destinos con los filtros seleccionados.</p>
+      <button class="btn" (click)="clearFilters()">Limpiar filtros</button>
+    </div>
+  }
 </div>
 
