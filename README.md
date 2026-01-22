@@ -11,22 +11,27 @@
 
 ## 🚀 Demo en Producción
 
-**URL de Producción:** En configuración - Preparado para Netlify/Vercel
+**URL de Producción:** [https://proyecto-final-t4traveling.onrender.com](https://proyecto-final-t4traveling.onrender.com)
 
-> **Nota:** La aplicación está completamente lista para despliegue. Los archivos de configuración (`netlify.toml` y `_redirects`) están incluidos.
+> **Nota:** La aplicación está desplegada en Render con configuración optimizada para SPAs de Angular.
 
-### Despliegue Rápido
+### Características en Producción
 
-```bash
-# Netlify
-cd frontend
-npm install
-npm run build:prod
-netlify deploy --prod
+- ✅ Todas las rutas funcionan correctamente (SPA routing)
+- ✅ HTTPS habilitado automáticamente
+- ✅ Headers de seguridad configurados
+- ✅ Cache optimizado para performance
+- ✅ CDN global de Render
+- ✅ Deploy automático en cada push a Git
 
-# Vercel
-vercel --prod
-```
+### Despliegue Automático
+
+El proyecto usa `render.yaml` para configuración automática:
+- Build: `cd frontend && npm install && npm run build:prod`
+- Publish: `./frontend/dist/t4traveling/browser`
+- Rewrite rules: Todas las rutas → `index.html` (SPA)
+
+Ver [Guía de Render](docs/RENDER-CONFIGURACION-FINAL.md) para más detalles.
 
 ---
 
@@ -339,46 +344,7 @@ src/app/
 
 ---
 
-## 🚀 Despliegue en Producción
 
-### Opción 1: Netlify (Recomendado)
-
-```bash
-# CLI
-npm install -g netlify-cli
-netlify login
-netlify init
-netlify deploy --prod
-
-# O conectar repositorio Git desde Netlify Dashboard
-# Build command: npm run build:prod
-# Publish directory: dist/t4traveling/browser
-```
-
-### Opción 2: Vercel
-
-```bash
-# CLI
-npm install -g vercel
-vercel login
-vercel --prod
-
-# O importar desde Vercel Dashboard
-```
-
-### Opción 3: Firebase Hosting
-
-```bash
-# CLI
-npm install -g firebase-tools
-firebase login
-firebase init hosting
-firebase deploy --only hosting
-```
-
-**Ver [GUIA-DESPLIEGUE.md](docs/GUIA-DESPLIEGUE.md) para instrucciones detalladas.**
-
----
 
 ## 🌐 Navegadores Soportados
 
