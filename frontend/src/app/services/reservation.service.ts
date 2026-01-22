@@ -54,6 +54,8 @@ export class ReservationService {
    * Obtiene todas las reservas de un usuario
    */
   getUserReservations(userId: string): Observable<Reservation[]> {
+    // Recargar desde localStorage antes de filtrar
+    this.loadReservations();
     const userReservations = this.reservationsSignal().filter(r => r.userId === userId);
     return of(userReservations).pipe(delay(300));
   }

@@ -48,6 +48,7 @@
       border-color: $color-primary-1;
       box-shadow: $shadow-md;
       transform: translateY(-2px);
+      opacity: 0.95;
     }
 
     &:active:not(:disabled) {

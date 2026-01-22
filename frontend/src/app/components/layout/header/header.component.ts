@@ -1,6 +1,8 @@
-import { Component, HostListener, ElementRef, ViewChild, Renderer2, OnDestroy, AfterViewInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, HostListener, ElementRef, ViewChild, Renderer2, OnDestroy, AfterViewInit, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ThemeSwitcherComponent } from '../../shared/theme-switcher/theme-switcher.component';
+import { AuthService } from '../../../services/auth.service';
 
 /**
  * HeaderComponent - Componente de cabecera con menú hamburguesa
@@ -13,17 +15,27 @@ import { ThemeSwitcherComponent } from '../../shared/theme-switcher/theme-switch
  * - Uso de Renderer2 para manipulación DOM segura
  * - ARIA attributes para accesibilidad (aria-expanded, aria-controls)
  * - Gestión de overflow del body
+ * - Dropdown de usuario con cerrar sesión
  */
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, ThemeSwitcherComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, ThemeSwitcherComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
   // Estado del menú móvil
   isMenuOpen = false;
+  isUserDropdownOpen = false;
+
+  // Servicios inyectados
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  // Computed signals de auth
+  isAuthenticated = this.authService.isAuthenticated;
+  currentUser = this.authService.currentUser;
 
   @ViewChild('mobileNav', { read: ElementRef }) mobileNav?: ElementRef<HTMLElement>;
   @ViewChild('menuToggle', { read: ElementRef }) menuToggle?: ElementRef<HTMLButtonElement>;
@@ -207,6 +219,30 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     if (nextIndex >= menuItems.length) nextIndex = 0;
 
     (menuItems[nextIndex] as HTMLElement).focus();
+  }
+
+  /**
+   * Alterna el dropdown de usuario
+   */
+  toggleUserDropdown(): void {
+    this.isUserDropdownOpen = !this.isUserDropdownOpen;
+  }
+
+  /**
+   * Navega a la página de login
+   */
+  navigateToLogin(): void {
+    this.isUserDropdownOpen = false;
+    this.router.navigate(['/login']);
+  }
+
+  /**
+   * Cierra sesión del usuario
+   */
+  logout(): void {
+    this.authService.logout();
+    this.isUserDropdownOpen = false;
+    this.router.navigate(['/']);
   }
 }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ReservationService } from '../../services/reservation.service';
 import { DestinationService, Destination } from '../../services/destination.service';
@@ -28,6 +28,7 @@ export class ReservationsComponent implements OnInit {
   private loadingService = inject(LoadingService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   // Estado
   isAuthenticated = this.authService.isAuthenticated;
@@ -65,6 +66,24 @@ export class ReservationsComponent implements OnInit {
 
     this.initForm();
     this.loadData();
+
+    // Manejar query params para preseleccionar destino y mostrar formulario de creación
+    this.route.queryParams.subscribe(params => {
+      if (params['view'] === 'create') {
+        this.currentView = 'create';
+      }
+
+      if (params['destinationId']) {
+        // Esperar a que se carguen los destinos para preseleccionar
+        setTimeout(() => {
+          this.reservationForm.patchValue({
+            destination: params['destinationId']
+          });
+          // Esto disparará el filtrado de transportes automáticamente
+          this.filterTransportsByDestination();
+        }, 500);
+      }
+    });
   }
 
   private initForm(): void {

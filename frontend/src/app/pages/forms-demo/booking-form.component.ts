@@ -133,6 +133,10 @@ export class BookingFormComponent implements OnInit, OnDestroy, AfterViewInit {
         '',
         [Validators.required]
       ],
+      transportType: [
+        '',
+        [Validators.required]
+      ],
       departureDate: [
         '',
         [Validators.required]

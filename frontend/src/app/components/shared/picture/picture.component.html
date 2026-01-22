@@ -1,0 +1,21 @@
+<picture [class]="'picture-wrapper ' + (class || '')">
+  <!-- Fuentes alternativas (formatos modernos y art direction) -->
+  <source
+    *ngFor="let source of sources"
+    [srcset]="source.srcset"
+    [type]="source.type"
+    [media]="source.media"
+    [sizes]="source.sizes"
+  />
+
+  <!-- Imagen fallback (obligatoria) -->
+  <img
+    [src]="src"
+    [alt]="alt"
+    [loading]="loading"
+    [width]="width"
+    [height]="height"
+    [style.object-fit]="objectFit"
+    class="picture-image"
+  />
+</picture>

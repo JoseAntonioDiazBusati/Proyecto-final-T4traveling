@@ -1,7 +1,11 @@
 <article [class]="cardClasses">
   <!-- Imagen (si se proporciona) -->
   <div class="card__image-wrapper" *ngIf="imageSrc">
-    <img [src]="imageSrc" [alt]="imageAlt || title || 'Card image'" class="card__image" />
+    <img
+      [src]="imageSrc"
+      [alt]="imageAlt || title || 'Card image'"
+      class="card__image"
+      loading="lazy" />
   </div>
 
   <!-- Contenido -->

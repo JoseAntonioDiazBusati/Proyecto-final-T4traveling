@@ -1,0 +1,344 @@
+@import '../../../styles/00-settings/variables';
+@import '../../../styles/01-tools/mixins';
+
+.transports {
+  padding: 1rem 0.75rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+
+  @include respond-to('sm') {
+    padding: 1.5rem 1rem;
+  }
+
+  @include respond-to('md') {
+    padding: 2rem;
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  @include respond-to('md') {
+    margin-bottom: 3rem;
+  }
+
+  h1 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+
+    @include respond-to('sm') {
+      font-size: 2rem;
+    }
+
+    @include respond-to('md') {
+      font-size: 2.5rem;
+    }
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+
+    @include respond-to('sm') {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.transport-types {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  @include respond-to('sm') {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  @include respond-to('md') {
+    margin-bottom: 3rem;
+  }
+}
+
+.transport-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+  }
+
+  &__icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  &__description {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+
+  &:hover {
+    background: var(--color-primary-dark);
+    transform: scale(1.02);
+  }
+}
+
+.results {
+  margin-top: 2rem;
+
+  @include respond-to('md') {
+    margin-top: 3rem;
+  }
+}
+
+.results-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+
+  @include respond-to('md') {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin: 0;
+
+    @include respond-to('sm') {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+.btn-clear {
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+  }
+}
+
+.transport-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.transport-item {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: all 0.3s ease;
+
+  @include respond-to('sm') {
+    padding: 1.5rem;
+  }
+
+  &:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    @include respond-to('md') {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &__icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+
+    @include respond-to('sm') {
+      font-size: 2.5rem;
+    }
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  &__name {
+    color: var(--text-primary);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+
+    @include respond-to('sm') {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__company {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+
+    @include respond-to('sm') {
+      font-size: 0.9375rem;
+    }
+  }
+
+  &__price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+
+    @include respond-to('md') {
+      width: auto;
+      align-items: flex-end;
+      text-align: right;
+    }
+  }
+
+  &__description {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+
+    @include respond-to('sm') {
+      font-size: 0.9375rem;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+
+    @include respond-to('sm') {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  &__continent {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    @include respond-to('sm') {
+      font-size: 0.9375rem;
+    }
+  }
+}
+
+.price-amount {
+  color: var(--color-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.price-label {
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  margin-top: 0.25rem;
+}
+
+.btn-select {
+  padding: 0.5rem 1.5rem;
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all 0.3s ease;
+  width: 100%;
+
+  @include respond-to('sm') {
+    width: auto;
+  }
+
+  &:hover {
+    background: var(--color-primary-dark);
+    transform: scale(1.05);
+  }
+}
+
+.no-results {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  margin-top: 2rem;
+
+  &__icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  &__message {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+}

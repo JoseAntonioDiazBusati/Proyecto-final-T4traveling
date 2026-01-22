@@ -70,6 +70,26 @@
           </small>
         </div>
 
+        <div class="form-group">
+          <label for="transportType" class="form-label">
+            Tipo de Transporte <span class="required">*</span>
+          </label>
+          <select
+            id="transportType"
+            formControlName="transportType"
+            class="form-control"
+            [class.invalid]="shouldShowError('transportType')"
+          >
+            <option value="">Seleccione un transporte</option>
+            <option *ngFor="let transport of transports" [value]="transport.id">
+              {{ transport.type }} - {{ transport.name }}
+            </option>
+          </select>
+          <small class="error-message" *ngIf="shouldShowError('transportType')">
+            {{ getErrorMessage('transportType', 'Tipo de Transporte') }}
+          </small>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label for="departureDate" class="form-label">

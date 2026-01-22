@@ -1,0 +1,26 @@
+// ============================================
+// RESPONSIVE IMAGE COMPONENT
+// ============================================
+
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.3s ease;
+
+  // Animación de carga
+  &[loading="lazy"] {
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
+    animation-delay: 0.1s;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
