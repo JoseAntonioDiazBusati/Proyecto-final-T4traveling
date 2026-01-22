@@ -37,49 +37,89 @@ export class DestinationService {
       country: 'Francia',
       description: 'La ciudad del amor y la luz',
       price: 1200,
-      image: '/assets/images/paris.jpg',
+      image: '/images/paris.jpeg',
       rating: 4.8,
       category: 'Europa'
     },
     {
       id: '2',
-      name: 'Tokio',
-      country: 'Japón',
-      description: 'Tradición y modernidad en armonía',
-      price: 1800,
-      image: '/assets/images/tokyo.jpg',
-      rating: 4.9,
-      category: 'Asia'
-    },
-    {
-      id: '3',
-      name: 'Nueva York',
-      country: 'Estados Unidos',
-      description: 'La ciudad que nunca duerme',
-      price: 1500,
-      image: '/assets/images/newyork.jpg',
-      rating: 4.7,
-      category: 'América'
-    },
-    {
-      id: '4',
       name: 'Barcelona',
       country: 'España',
       description: 'Arte, playa y arquitectura única',
       price: 900,
-      image: '/assets/images/barcelona.jpg',
+      image: '/images/barcelona.jpeg',
       rating: 4.6,
       category: 'Europa'
     },
     {
-      id: '5',
+      id: '3',
       name: 'Roma',
       country: 'Italia',
       description: 'Historia antigua en cada esquina',
       price: 1000,
-      image: '/assets/images/roma.jpg',
+      image: '/images/roma.jpeg',
       rating: 4.8,
       category: 'Europa'
+    },
+    {
+      id: '4',
+      name: 'Ámsterdam',
+      country: 'Países Bajos',
+      description: 'Canales, cultura y historia vibrante',
+      price: 1100,
+      image: '/images/amsterdam.jpeg',
+      rating: 4.7,
+      category: 'Europa'
+    },
+    {
+      id: '5',
+      name: 'Bruselas',
+      country: 'Bélgica',
+      description: 'Capital europea con encanto histórico',
+      price: 950,
+      image: '/images/bruselas.jpeg',
+      rating: 4.5,
+      category: 'Europa'
+    },
+    {
+      id: '6',
+      name: 'Londres',
+      country: 'Reino Unido',
+      description: 'Tradición británica y modernidad cosmopolita',
+      price: 1300,
+      image: '/images/londres.jpeg',
+      rating: 4.7,
+      category: 'Europa'
+    },
+    {
+      id: '7',
+      name: 'Kioto',
+      country: 'Japón',
+      description: 'Templos antiguos y jardines zen',
+      price: 1800,
+      image: '/images/kioto.jpeg',
+      rating: 4.9,
+      category: 'Asia'
+    },
+    {
+      id: '8',
+      name: 'Pekín',
+      country: 'China',
+      description: 'Historia milenaria y modernidad imperial',
+      price: 1600,
+      image: '/images/pekin.jpeg',
+      rating: 4.6,
+      category: 'Asia'
+    },
+    {
+      id: '9',
+      name: 'Nueva York',
+      country: 'Estados Unidos',
+      description: 'La ciudad que nunca duerme',
+      price: 1500,
+      image: '/images/ny.webp',
+      rating: 4.7,
+      category: 'América'
     }
   ];
 

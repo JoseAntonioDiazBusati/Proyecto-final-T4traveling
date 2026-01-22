@@ -1,8 +1,16 @@
 <div class="detail" *ngIf="destination">
   <header class="hero">
-    <span class="category">{{ destination.category }}</span>
-    <h1>{{ destination.name }}</h1>
-    <p>{{ destination.country }}</p>
+    <div class="hero__image">
+      <img [src]="destination.image"
+           [alt]="destination.name"
+           (error)="onImageError($event)"
+           (load)="onImageLoad($event)" />
+    </div>
+    <div class="hero__content">
+      <span class="category">{{ destination.category }}</span>
+      <h1>{{ destination.name }}</h1>
+      <p>{{ destination.country }}</p>
+    </div>
   </header>
   <div class="content">
     <div class="main">

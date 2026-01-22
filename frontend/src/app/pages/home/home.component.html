@@ -16,9 +16,15 @@
     <h2>Destinos destacados</h2>
     <div class="featured__grid">
       <article *ngFor="let d of featuredDestinations" class="card">
-        <h3>{{ d.name }}</h3>
-        <p>{{ d.country }}</p>
-        <a [routerLink]="['/destinos', d.id]" class="btn btn--sm">Ver</a>
+        <div class="card__image">
+          <img [src]="d.image" [alt]="d.name" />
+        </div>
+        <div class="card__content">
+          <h3>{{ d.name }}</h3>
+          <p>{{ d.country }}</p>
+          <span class="price">{{ d.price | currency:'EUR' }}</span>
+          <a [routerLink]="['/destinos', d.id]" class="btn btn--sm">Ver detalles</a>
+        </div>
       </article>
     </div>
   </section>
