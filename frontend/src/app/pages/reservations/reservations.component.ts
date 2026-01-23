@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -31,6 +31,7 @@ export class ReservationsComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
 
   // Signals para estado reactivo
   isAuthenticated = this.authService.isAuthenticated;
@@ -130,7 +131,7 @@ export class ReservationsComponent implements OnInit {
 
     // Filtrar transportes cuando cambia el destino con takeUntilDestroyed
     this.reservationForm.get('destination')?.valueChanges.pipe(
-      takeUntilDestroyed()
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe(() => {
       this.filterTransportsByDestination();
       this.reservationForm.patchValue({ transport: '' });
@@ -152,7 +153,7 @@ export class ReservationsComponent implements OnInit {
 
     // Cargar destinos con takeUntilDestroyed
     this.destinationService.getDestinations().pipe(
-      takeUntilDestroyed()
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (destinations) => {
         this.destinationsSignal.set(destinations);
@@ -165,7 +166,7 @@ export class ReservationsComponent implements OnInit {
 
     // Cargar transportes con takeUntilDestroyed
     this.transportService.getTransports().pipe(
-      takeUntilDestroyed()
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (transports) => {
         this.transportsSignal.set(transports);
@@ -187,7 +188,7 @@ export class ReservationsComponent implements OnInit {
     if (!user) return;
 
     this.reservationService.getUserReservations(user.id).pipe(
-      takeUntilDestroyed()
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (reservations) => {
         this.userReservationsSignal.set(reservations);
@@ -207,7 +208,17 @@ export class ReservationsComponent implements OnInit {
       return;
     }
 
-    this.filteredTransports = this.transportsSignal();
+    // Encontrar el destino seleccionado
+    const selectedDestination = this.destinationsSignal().find(d => d.id === destinationId);
+    if (!selectedDestination) {
+      this.filteredTransports = [];
+      return;
+    }
+
+    // Filtrar transportes por el continente del destino
+    this.filteredTransports = this.transportsSignal().filter(
+      transport => transport.continent === selectedDestination.category
+    );
   }
 
   // ============================================
@@ -276,9 +287,9 @@ export class ReservationsComponent implements OnInit {
     this.loadingService.show('create-reservation', 'Creando reserva...');
 
     this.reservationService.createReservation(user.id, dto).pipe(
-      takeUntilDestroyed()
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (reservation) => {
+      next: () => {
         this.loadingService.hide('create-reservation');
         this.notificationService.success('¡Reserva creada exitosamente!', {
           title: 'Éxito',
@@ -312,7 +323,7 @@ export class ReservationsComponent implements OnInit {
     this.loadingService.show('delete-reservation', 'Eliminando reserva...');
 
     this.reservationService.deleteReservation(reservationId).pipe(
-      takeUntilDestroyed()
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (success: boolean) => {
         this.loadingService.hide('delete-reservation');

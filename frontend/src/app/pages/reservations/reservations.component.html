@@ -79,7 +79,7 @@
               [disabled]="!reservationForm.get('destination')?.value">
               <option value="">Selecciona transporte</option>
               <option *ngFor="let transport of filteredTransports" [value]="transport.id">
-                {{ transport.type }} - {{ transport.company }} ({{ transport.price | currency:'EUR' }})
+                {{ transport.name }} - {{ transport.company }} ({{ transport.price | currency:'EUR' }})
               </option>
             </select>
             <span class="error-message" *ngIf="shouldShowError('transport')">
