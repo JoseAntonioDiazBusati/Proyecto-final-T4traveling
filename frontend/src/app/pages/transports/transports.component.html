@@ -1,4 +1,4 @@
-<div class="transports">
+<main class="transports">
   <header class="header">
     <h1>Transportes</h1>
     <p>Encuentra el medio de transporte perfecto para tu viaje</p>
@@ -44,23 +44,32 @@
     </div>
 
     <!-- Paginación -->
-    <div *ngIf="totalPages() > 1" class="pagination">
+    <nav *ngIf="totalPages() > 1" class="pagination">
       <button
         class="pagination__btn"
         (click)="prevPage()"
         [disabled]="currentPageSignal() === 1">
         ← Anterior
       </button>
-      <span class="pagination__info">
-        Página {{ currentPageSignal() }} de {{ totalPages() }}
-      </span>
+
+      <div class="pagination__pages">
+        @for (page of [].constructor(totalPages()); track $index) {
+          <button
+            class="pagination__page"
+            [class.active]="currentPageSignal() === $index + 1"
+            (click)="goToPage($index + 1)">
+            {{ $index + 1 }}
+          </button>
+        }
+      </div>
+
       <button
         class="pagination__btn"
         (click)="nextPage()"
         [disabled]="currentPageSignal() === totalPages()">
         Siguiente →
       </button>
-    </div>
+    </nav>
   </div>
 
   <div *ngIf="allTransports().length === 0" class="no-results">
@@ -79,4 +88,4 @@
       Ver todos los transportes
     </button>
   </div>
-</div>
+</main>

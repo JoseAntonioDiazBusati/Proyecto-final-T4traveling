@@ -1,4 +1,4 @@
-<div class="destinations">
+<main class="destinations">
   <header class="header">
     <h1>Nuestros destinos</h1>
     <p>Descubre lugares increíbles en todo el mundo</p>
@@ -69,7 +69,7 @@
 
     <!-- Paginación -->
     @if (totalPages() > 1) {
-      <div class="pagination">
+      <nav class="pagination">
         <button
           class="pagination__btn"
           (click)="prevPage()"
@@ -94,7 +94,7 @@
           [disabled]="currentPage() === totalPages()">
           Siguiente →
         </button>
-      </div>
+      </nav>
     }
   } @else {
     <div class="no-results">
@@ -102,5 +102,5 @@
       <button class="btn" (click)="clearFilters()">Limpiar filtros</button>
     </div>
   }
-</div>
+</main>
 

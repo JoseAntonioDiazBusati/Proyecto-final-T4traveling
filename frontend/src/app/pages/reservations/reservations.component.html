@@ -1,21 +1,21 @@
-<div class="reservations">
+<main class="reservations">
   <!-- VISTA: MENÚ PRINCIPAL -->
   @if (currentView() === 'menu') {
-    <div class="reservations__menu">
+    <section class="reservations__menu">
       <header class="reservations__header">
         <h1>Mis Reservas</h1>
         <p>Bienvenido, <strong>{{ currentUser()?.name }}</strong></p>
       </header>
 
-      <div class="menu-options">
-        <div class="menu-card" (click)="showCreateReservation()">
-          <div class="menu-card__icon">➕</div>
+      <nav class="menu-options">
+        <article class="menu-card" (click)="showCreateReservation()">
+          <figure class="menu-card__icon">➕</figure>
           <h2 class="menu-card__title">Crear Nueva Reserva</h2>
           <p class="menu-card__description">Reserva tu próximo viaje</p>
-        </div>
+        </article>
 
-        <div class="menu-card" (click)="showReservationsList()">
-          <div class="menu-card__icon">📋</div>
+        <article class="menu-card" (click)="showReservationsList()">
+          <figure class="menu-card__icon">📋</figure>
           <h2 class="menu-card__title">Ver Mis Reservas</h2>
           <p class="menu-card__description">Consulta y gestiona tus reservas</p>
           @if (userReservations().length > 0) {
@@ -23,14 +23,14 @@
               {{ userReservations().length }}
             </span>
           }
-        </div>
-      </div>
-    </div>
+        </article>
+      </nav>
+    </section>
   }
 
   <!-- VISTA: CREAR RESERVA -->
   @if (currentView() === 'create') {
-    <div class="reservations__create">
+    <section class="reservations__create">
     <header class="reservations__header">
       <button class="btn-back" (click)="showMenu()" aria-label="Volver al menú">
         ← Volver
@@ -47,8 +47,8 @@
           Destino y Transporte
         </h2>
 
-        <div class="form-row">
-          <div class="form-group">
+        <section class="form-row">
+          <section class="form-group">
             <label for="destination" class="form-label">
               Destino <span class="required">*</span>
             </label>
@@ -65,9 +65,9 @@
             <span class="error-message" *ngIf="shouldShowError('destination')">
               {{ getErrorMessage('destination') }}
             </span>
-          </div>
+          </section>
 
-          <div class="form-group">
+          <section class="form-group">
             <label for="transport" class="form-label">
               Transporte <span class="required">*</span>
             </label>
@@ -85,8 +85,8 @@
             <span class="error-message" *ngIf="shouldShowError('transport')">
               {{ getErrorMessage('transport') }}
             </span>
-          </div>
-        </div>
+          </section>
+        </section>
       </section>
 
       <!-- Sección: Fechas y Pasajeros -->
@@ -96,8 +96,8 @@
           Fechas y Pasajeros
         </h2>
 
-        <div class="form-row">
-          <div class="form-group">
+        <section class="form-row">
+          <section class="form-group">
             <label for="departureDate" class="form-label">
               Fecha de Salida <span class="required">*</span>
             </label>
@@ -112,9 +112,9 @@
             <span class="error-message" *ngIf="shouldShowError('departureDate')">
               {{ getErrorMessage('departureDate') }}
             </span>
-          </div>
+          </section>
 
-          <div class="form-group">
+          <section class="form-group">
             <label for="returnDate" class="form-label">
               Fecha de Regreso <span class="required">*</span>
             </label>
@@ -132,10 +132,10 @@
             <span class="error-message" *ngIf="reservationForm.errors?.['invalidDateRange']">
               La fecha de regreso debe ser posterior a la de salida
             </span>
-          </div>
-        </div>
+          </section>
+        </section>
 
-        <div class="form-group">
+        <section class="form-group">
           <label for="passengers" class="form-label">
             Número de Pasajeros <span class="required">*</span>
           </label>
@@ -150,7 +150,7 @@
           <span class="error-message" *ngIf="shouldShowError('passengers')">
             {{ getErrorMessage('passengers') }}
           </span>
-        </div>
+        </section>
       </section>
 
       <!-- Sección: Datos del Cliente -->
@@ -160,7 +160,7 @@
           Datos del Cliente
         </h2>
 
-        <div class="form-group">
+        <section class="form-group">
           <label for="customerName" class="form-label">
             Nombre Completo <span class="required">*</span>
           </label>
@@ -174,10 +174,10 @@
           <span class="error-message" *ngIf="shouldShowError('customerName')">
             {{ getErrorMessage('customerName') }}
           </span>
-        </div>
+        </section>
 
-        <div class="form-row">
-          <div class="form-group">
+        <section class="form-row">
+          <section class="form-group">
             <label for="customerEmail" class="form-label">
               Email <span class="required">*</span>
             </label>
@@ -191,9 +191,9 @@
             <span class="error-message" *ngIf="shouldShowError('customerEmail')">
               {{ getErrorMessage('customerEmail') }}
             </span>
-          </div>
+          </section>
 
-          <div class="form-group">
+          <section class="form-group">
             <label for="customerPhone" class="form-label">
               Teléfono <span class="required">*</span>
             </label>
@@ -208,10 +208,10 @@
             <span class="error-message" *ngIf="shouldShowError('customerPhone')">
               {{ getErrorMessage('customerPhone') }}
             </span>
-          </div>
-        </div>
+          </section>
+        </section>
 
-        <div class="form-group">
+        <section class="form-group">
           <label for="specialRequests" class="form-label">
             Peticiones Especiales
           </label>
@@ -221,25 +221,25 @@
             class="form-control"
             rows="4"
             placeholder="Alergias, preferencias de asiento, etc."></textarea>
-        </div>
+        </section>
       </section>
 
       <!-- Acciones -->
-      <div class="form-actions">
+      <nav class="form-actions">
         <button type="button" class="btn btn-secondary" (click)="showMenu()">
           Cancelar
         </button>
         <button type="submit" class="btn btn-primary" [disabled]="reservationForm.invalid">
           Crear Reserva
         </button>
-      </div>
+      </nav>
     </form>
-  </div>
+  </section>
   }
 
   <!-- VISTA: LISTA DE RESERVAS -->
   @if (currentView() === 'list') {
-    <div class="reservations__list">
+    <section class="reservations__list">
     <header class="reservations__header">
       <button class="btn-back" (click)="showMenu()" aria-label="Volver al menú">
         ← Volver
@@ -248,69 +248,69 @@
       <p>{{ userReservations().length }} reserva(s) encontrada(s)</p>
     </header>
 
-    <div class="list-actions">
+    <nav class="list-actions">
       <button class="btn btn-primary" (click)="showCreateReservation()">
         ➕ Nueva Reserva
       </button>
-    </div>
+    </nav>
 
     <!-- Sin reservas -->
     @if (userReservations().length === 0) {
-      <div class="empty-state">
-        <div class="empty-state__icon">📭</div>
+      <section class="empty-state">
+        <figure class="empty-state__icon">📭</figure>
         <h2 class="empty-state__title">No tienes reservas</h2>
         <p class="empty-state__message">Crea tu primera reserva para comenzar a viajar</p>
         <button class="btn btn-primary" (click)="showCreateReservation()">
           Crear Primera Reserva
         </button>
-      </div>
+      </section>
     }
 
     <!-- Lista de reservas -->
     @if (userReservations().length > 0) {
-      <div class="reservations-grid">
+      <section class="reservations-grid">
         @for (reservation of userReservations(); track trackByReservationId($index, reservation)) {
           <article class="reservation-card">
-            <div class="reservation-card__header">
+            <header class="reservation-card__header">
               <h3 class="reservation-card__title">{{ reservation.destinationName }}</h3>
               <span class="reservation-card__status" [ngClass]="getStatusClass(reservation.status)">
                 {{ getStatusLabel(reservation.status) }}
               </span>
-            </div>
+            </header>
 
-            <div class="reservation-card__body">
-              <div class="reservation-info">
+            <section class="reservation-card__body">
+              <section class="reservation-info">
                 <span class="info-icon">🚗</span>
                 <span class="info-text">{{ reservation.transportType }}</span>
-              </div>
+              </section>
 
-              <div class="reservation-info">
+              <section class="reservation-info">
                 <span class="info-icon">👥</span>
                 <span class="info-text">{{ reservation.passengers }} pasajero(s)</span>
-              </div>
+              </section>
 
-              <div class="reservation-info">
+              <section class="reservation-info">
                 <span class="info-icon">📅</span>
                 <span class="info-text">
                   {{ reservation.departureDate | date:'dd/MM/yyyy' }} -
                   {{ reservation.returnDate | date:'dd/MM/yyyy' }}
                 </span>
-              </div>
+              </section>
 
-              <div class="reservation-info">
+              <section class="reservation-info">
                 <span class="info-icon">💰</span>
                 <span class="info-text">{{ reservation.totalPrice | currency:'EUR' }}</span>
-              </div>
+              </section>
 
               @if (reservation.specialRequests) {
-                <div class="reservation-info">
+                <section class="reservation-info">
                   <span class="info-icon">📝</span>
                   <span class="info-text">{{ reservation.specialRequests }}</span>
-                </div>
+                </section>
               }
-            </div>
+            </section>
 
-            <div class="reservation-card__footer">
+            <footer class="reservation-card__footer">
               <small class="reservation-card__date">
                 Creada: {{ reservation.createdAt | date:'dd/MM/yyyy HH:mm' }}
               </small>
@@ -320,12 +320,12 @@
                 [disabled]="reservation.status === 'cancelled'">
                 🗑️ Eliminar
               </button>
-            </div>
+            </footer>
           </article>
         }
-      </div>
+      </section>
     }
-  </div>
+  </section>
   }
-</div>
+</main>
 

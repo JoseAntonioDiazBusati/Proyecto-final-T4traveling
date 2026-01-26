@@ -1,4 +1,4 @@
-<div class="services-demo">
+<main class="services-demo">
   <div class="container">
     <!-- Header -->
     <header class="demo-header">
@@ -181,7 +181,7 @@
       } @else {
         <div class="destinations-grid">
           @for (destination of destinations; track destination.id) {
-            <div class="destination-card" (click)="selectDestination(destination)">
+            <article class="destination-card" (click)="selectDestination(destination)">
               <div class="destination-header">
                 <h3>{{ destination.name }}</h3>
                 <span class="destination-rating">⭐ {{ destination.rating }}</span>
@@ -196,7 +196,7 @@
                   Añadir al Carrito
                 </button>
               </div>
-            </div>
+            </article>
           }
         </div>
       }
@@ -262,5 +262,5 @@
       </ul>
     </section>
   </div>
-</div>
+</main>
 
