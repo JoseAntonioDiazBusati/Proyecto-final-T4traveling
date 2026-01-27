@@ -1,19 +1,24 @@
-<div class="detail" *ngIf="destination">
+<article class="detail" *ngIf="destination">
   <header class="hero">
-    <div class="hero__image">
+    <figure class="hero__image">
       <img [src]="destination.image"
            [alt]="destination.name"
            (error)="onImageError($event)"
-           (load)="onImageLoad($event)" />
-    </div>
-    <div class="hero__content">
+           (load)="onImageLoad($event)"
+           fetchpriority="high"
+           loading="eager"
+           width="1200"
+           height="600"
+           decoding="async" />
+    </figure>
+    <section class="hero__content">
       <span class="category">{{ destination.category }}</span>
       <h1>{{ destination.name }}</h1>
       <p>{{ destination.country }}</p>
-    </div>
+    </section>
   </header>
-  <div class="content">
-    <div class="main">
+  <section class="content">
+    <main class="main">
       <section>
         <h2>Descripción</h2>
         <p>{{ destination.description }}</p>
@@ -29,18 +34,20 @@
           <li>Guía turística en español</li>
         </ul>
       </section>
-    </div>
+    </main>
     <aside class="sidebar">
-      <div class="booking-card">
-        <div class="price">
+      <article class="booking-card">
+        <section class="price">
           <span>Desde</span>
           <strong>{{ destination.price | currency:'EUR' }}</strong>
-        </div>
-        <div class="rating">{{ destination.rating }} / 5</div>
+        </section>
+        <section class="rating">{{ destination.rating }} / 5</section>
         <button (click)="navigateToBooking()" class="btn btn--primary">Reservar ahora</button>
-      </div>
+      </article>
     </aside>
-  </div>
-  <a routerLink="/destinos" class="back">Volver a destinos</a>
-</div>
+  </section>
+  <nav>
+    <a routerLink="/destinos" class="back">Volver a destinos</a>
+  </nav>
+</article>
 

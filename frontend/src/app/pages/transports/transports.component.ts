@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TransportService, Transport } from '../../services/transport.service';
@@ -13,6 +13,7 @@ import { TransportService, Transport } from '../../services/transport.service';
 })
 export class TransportsComponent implements OnInit {
   private transportService = inject(TransportService);
+  private destroyRef = inject(DestroyRef);
 
   transportTypes = [
     {
@@ -41,7 +42,7 @@ export class TransportsComponent implements OnInit {
   // Signals para estado reactivo
   private allTransportsSignal = signal<Transport[]>([]);
   private selectedTransportTypeSignal = signal<'automovil' | 'autobus' | 'avion' | ''>('');
-  private currentPageSignal = signal<number>(1);
+  currentPageSignal = signal<number>(1);
   private itemsPerPageSignal = signal<number>(6);
 
   // Computed signals
@@ -80,7 +81,7 @@ export class TransportsComponent implements OnInit {
 
   loadTransports(): void {
     this.transportService.getTransports().pipe(
-      takeUntilDestroyed()
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (transports) => {
         this.allTransportsSignal.set(transports);

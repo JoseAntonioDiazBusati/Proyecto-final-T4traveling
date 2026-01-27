@@ -82,7 +82,7 @@ public class UsuarioService {
 
         // Solo actualizar password si se proporciona uno nuevo
         if (usuarioActualizado.getPassword() != null && !usuarioActualizado.getPassword().isEmpty()) {
-            usuario.setPassword(usuarioActualizado.getPassword());
+            usuario.setPassword(passwordEncoder.encode(usuarioActualizado.getPassword()));
         }
 
         return usuarioRepo.save(usuario);

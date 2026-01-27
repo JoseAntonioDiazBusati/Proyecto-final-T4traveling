@@ -1,4 +1,4 @@
-<div class="transports">
+<main class="transports">
   <header class="header">
     <h1>Transportes</h1>
     <p>Encuentra el medio de transporte perfecto para tu viaje</p>
@@ -15,7 +15,7 @@
     </article>
   </div>
 
-  <div *ngIf="filteredTransports().length > 0" class="results">
+  <div *ngIf="allTransports().length > 0 && hasResults()" class="results">
     <div class="results-header">
       <h3>{{ getResultsTitle() }}</h3>
       <button *ngIf="selectedTransportType()" class="btn-clear" (click)="clearFilters()">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="transport-list">
-      <article *ngFor="let transport of filteredTransports()" class="transport-item">
+      <article *ngFor="let transport of paginatedTransports(); trackBy: trackByTransportId" class="transport-item">
         <div class="transport-item__header">
           <span class="transport-item__icon">{{ transport.icon }}</span>
           <div class="transport-item__info">
@@ -39,16 +39,53 @@
         <p class="transport-item__description">{{ transport.description }}</p>
         <div class="transport-item__footer">
           <span class="transport-item__continent">📍 {{ transport.continent }}</span>
-          <button class="btn-select">Reservar</button>
         </div>
       </article>
     </div>
+
+    <!-- Paginación -->
+    <nav *ngIf="totalPages() > 1" class="pagination">
+      <button
+        class="pagination__btn"
+        (click)="prevPage()"
+        [disabled]="currentPageSignal() === 1">
+        ← Anterior
+      </button>
+
+      <div class="pagination__pages">
+        @for (page of [].constructor(totalPages()); track $index) {
+          <button
+            class="pagination__page"
+            [class.active]="currentPageSignal() === $index + 1"
+            (click)="goToPage($index + 1)">
+            {{ $index + 1 }}
+          </button>
+        }
+      </div>
+
+      <button
+        class="pagination__btn"
+        (click)="nextPage()"
+        [disabled]="currentPageSignal() === totalPages()">
+        Siguiente →
+      </button>
+    </nav>
   </div>
 
-  <div *ngIf="filteredTransports().length === 0" class="no-results">
+  <div *ngIf="allTransports().length === 0" class="no-results">
     <p class="no-results__icon">🚗✈️🚌</p>
     <p class="no-results__message">
       Cargando transportes disponibles...
     </p>
   </div>
-</div>
+
+  <div *ngIf="allTransports().length > 0 && !hasResults()" class="no-results">
+    <p class="no-results__icon">🔍</p>
+    <p class="no-results__message">
+      No se encontraron transportes del tipo seleccionado
+    </p>
+    <button class="btn-clear" (click)="clearFilters()">
+      Ver todos los transportes
+    </button>
+  </div>
+</main>
