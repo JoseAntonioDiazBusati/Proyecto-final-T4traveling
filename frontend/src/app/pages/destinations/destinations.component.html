@@ -50,7 +50,13 @@
       @for (d of paginatedDestinations(); track trackByDestinationId($index, d)) {
         <article class="card">
           <div class="card__image">
-            <img [src]="d.image" [alt]="d.name" loading="lazy" />
+            <img
+              [src]="d.image"
+              [alt]="d.name"
+              loading="lazy"
+              width="400"
+              height="300"
+              decoding="async" />
           </div>
           <div class="card__header">
             <span class="category">{{ d.category }}</span>

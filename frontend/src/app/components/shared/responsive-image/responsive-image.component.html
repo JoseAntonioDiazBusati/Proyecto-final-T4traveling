@@ -1,11 +1,12 @@
 <img
-/>
-  [class]="'responsive-image ' + (class || '')"
-  [style.object-fit]="objectFit"
-  [height]="height"
-  [width]="width"
-  [loading]="loading"
-  [sizes]="getSizes()"
-  [srcset]="getSrcset()"
-  [alt]="alt"
   [src]="src"
+  [alt]="alt"
+  [srcset]="getSrcset()"
+  [sizes]="getSizes()"
+  [attr.loading]="loading"
+  [attr.width]="width"
+  [attr.height]="height"
+  [style.object-fit]="objectFit"
+  [class]="'responsive-image ' + (class || '')"
+  decoding="async"
+/>

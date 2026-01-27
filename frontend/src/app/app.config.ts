@@ -1,15 +1,17 @@
+    )
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withPreloading, PreloadAllModules, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
-import { authInterceptor, errorInterceptor, loggingInterceptor } from './interceptors';
+import { NetworkAwarePreloadStrategy } from './strategies/preloading.strategy';
 
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+/**
+ * Configuración optimizada de la aplicación
+ *
     provideRouter(
       routes,
-      withPreloading(PreloadAllModules),
+      // Estrategia de preloading consciente de la red
+      withPreloading(NetworkAwarePreloadStrategy),
       withComponentInputBinding(),
       withInMemoryScrolling({
         scrollPositionRestoration: 'top',
@@ -21,8 +23,6 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([
         loggingInterceptor,  // Logging primero para capturar todo
         authInterceptor,     // Añade token de autenticación
-        errorInterceptor     // Manejo de errores al final
-      ])
-    )
+      withPreloading(PreloadAllModules),
   ]
 };

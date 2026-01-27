@@ -4,7 +4,12 @@
       <img [src]="destination.image"
            [alt]="destination.name"
            (error)="onImageError($event)"
-           (load)="onImageLoad($event)" />
+           (load)="onImageLoad($event)"
+           fetchpriority="high"
+           loading="eager"
+           width="1200"
+           height="600"
+           decoding="async" />
     </figure>
     <section class="hero__content">
       <span class="category">{{ destination.category }}</span>

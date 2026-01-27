@@ -15,9 +15,16 @@
   <section class="featured">
     <h2>Destinos destacados</h2>
     <div class="featured__grid">
-      <article *ngFor="let d of featuredDestinations" class="card">
+      <article *ngFor="let d of featuredDestinations; let i = index" class="card">
         <div class="card__image">
-          <img [src]="d.image" [alt]="d.name" />
+          <img
+            [src]="d.image"
+            [alt]="d.name"
+            [attr.fetchpriority]="i === 0 ? 'high' : null"
+            [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+            width="400"
+            height="300"
+            decoding="async" />
         </div>
         <div class="card__content">
           <h3>{{ d.name }}</h3>
