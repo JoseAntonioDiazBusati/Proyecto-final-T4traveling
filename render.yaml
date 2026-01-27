@@ -2,7 +2,7 @@ services:
   - type: web
     name: proyecto-final-t4traveling
     runtime: static
-    buildCommand: npm install && npm run build:prod
+    buildCommand: npm ci --include=dev && npm run build:prod
     rootDir: frontend
     staticPublishPath: dist/t4traveling/browser
     # Variables de entorno para el build
@@ -10,7 +10,7 @@ services:
       - key: NODE_VERSION
         value: 20.18.0
       - key: NPM_VERSION
-        value: 11.6.1
+        value: 10.9.2
     # Headers de seguridad y caché
     headers:
       # Headers de seguridad para todas las rutas
