@@ -1,9 +1,8 @@
 services:
   - type: web
-    name: proyecto-final-t4traveling
+    name: t4traveling-frontend
     runtime: static
     buildCommand: npm ci --include=dev && npm run build:prod
-    rootDir: frontend
     staticPublishPath: dist/t4traveling/browser
     # Variables de entorno para el build
     envVars:
@@ -26,7 +25,10 @@ services:
       - path: /*
         name: Referrer-Policy
         value: strict-origin-when-cross-origin
-      # Caché para imágenes (ahora en /images/* no /assets/*)
+      - path: /*
+        name: Permissions-Policy
+        value: geolocation=(), microphone=(), camera=()
+      # Caché para imágenes
       - path: /images/*
         name: Cache-Control
         value: public, max-age=31536000, immutable
@@ -42,13 +44,18 @@ services:
       - path: /*.woff2
         name: Cache-Control
         value: public, max-age=31536000, immutable
+      - path: /*.woff
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.ttf
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
       # Sin caché para el index.html (para actualizaciones)
       - path: /index.html
         name: Cache-Control
         value: no-cache, no-store, must-revalidate
-    # Redirecciones manejadas por _redirects (SPA routing)
+    # Redirecciones para SPA routing - todas las rutas deben devolver index.html
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
-

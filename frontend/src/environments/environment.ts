@@ -4,8 +4,8 @@
  */
 export const environment = {
   production: false,
-  appUrl: 'http://localhost:4200',
-  apiUrl: 'http://localhost:8080/api',
+  appUrl: 'https://t4traveling-backend.onrender.com',
+  apiUrl: 'https://t4traveling-backend.onrender.com/api',
   apiTimeout: 30000,
   enableLogging: true,
   retryAttempts: 3,

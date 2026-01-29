@@ -1,13 +1,12 @@
 /**
  * Configuración de entorno de producción
- * Usa URLs relativas o dinámicas que funcionan en cualquier dominio
- * Compatible con Render, Netlify, Vercel, etc.
+ * Usa URLs del backend desplegado en Render
  */
 export const environment = {
   production: true,
   // appUrl usa window.location.origin para detectar automáticamente el dominio
   appUrl: '', // Se detecta dinámicamente en runtime
-  apiUrl: '/api', // URL relativa en producción
+  apiUrl: 'https://t4traveling-backend.onrender.com/api', // URL del backend en Render
   apiTimeout: 30000,
   enableLogging: false,
   retryAttempts: 2,
