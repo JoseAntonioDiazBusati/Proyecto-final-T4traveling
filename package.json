@@ -1,0 +1,9 @@
+{
+  "name": "proyecto-final-t4traveling",
+  "version": "1.0.0",
+  "description": "T4 Traveling - Aplicación web de viajes",
+  "scripts": {
+    "start": "cd frontend && node server.js"
+  },
+  "private": true
+}
