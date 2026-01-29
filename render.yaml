@@ -5,7 +5,7 @@ services:
     runtime: node
     env: node
     buildCommand: cd frontend && npm install && npm run build:prod
-    startCommand: cd frontend && npm run start:prod
+    startCommand: cd frontend && node server.js
     envVars:
       - key: NODE_VERSION
         value: 20.18.0
