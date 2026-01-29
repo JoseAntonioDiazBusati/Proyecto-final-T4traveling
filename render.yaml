@@ -1,0 +1,14 @@
+services:
+  # Frontend - Node.js Server (para manejar SPA routing)
+  - type: web
+    name: proyecto-final-t4traveling
+    runtime: node
+    env: node
+    rootDir: frontend
+    buildCommand: npm ci --include=dev && npm run build:prod
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NPM_VERSION
+        value: 10.9.2
