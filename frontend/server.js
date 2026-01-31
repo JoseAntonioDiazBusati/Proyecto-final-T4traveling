@@ -40,6 +40,16 @@ if (!fs.existsSync(indexPath)) {
 console.log('✓ Build directory found');
 console.log('✓ index.html found');
 
+// Headers de seguridad
+app.use((req, res, next) => {
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  next();
+});
+
 // Servir archivos estáticos
 app.use(express.static(DIST_DIR, {
   maxAge: '1y',
