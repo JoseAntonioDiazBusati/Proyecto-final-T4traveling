@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "T4 Traveling - Aplicación web de viajes",
   "scripts": {
-    "start": "cd frontend && node server.js"
+    "dev:frontend": "cd frontend && npm run start",
+    "build:frontend": "cd frontend && npm run build:prod",
+    "dev:backend": "cd backend && ./mvnw spring-boot:run"
   },
   "private": true
 }

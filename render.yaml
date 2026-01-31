@@ -1,13 +1,92 @@
 services:
-  # Frontend - Node.js Server (para manejar SPA routing)
+  # Backend - Spring Boot API
   - type: web
-    name: proyecto-final-t4traveling
-    runtime: node
-    env: node
-    buildCommand: cd frontend && npm install && npm run build:prod
-    startCommand: cd frontend && node server.js
+    name: t4traveling-backend
+    runtime: java
+    rootDir: backend
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/backend-0.0.1-SNAPSHOT.jar
     envVars:
-      - key: NODE_VERSION
-        value: 20.18.0
-      - key: NPM_VERSION
-        value: 10.9.2
+      - key: JAVA_VERSION
+        value: 21
+      - key: MAVEN_VERSION
+        value: 3.9.5
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      # Database Configuration
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      # JWT Configuration
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION
+        value: 86400000
+      # Spring Boot Configuration
+      - key: SERVER_PORT
+        value: 8080
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_JPA_SHOW_SQL
+        value: false
+      # CORS Configuration
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://t4traveling-frontend.onrender.com,http://localhost:4200
+    healthCheckPath: /actuator/health
+    plan: free
+
+  # Frontend - Static Site
+  - type: web
+    name: t4traveling-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci --include=dev && npm run build:prod
+    staticPublishPath: dist/t4traveling/browser
+    headers:
+      # Headers de seguridad
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-XSS-Protection
+        value: "1; mode=block"
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: geolocation=(), microphone=(), camera=()
+      # Caché para assets estáticos
+      - path: /images/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.js
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.css
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.woff2
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.woff
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.ttf
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      # Sin caché para index.html
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+    routes:
+      # Redirecciones para SPA routing
+      - type: rewrite
+        source: /:path((?!.*\.).*)
+        destination: /index.html

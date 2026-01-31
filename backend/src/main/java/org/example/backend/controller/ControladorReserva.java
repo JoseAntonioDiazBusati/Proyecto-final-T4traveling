@@ -22,7 +22,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/reservas")
-@CrossOrigin(origins = "*")
 @Tag(name = "Reservas", description = "Gestión de reservas de viajes")
 @SecurityRequirement(name = "bearerAuth")
 public class ControladorReserva {

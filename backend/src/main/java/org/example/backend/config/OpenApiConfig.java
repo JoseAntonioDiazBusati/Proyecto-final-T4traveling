@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
                 ),
                 @Server(
                         description = "Production Server",
-                        url = "https://api.t4traveling.com"
+                        url = "https://t4traveling-backend.onrender.com"
                 )
         },
         security = {
