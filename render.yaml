@@ -3,14 +3,12 @@ services:
   - type: web
     name: t4traveling-backend
     runtime: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend/
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     region: frankfurt
     plan: free
     healthCheckPath: /actuator/health
-    buildFilter:
-      paths:
-        - backend/**
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
@@ -37,15 +35,12 @@ services:
       mountPath: /data
       sizeGB: 1
 
-  # Frontend - Static Site
+  # Frontend - Static Site (Angular)
   - type: static
     name: t4traveling-frontend
+    rootDir: frontend
     buildCommand: npm install && npm run build:prod
     staticPublishPath: dist/t4traveling/browser
-    rootDir: frontend
-    buildFilter:
-      paths:
-        - frontend/**
     headers:
       - path: /*
         name: Cache-Control

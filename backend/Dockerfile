@@ -5,9 +5,6 @@ WORKDIR /app
 
 # Copiar archivos de configuración de Maven
 COPY pom.xml pom.xml
-COPY mvnw mvnw
-COPY mvnw.cmd mvnw.cmd
-COPY .mvn .mvn
 
 # Descargar dependencias
 RUN mvn dependency:resolve -DskipTests -q
