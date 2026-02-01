@@ -1,9 +1,7 @@
 services:
-  # Backend API - Spring Boot (Web Service con Docker)
   - type: web
     name: t4traveling-backend
     runtime: docker
-    rootDir: backend
     dockerfilePath: ./Dockerfile
     dockerContext: .
     region: frankfurt
@@ -34,18 +32,3 @@ services:
       name: backend-data
       mountPath: /data
       sizeGB: 1
-
-  # Frontend - Static Site (Angular)
-  - type: static
-    name: t4traveling-frontend
-    rootDir: frontend
-    buildCommand: npm install && npm run build:prod
-    staticPublishPath: dist/t4traveling/browser
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: public, max-age=31536000
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
