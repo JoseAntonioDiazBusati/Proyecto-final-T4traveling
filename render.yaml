@@ -44,7 +44,7 @@ services:
     runtime: node
     rootDir: frontend
     buildCommand: npm ci && npm run build:prod
-    startCommand: npm run start:prod
+    startCommand: node server.js
     envVars:
       - key: NODE_VERSION
         value: "20"
