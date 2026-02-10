@@ -1,5 +1,20 @@
-import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
+import { Component, OnInit, inject, signal, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {RouterLink} from '@angular/router';
 
-@Component()
+@Component({
+  selector: 'app-destination-detail',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './destination-detail.component.html',
+  styleUrls: ['./destination-detail.component.scss']
+})
+
+export class NewsComponent implements OnInit {
+  ngOnInit(): void {
+      throw new Error("Method not implemented.");
+  }
+  private destroyRef = inject(DestroyRef);
+
+  // Signals para estado reactivo
+  private newsItemsSignal = signal<string[]>([]);}
