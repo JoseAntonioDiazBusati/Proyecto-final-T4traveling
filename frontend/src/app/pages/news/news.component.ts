@@ -6,8 +6,8 @@ import {RouterLink} from '@angular/router';
   selector: 'app-destination-detail',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './destination-detail.component.html',
-  styleUrls: ['./destination-detail.component.scss']
+  templateUrl: './news.component.html',
+  styleUrls: ['./news.component.scss']
 })
 
 export class NewsComponent implements OnInit {
