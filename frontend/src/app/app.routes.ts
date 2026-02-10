@@ -168,12 +168,21 @@ export const routes: Routes = [
   },
 
   //======================================
-  // NUEVA RUTA
+  // NUEVA RUTA: NOTICIAS
   //======================================
 
   {
-    path: '',
-
+    path: 'noticias',
+    data: {
+      breadcrumb: 'Noticias',
+      breadcrumbIcon: '📰'
+    },
+    children: [
+      {
+      path: '',
+      loadComponent: () => import('./pages/news/news.component').then(m => m.NewsComponent),
+      },
+    ]
   },
 
 

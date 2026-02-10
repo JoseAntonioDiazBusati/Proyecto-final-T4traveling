@@ -82,6 +82,17 @@
             Guía de Estilos
           </a>
         </li>
+        <li class="header__nav-item" role="none">
+          <a
+          routerLink="/news"
+          class="header__nav-link"
+          routerLinkActive="header__nav-link--active"
+          (click)="closeMenu()"
+          (keydown.enter)="closeMenu()"
+          role="menuitem">
+          Noticias
+          </a>
+        </li>
       </ul>
     </nav>
 
