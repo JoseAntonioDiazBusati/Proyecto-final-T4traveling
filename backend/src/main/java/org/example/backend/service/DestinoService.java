@@ -1,6 +1,6 @@
 package org.example.backend.service;
 
-import org.example.backend.model.entity.Destino;
+import org.example.backend.model.Usuario;
 import org.example.backend.repo.DestinoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class DestinoService {
     private DestinoRepo destinoRepo;
 
     // CREATE
-    public Destino crearDestino(Destino destino) {
+    public Usuario.Destino crearDestino(Usuario.Destino destino) {
         // Validar que el nombre no exista
         if (destinoRepo.findByNombre(destino.getNombre()).isPresent()) {
             throw new IllegalArgumentException("Ya existe un destino con ese nombre");
@@ -27,33 +27,33 @@ public class DestinoService {
 
     // READ
     @Transactional(readOnly = true)
-    public List<Destino> obtenerTodos() {
+    public List<Usuario.Destino> obtenerTodos() {
         return destinoRepo.findAll();
     }
 
     @Transactional(readOnly = true)
-    public Optional<Destino> obtenerPorId(Long id) {
+    public Optional<Usuario.Destino> obtenerPorId(Long id) {
         return destinoRepo.findById(id);
     }
 
     @Transactional(readOnly = true)
-    public Optional<Destino> obtenerPorNombre(String nombre) {
+    public Optional<Usuario.Destino> obtenerPorNombre(String nombre) {
         return destinoRepo.findByNombre(nombre);
     }
 
     @Transactional(readOnly = true)
-    public List<Destino> buscarPorNombre(String nombre) {
+    public List<Usuario.Destino> buscarPorNombre(String nombre) {
         return destinoRepo.findDestinosByNombreContaining(nombre);
     }
 
     @Transactional(readOnly = true)
-    public List<Destino> obtenerDestinosVisitadosPorUsuario(Long usuarioId) {
+    public List<Usuario.Destino> obtenerDestinosVisitadosPorUsuario(Long usuarioId) {
         return destinoRepo.findDestinosVisitadosByUsuario(usuarioId);
     }
 
     // UPDATE
-    public Destino actualizarDestino(Long id, Destino destinoActualizado) {
-        Destino destino = destinoRepo.findById(id)
+    public Usuario.Destino actualizarDestino(Long id, Usuario.Destino destinoActualizado) {
+        Usuario.Destino destino = destinoRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Destino no encontrado con id: " + id));
 
         // Validar nombre único si se está cambiando
@@ -69,7 +69,7 @@ public class DestinoService {
 
     // DELETE
     public boolean eliminarDestino(Long id) {
-        Optional<Destino> destino = destinoRepo.findById(id);
+        Optional<Usuario.Destino> destino = destinoRepo.findById(id);
         if (destino.isEmpty()) {
             return false;
         }
@@ -86,14 +86,14 @@ public class DestinoService {
     // LÓGICA DE NEGOCIO
     @Transactional(readOnly = true)
     public boolean tieneReservas(Long destinoId) {
-        Destino destino = destinoRepo.findById(destinoId)
+        Usuario.Destino destino = destinoRepo.findById(destinoId)
                 .orElseThrow(() -> new IllegalArgumentException("Destino no encontrado"));
         return destino.getReservas() != null && !destino.getReservas().isEmpty();
     }
 
     @Transactional(readOnly = true)
     public int contarReservas(Long destinoId) {
-        Destino destino = destinoRepo.findById(destinoId)
+        Usuario.Destino destino = destinoRepo.findById(destinoId)
                 .orElseThrow(() -> new IllegalArgumentException("Destino no encontrado"));
         return destino.getReservas() != null ? destino.getReservas().size() : 0;
     }

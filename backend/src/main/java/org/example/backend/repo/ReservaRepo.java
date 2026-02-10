@@ -1,8 +1,7 @@
 package org.example.backend.repo;
 
-import org.example.backend.model.entity.Reserva;
-import org.example.backend.model.entity.Usuario;
-import org.example.backend.model.entity.Destino;
+import org.example.backend.model.Reserva;
+import org.example.backend.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +13,7 @@ public interface ReservaRepo extends JpaRepository<Reserva, Long> {
 
     List<Reserva> findByUsuario(Usuario usuario);
 
-    List<Reserva> findByDestino(Destino destino);
+    List<Reserva> findByDestino(Usuario.Destino destino);
 
     @Query("SELECT r FROM Reserva r WHERE r.usuario.id = :usuarioId ORDER BY r.fecha DESC")
     List<Reserva> findReservasByUsuarioId(@Param("usuarioId") Long usuarioId);

@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.example.backend.model.entity.Destino;
+import org.example.backend.model.Usuario;
 import org.example.backend.service.DestinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,14 +31,14 @@ public class ControladorDestino {
     @Operation(summary = "Crear destino", description = "Crea un nuevo destino en el sistema (requiere rol ADMIN)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Destino creado exitosamente",
-                    content = @Content(schema = @Schema(implementation = Destino.class))),
+                    content = @Content(schema = @Schema(implementation = Usuario.Destino.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos o nombre ya registrado"),
             @ApiResponse(responseCode = "403", description = "No tiene permisos (requiere rol ADMIN)")
     })
     @PostMapping
-    public ResponseEntity<?> crearDestino(@Valid @RequestBody Destino destino) {
+    public ResponseEntity<?> crearDestino(@Valid @RequestBody Usuario.Destino destino) {
         try {
-            Destino nuevoDestino = destinoService.crearDestino(destino);
+            Usuario.Destino nuevoDestino = destinoService.crearDestino(destino);
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevoDestino);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
@@ -52,7 +52,7 @@ public class ControladorDestino {
             @ApiResponse(responseCode = "401", description = "No autenticado")
     })
     @GetMapping
-    public ResponseEntity<List<Destino>> obtenerTodos() {
+    public ResponseEntity<List<Usuario.Destino>> obtenerTodos() {
         return ResponseEntity.ok(destinoService.obtenerTodos());
     }
 
@@ -60,7 +60,7 @@ public class ControladorDestino {
     @Operation(summary = "Obtener destino por ID", description = "Obtiene los detalles de un destino específico por su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Destino encontrado",
-                    content = @Content(schema = @Schema(implementation = Destino.class))),
+                    content = @Content(schema = @Schema(implementation = Usuario.Destino.class))),
             @ApiResponse(responseCode = "404", description = "Destino no encontrado"),
             @ApiResponse(responseCode = "401", description = "No autenticado")
     })
@@ -75,7 +75,7 @@ public class ControladorDestino {
     @Operation(summary = "Obtener destino por nombre", description = "Obtiene un destino específico por su nombre")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Destino encontrado",
-                    content = @Content(schema = @Schema(implementation = Destino.class))),
+                    content = @Content(schema = @Schema(implementation = Usuario.Destino.class))),
             @ApiResponse(responseCode = "404", description = "Destino no encontrado"),
             @ApiResponse(responseCode = "401", description = "No autenticado")
     })
@@ -93,7 +93,7 @@ public class ControladorDestino {
             @ApiResponse(responseCode = "401", description = "No autenticado")
     })
     @GetMapping("/buscar/{nombre}")
-    public ResponseEntity<List<Destino>> buscarPorNombre(@PathVariable String nombre) {
+    public ResponseEntity<List<Usuario.Destino>> buscarPorNombre(@PathVariable String nombre) {
         return ResponseEntity.ok(destinoService.buscarPorNombre(nombre));
     }
 
@@ -105,7 +105,7 @@ public class ControladorDestino {
             @ApiResponse(responseCode = "401", description = "No autenticado")
     })
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Destino>> obtenerDestinosVisitadosPorUsuario(@PathVariable Long usuarioId) {
+    public ResponseEntity<List<Usuario.Destino>> obtenerDestinosVisitadosPorUsuario(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(destinoService.obtenerDestinosVisitadosPorUsuario(usuarioId));
     }
 
@@ -113,16 +113,16 @@ public class ControladorDestino {
     @Operation(summary = "Actualizar destino", description = "Actualiza los datos de un destino existente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Destino actualizado exitosamente",
-                    content = @Content(schema = @Schema(implementation = Destino.class))),
+                    content = @Content(schema = @Schema(implementation = Usuario.Destino.class))),
             @ApiResponse(responseCode = "400", description = "Datos inválidos o nombre ya registrado"),
             @ApiResponse(responseCode = "404", description = "Destino no encontrado"),
             @ApiResponse(responseCode = "403", description = "No tiene permisos (requiere rol ADMIN)")
     })
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarDestino(@PathVariable Long id,
-                                              @Valid @RequestBody Destino destino) {
+                                              @Valid @RequestBody Usuario.Destino destino) {
         try {
-            Destino destinoActualizado = destinoService.actualizarDestino(id, destino);
+            Usuario.Destino destinoActualizado = destinoService.actualizarDestino(id, destino);
             return ResponseEntity.ok(destinoActualizado);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));

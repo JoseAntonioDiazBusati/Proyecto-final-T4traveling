@@ -1,9 +1,10 @@
-package org.example.backend.model.entity;
+package org.example.backend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.backend.model.entity.Rol;
 
 import java.util.List;
 @Entity
@@ -36,4 +37,22 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reservas;
+
+    @Entity
+    @Table(name = "destino")
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+
+    public static class Destino {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        @Column(nullable = false)
+        private String nombre;
+
+        @OneToMany(mappedBy = "destino", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<Reserva> reservas;
+    }
 }

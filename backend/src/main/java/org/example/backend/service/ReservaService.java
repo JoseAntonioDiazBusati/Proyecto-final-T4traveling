@@ -1,9 +1,8 @@
 package org.example.backend.service;
 
-import org.example.backend.model.entity.Reserva;
-import org.example.backend.model.entity.Usuario;
-import org.example.backend.model.entity.Destino;
-import org.example.backend.model.entity.Transporte;
+import org.example.backend.model.Reserva;
+import org.example.backend.model.Usuario;
+import org.example.backend.model.Transporte;
 import org.example.backend.repo.ReservaRepo;
 import org.example.backend.repo.UsuarioRepo;
 import org.example.backend.repo.DestinoRepo;
@@ -45,7 +44,7 @@ public class ReservaService {
         if (reserva.getDestino() == null || reserva.getDestino().getId() == null) {
             throw new IllegalArgumentException("El destino es obligatorio");
         }
-        Destino destino = destinoRepo.findById(reserva.getDestino().getId())
+        Usuario.Destino destino = destinoRepo.findById(reserva.getDestino().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Destino no encontrado"));
 
         // Validar que el transporte existe
@@ -103,7 +102,7 @@ public class ReservaService {
 
     @Transactional(readOnly = true)
     public List<Reserva> obtenerPorDestino(Long destinoId) {
-        Destino destino = destinoRepo.findById(destinoId)
+        Usuario.Destino destino = destinoRepo.findById(destinoId)
                 .orElseThrow(() -> new IllegalArgumentException("Destino no encontrado"));
         return reservaRepo.findByDestino(destino);
     }
@@ -138,7 +137,7 @@ public class ReservaService {
 
         // Si se está actualizando el destino
         if (reservaActualizada.getDestino() != null && reservaActualizada.getDestino().getId() != null) {
-            Destino destino = destinoRepo.findById(reservaActualizada.getDestino().getId())
+            Usuario.Destino destino = destinoRepo.findById(reservaActualizada.getDestino().getId())
                     .orElseThrow(() -> new IllegalArgumentException("Destino no encontrado"));
             reserva.setDestino(destino);
         }

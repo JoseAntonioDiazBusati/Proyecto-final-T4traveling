@@ -1,9 +1,10 @@
-package org.example.backend.model.entity;
+package org.example.backend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
 @Entity
@@ -23,7 +24,7 @@ public class Reserva {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "destino_id", nullable = false)
-    private Destino destino;
+    private Usuario.Destino destino;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transporte_id", nullable = false)
