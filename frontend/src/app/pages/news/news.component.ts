@@ -10,8 +10,4 @@ import { Routes } from '@angular/router';
   styleUrls: ['./news.component.scss']
 })
 
-export const routes: Routes = [
-  {
-    path: '/news',
-  }
-];
+
