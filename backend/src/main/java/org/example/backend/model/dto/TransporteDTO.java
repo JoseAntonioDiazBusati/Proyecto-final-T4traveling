@@ -3,7 +3,7 @@ package org.example.backend.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.backend.model.entity.TipoTransporte;
+import org.example.backend.model.TipoTransporte;
 
 @Data
 @NoArgsConstructor

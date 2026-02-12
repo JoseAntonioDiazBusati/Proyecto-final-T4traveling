@@ -1,0 +1,242 @@
+### Variables de entorno
+@baseUrl = http://localhost:8080
+@token = tu-token-jwt-aqui
+
+### ==============================================
+### AUTENTICACIÓN
+### ==============================================
+
+### Register - Registrar nuevo usuario
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Test",
+  "email": "test@example.com",
+  "password": "password123",
+  "rol": "USER"
+}
+
+### Login - Iniciar sesión
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### ==============================================
+### DESTINOS
+### ==============================================
+
+### Get All Destinos - Obtener todos los destinos
+GET {{baseUrl}}/api/destinos
+
+### Get Destino by ID - Obtener destino por ID
+GET {{baseUrl}}/api/destinos/1
+
+### Get Destino by Nombre - Obtener destino por nombre exacto
+GET {{baseUrl}}/api/destinos/nombre/Paris
+
+### Search Destinos - Buscar destinos por nombre (contiene)
+GET {{baseUrl}}/api/destinos/buscar/Par
+
+### Get Destinos by Usuario - Destinos visitados por usuario
+GET {{baseUrl}}/api/destinos/usuario/1
+Authorization: Bearer {{token}}
+
+### Create Destino - Crear nuevo destino
+POST {{baseUrl}}/api/destinos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nombre": "Tokyo",
+  "descripcion": "Capital de Japón",
+  "pais": "Japón",
+  "clima": "Templado"
+}
+
+### Update Destino - Actualizar destino
+PUT {{baseUrl}}/api/destinos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nombre": "Paris Actualizado",
+  "descripcion": "Ciudad del amor actualizada",
+  "pais": "Francia",
+  "clima": "Templado"
+}
+
+### Delete Destino - Eliminar destino
+DELETE {{baseUrl}}/api/destinos/1
+Authorization: Bearer {{token}}
+
+### Check if Destino has Reservas
+GET {{baseUrl}}/api/destinos/1/tiene-reservas
+Authorization: Bearer {{token}}
+
+### Count Reservas for Destino
+GET {{baseUrl}}/api/destinos/1/contar-reservas
+Authorization: Bearer {{token}}
+
+### ==============================================
+### TRANSPORTES
+### ==============================================
+
+### Get All Transportes
+GET {{baseUrl}}/api/transportes
+
+### Get Transporte by ID
+GET {{baseUrl}}/api/transportes/1
+
+### Get Transportes by Tipo
+GET {{baseUrl}}/api/transportes/tipo/AVION
+
+### Get Transportes by Destino
+GET {{baseUrl}}/api/transportes/destino/1
+
+### Create Transporte
+POST {{baseUrl}}/api/transportes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "tipo": "AVION",
+  "empresa": "Air France",
+  "precio": 299.99,
+  "destinoId": 1
+}
+
+### Update Transporte
+PUT {{baseUrl}}/api/transportes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "tipo": "AVION",
+  "empresa": "Air France Premium",
+  "precio": 399.99,
+  "destinoId": 1
+}
+
+### Delete Transporte
+DELETE {{baseUrl}}/api/transportes/1
+Authorization: Bearer {{token}}
+
+### ==============================================
+### RESERVAS
+### ==============================================
+
+### Get All Reservas
+GET {{baseUrl}}/api/reservas
+Authorization: Bearer {{token}}
+
+### Get Reserva by ID
+GET {{baseUrl}}/api/reservas/1
+Authorization: Bearer {{token}}
+
+### Get Reservas by Usuario
+GET {{baseUrl}}/api/reservas/usuario/1
+Authorization: Bearer {{token}}
+
+### Get Reservas by Destino
+GET {{baseUrl}}/api/reservas/destino/1
+Authorization: Bearer {{token}}
+
+### Get Reservas by Transporte
+GET {{baseUrl}}/api/reservas/transporte/1
+Authorization: Bearer {{token}}
+
+### Create Reserva
+POST {{baseUrl}}/api/reservas
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "fechaInicio": "2026-06-01",
+  "fechaFin": "2026-06-15",
+  "numeroPersonas": 2,
+  "precioTotal": 1500.00,
+  "usuarioId": 1,
+  "destinoId": 1,
+  "transporteId": 1
+}
+
+### Update Reserva
+PUT {{baseUrl}}/api/reservas/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "fechaInicio": "2026-06-01",
+  "fechaFin": "2026-06-20",
+  "numeroPersonas": 3,
+  "precioTotal": 2000.00,
+  "usuarioId": 1,
+  "destinoId": 1,
+  "transporteId": 1
+}
+
+### Delete Reserva
+DELETE {{baseUrl}}/api/reservas/1
+Authorization: Bearer {{token}}
+
+### ==============================================
+### USUARIOS
+### ==============================================
+
+### Get All Usuarios
+GET {{baseUrl}}/api/usuarios
+Authorization: Bearer {{token}}
+
+### Get Usuario by ID
+GET {{baseUrl}}/api/usuarios/1
+Authorization: Bearer {{token}}
+
+### Get Usuario by Email
+GET {{baseUrl}}/api/usuarios/email/test@example.com
+Authorization: Bearer {{token}}
+
+### Create Usuario
+POST {{baseUrl}}/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Nuevo Usuario",
+  "email": "nuevo@example.com",
+  "password": "password123",
+  "rol": "USER"
+}
+
+### Update Usuario
+PUT {{baseUrl}}/api/usuarios/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "nombre": "Usuario Actualizado",
+  "email": "actualizado@example.com",
+  "password": "newpassword123",
+  "rol": "USER"
+}
+
+### Delete Usuario
+DELETE {{baseUrl}}/api/usuarios/1
+Authorization: Bearer {{token}}
+
+### ==============================================
+### HEALTH CHECK
+### ==============================================
+
+### Health Check
+GET {{baseUrl}}/api/health
+
+### Actuator Health
+GET {{baseUrl}}/actuator/health
+
+### Actuator Info
+GET {{baseUrl}}/actuator/info
+

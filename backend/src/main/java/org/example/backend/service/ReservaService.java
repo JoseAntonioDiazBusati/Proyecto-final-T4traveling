@@ -1,9 +1,9 @@
 package org.example.backend.service;
 
-import org.example.backend.model.entity.Reserva;
-import org.example.backend.model.entity.Usuario;
-import org.example.backend.model.entity.Destino;
-import org.example.backend.model.entity.Transporte;
+import org.example.backend.model.Reserva;
+import org.example.backend.model.Usuario;
+import org.example.backend.model.Destino;
+import org.example.backend.model.Transporte;
 import org.example.backend.repo.ReservaRepo;
 import org.example.backend.repo.UsuarioRepo;
 import org.example.backend.repo.DestinoRepo;

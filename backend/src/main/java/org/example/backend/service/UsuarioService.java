@@ -1,6 +1,6 @@
 package org.example.backend.service;
 
-import org.example.backend.model.entity.Usuario;
+import org.example.backend.model.Usuario;
 import org.example.backend.repo.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
