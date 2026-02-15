@@ -1,0 +1,22 @@
+<main class="gallery-demo">
+  <header class="gallery-demo__header">
+    <h1>Galería de Destinos</h1>
+    <p>Explora nuestros destinos más populares a través de esta galería interactiva y accesible</p>
+  </header>
+
+  <section class="gallery-demo__content">
+    <app-gallery [items]="galleryItems" [columns]="3"></app-gallery>
+  </section>
+
+  <section class="gallery-demo__info">
+    <h2>Características de accesibilidad</h2>
+    <ul>
+      <li>✓ Todas las imágenes tienen texto alternativo descriptivo</li>
+      <li>✓ Carga diferida (lazy loading) para mejor rendimiento</li>
+      <li>✓ Navegación completa por teclado (Enter/Space para abrir, flechas para navegar, Escape para cerrar)</li>
+      <li>✓ Indicador visual de posición (ej: "3 / 6")</li>
+      <li>✓ Controles claramente etiquetados con aria-label</li>
+      <li>✓ Diseño responsive que se adapta a todos los dispositivos</li>
+    </ul>
+  </section>
+</main>

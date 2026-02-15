@@ -1,0 +1,75 @@
+<div class="gallery" [style.--columns]="columns">
+  <!-- Grid de imágenes -->
+  <div class="gallery__grid">
+    @for (item of items; track trackByIndex($index)) {
+      <figure
+        class="gallery__item"
+        (click)="openImage($index)"
+        (keydown.enter)="openImage($index)"
+        (keydown.space)="openImage($index); $event.preventDefault()"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Ver imagen ampliada: ' + item.alt">
+        <img
+          [src]="item.src"
+          [alt]="item.alt"
+          loading="lazy"
+          width="400"
+          height="300"
+          decoding="async"
+          class="gallery__image" />
+        <figcaption class="gallery__caption">{{ item.caption }}</figcaption>
+      </figure>
+    }
+  </div>
+
+  <!-- Modal de imagen ampliada -->
+  @if (selectedIndex !== null && selectedItem) {
+    <div
+      class="gallery__modal"
+      (click)="closeImage()"
+      (keydown)="onKeyDown($event)"
+      tabindex="0"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="'Imagen ampliada: ' + selectedItem.alt">
+
+      <button
+        class="gallery__close"
+        (click)="closeImage()"
+        aria-label="Cerrar imagen ampliada"
+        type="button">
+        ✕
+      </button>
+
+      <button
+        class="gallery__nav gallery__nav--prev"
+        (click)="previousImage($event)"
+        [disabled]="selectedIndex === 0"
+        [attr.aria-label]="'Imagen anterior'"
+        type="button">
+        ❮
+      </button>
+
+      <figure class="gallery__modal-content" (click)="$event.stopPropagation()">
+        <img
+          [src]="selectedItem.src"
+          [alt]="selectedItem.alt"
+          class="gallery__modal-image" />
+        <figcaption class="gallery__modal-caption">
+          {{ selectedItem.caption }}
+          <span class="gallery__counter">{{ selectedIndex + 1 }} / {{ items.length }}</span>
+        </figcaption>
+      </figure>
+
+      <button
+        class="gallery__nav gallery__nav--next"
+        (click)="nextImage($event)"
+        [disabled]="selectedIndex === items.length - 1"
+        [attr.aria-label]="'Imagen siguiente'"
+        type="button">
+        ❯
+      </button>
+    </div>
+  }
+</div>

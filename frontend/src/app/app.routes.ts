@@ -102,6 +102,18 @@ export const routes: Routes = [
   },
 
   /**
+   * Galería - Demo de galería multimedia accesible
+   */
+  {
+    path: 'galeria',
+    loadComponent: () => import('./pages/gallery-demo/gallery-demo.component').then(m => m.GalleryDemoComponent),
+    data: {
+      breadcrumb: 'Galería',
+      breadcrumbIcon: '🖼️'
+    }
+  },
+
+  /**
    * Transportes - Página de búsqueda de transportes
    */
   {

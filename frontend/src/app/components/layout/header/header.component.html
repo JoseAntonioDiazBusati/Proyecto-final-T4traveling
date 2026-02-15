@@ -62,6 +62,17 @@
         </li>
         <li class="header__nav-item" role="none">
           <a
+            routerLink="/galeria"
+            class="header__nav-link"
+            routerLinkActive="header__nav-link--active"
+            (click)="closeMenu()"
+            (keydown.enter)="closeMenu()"
+            role="menuitem">
+            Galería
+          </a>
+        </li>
+        <li class="header__nav-item" role="none">
+          <a
             routerLink="/reservas"
             class="header__nav-link"
             routerLinkActive="header__nav-link--active"

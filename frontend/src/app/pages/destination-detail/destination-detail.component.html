@@ -2,7 +2,7 @@
   <header class="hero">
     <figure class="hero__image">
       <img [src]="destination.image"
-           [alt]="destination.name"
+           [alt]="'Vista panorámica de ' + destination.name + ', ' + destination.country + ' - ' + destination.description"
            (error)="onImageError($event)"
            (load)="onImageLoad($event)"
            fetchpriority="high"
