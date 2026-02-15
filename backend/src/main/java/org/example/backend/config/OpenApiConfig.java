@@ -8,8 +8,13 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
-import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 @OpenAPIDefinition(
@@ -26,16 +31,6 @@ import org.springframework.context.annotation.Configuration;
                         url = "https://opensource.org/licenses/MIT"
                 )
         ),
-        servers = {
-                @Server(
-                        description = "Local Development Server",
-                        url = "http://localhost:8080"
-                ),
-                @Server(
-                        description = "Production Server",
-                        url = "https://t4traveling-backend.onrender.com"
-                )
-        },
         security = {
                 @SecurityRequirement(name = "bearerAuth")
         }
@@ -49,5 +44,22 @@ import org.springframework.context.annotation.Configuration;
         in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
+
+    @Value("${server.port:8080}")
+    private String serverPort;
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        Server localServer = new Server();
+        localServer.setUrl("http://localhost:" + serverPort);
+        localServer.setDescription("Local Development Server");
+
+        Server productionServer = new Server();
+        productionServer.setUrl("https://t4traveling-backend.onrender.com");
+        productionServer.setDescription("Production Server");
+
+        return new OpenAPI()
+                .servers(List.of(localServer, productionServer));
+    }
 }
 

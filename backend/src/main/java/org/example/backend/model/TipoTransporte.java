@@ -1,4 +1,4 @@
-package org.example.backend.model.entity;
+package org.example.backend.model;
 
 public enum TipoTransporte {
     AVION("Avión"),
