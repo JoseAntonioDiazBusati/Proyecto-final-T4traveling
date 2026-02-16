@@ -5,18 +5,18 @@
     <div class="hero__content">
       <h1>Descubre el mundo con T4 Traveling</h1>
       <p>Explora destinos únicos y vive experiencias inolvidables</p>
-      <div class="hero__actions">
+      <nav class="hero__actions" aria-label="Acciones principales">
         <a routerLink="/destinos" class="btn btn--primary">Explorar destinos</a>
-      </div>
+      </nav>
     </div>
   </section>
 
   <!-- Sección de destinos destacados -->
-  <section class="featured">
-    <h2>Destinos destacados</h2>
+  <section class="featured" aria-labelledby="featured-heading">
+    <h2 id="featured-heading">Destinos destacados</h2>
     <div class="featured__grid">
       <article *ngFor="let d of featuredDestinations; let i = index" class="card">
-        <div class="card__image">
+        <figure class="card__image">
           <img
             [src]="d.image"
             [alt]="'Imagen destacada de ' + d.name + ', ' + d.country + ' - ' + d.description"
@@ -25,13 +25,13 @@
             width="400"
             height="300"
             decoding="async" />
-        </div>
-        <div class="card__content">
+        </figure>
+        <section class="card__content">
           <h3>{{ d.name }}</h3>
           <p>{{ d.country }}</p>
-          <span class="price">{{ d.price | currency:'EUR' }}</span>
+          <data class="price" [value]="d.price">{{ d.price | currency:'EUR' }}</data>
           <a [routerLink]="['/destinos', d.id]" class="btn btn--sm">Ver detalles</a>
-        </div>
+        </section>
       </article>
     </div>
   </section>

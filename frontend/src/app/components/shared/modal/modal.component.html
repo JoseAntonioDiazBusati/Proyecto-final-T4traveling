@@ -7,7 +7,7 @@
   aria-modal="true"
   [attr.aria-labelledby]="title ? 'modal-title' : null">
 
-  <div
+  <article
     #modalContent
     class="modal"
     [class.modal--sm]="size === 'sm'"
@@ -18,7 +18,7 @@
     [@slideIn]>
 
     <!-- Header del modal -->
-    <div class="modal__header" *ngIf="title || showCloseButton">
+    <header class="modal__header" *ngIf="title || showCloseButton">
       <h2 id="modal-title" class="modal__title" *ngIf="title">{{ title }}</h2>
 
       <button
@@ -32,17 +32,17 @@
           <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-    </div>
+    </header>
 
     <!-- Contenido del modal -->
-    <div class="modal__body">
+    <section class="modal__body">
       <ng-content></ng-content>
-    </div>
+    </section>
 
     <!-- Footer del modal (opcional) -->
-    <div class="modal__footer" *ngIf="true">
+    <footer class="modal__footer" *ngIf="true">
       <ng-content select="[slot='footer']"></ng-content>
-    </div>
-  </div>
+    </footer>
+  </article>
 </div>
 

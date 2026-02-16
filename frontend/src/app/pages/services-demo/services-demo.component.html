@@ -1,5 +1,5 @@
 <main class="services-demo">
-  <div class="container">
+  <section class="container">
     <!-- Header -->
     <header class="demo-header">
       <h1>Servicios y Comunicación - Fase 2</h1>
@@ -16,28 +16,30 @@
       </p>
 
       @if (!isAuthenticated()) {
-        <div class="auth-form">
+        <form class="auth-form">
           <h3>Iniciar Sesión</h3>
           <input
             type="text"
             class="input"
             [(ngModel)]="userName"
+            name="userName"
             placeholder="Nombre"
             />
           <input
             type="email"
             class="input"
             [(ngModel)]="userEmail"
+            name="userEmail"
             placeholder="Email"
             />
-          <button class="btn btn--primary" (click)="login()">
+          <button type="button" class="btn btn--primary" (click)="login()">
             Iniciar Sesión
           </button>
-        </div>
+        </form>
       } @else {
-        <div class="user-info">
+        <section class="user-info">
           <h3>Usuario Autenticado</h3>
-          <div class="user-card">
+          <article class="user-card">
             <img [src]="user()?.avatar" alt="Avatar" class="user-avatar" />
             <div class="user-details">
               <p class="user-name">{{ user()?.name }}</p>
@@ -46,12 +48,12 @@
             <button class="btn btn--secondary" (click)="logout()">
               Cerrar Sesión
             </button>
-          </div>
-        </div>
+          </article>
+        </section>
       }
 
       <!-- Carrito -->
-      <div class="cart-section">
+      <section class="cart-section">
         <h3>Carrito de Compras</h3>
         <div class="cart-info">
           <span class="cart-badge">{{ cartItemCount() }} items</span>
@@ -62,7 +64,7 @@
             </button>
           }
         </div>
-      </div>
+      </section>
     </section>
 
     <!-- Servicio de Comunicación -->
@@ -261,6 +263,6 @@
         <li>✅ <strong>RxJS</strong> - Observables y operators</li>
       </ul>
     </section>
-  </div>
+  </section>
 </main>
 

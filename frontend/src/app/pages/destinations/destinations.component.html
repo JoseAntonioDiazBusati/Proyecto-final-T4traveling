@@ -5,21 +5,22 @@
   </header>
 
   <!-- Búsqueda -->
-  <div class="search-section">
+  <section class="search-section" aria-label="Búsqueda de destinos">
     <input
       type="text"
       class="search-input"
       [ngModel]="searchQuery()"
       (ngModelChange)="onSearchChange($event)"
       placeholder="Buscar destinos por nombre, país o descripción..."
+      aria-label="Buscar destinos"
     />
     @if (searchQuery() || selectedCategory()) {
       <button class="btn-clear" (click)="clearFilters()">Limpiar filtros</button>
     }
-  </div>
+  </section>
 
   <!-- Filtros por categoría -->
-  <div class="filters">
+  <nav class="filters" aria-label="Filtros por categoría">
     @for (cat of categories(); track cat) {
       <button
         (click)="filterByCategory(cat)"
@@ -32,17 +33,17 @@
       [class.active]="!selectedCategory()">
       Todos
     </button>
-  </div>
+  </nav>
 
   <!-- Resultados -->
-  <div class="results-info">
+  <section class="results-info" aria-live="polite" aria-atomic="true">
     <p>
       Mostrando {{ paginatedDestinations().length }} de {{ filteredDestinations().length }} destinos
       @if (selectedCategory()) {
         <span> en {{ selectedCategory() }}</span>
       }
     </p>
-  </div>
+  </section>
 
   <!-- Grid de destinos con trackBy -->
   @if (hasResults()) {
@@ -58,24 +59,24 @@
               height="300"
               decoding="async" />
           </div>
-          <div class="card__header">
+          <header class="card__header">
             <span class="category">{{ d.category }}</span>
             <span class="rating">⭐ {{ d.rating }}</span>
-          </div>
+          </header>
           <h2>{{ d.name }}</h2>
           <p class="country">{{ d.country }}</p>
           <p class="desc">{{ d.description }}</p>
-          <div class="card__footer">
+          <footer class="card__footer">
             <span class="price">{{ d.price | currency:'EUR' }}</span>
             <a [routerLink]="['/destinos', d.id]" class="btn">Ver detalles</a>
-          </div>
+          </footer>
         </article>
       }
     </div>
 
     <!-- Paginación -->
     @if (totalPages() > 1) {
-      <nav class="pagination">
+      <nav class="pagination" aria-label="Paginación de destinos">
         <button
           class="pagination__btn"
           (click)="prevPage()"
@@ -103,10 +104,10 @@
       </nav>
     }
   } @else {
-    <div class="no-results">
+    <section class="no-results" role="status" aria-live="polite">
       <p>No se encontraron destinos con los filtros seleccionados.</p>
       <button class="btn" (click)="clearFilters()">Limpiar filtros</button>
-    </div>
+    </section>
   }
 </main>
 

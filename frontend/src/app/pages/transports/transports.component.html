@@ -4,7 +4,7 @@
     <p>Encuentra el medio de transporte perfecto para tu viaje</p>
   </header>
 
-  <div class="transport-types">
+  <section class="transport-types" aria-label="Tipos de transporte">
     <article *ngFor="let transportType of transportTypes" class="transport-card">
       <div class="transport-card__icon">{{ transportType.icon }}</div>
       <h2 class="transport-card__title">{{ transportType.name }}</h2>
@@ -13,19 +13,19 @@
         Ver {{ transportType.plural }}
       </button>
     </article>
-  </div>
+  </section>
 
-  <div *ngIf="allTransports().length > 0 && hasResults()" class="results">
-    <div class="results-header">
+  <section *ngIf="allTransports().length > 0 && hasResults()" class="results" aria-label="Resultados de búsqueda">
+    <header class="results-header">
       <h3>{{ getResultsTitle() }}</h3>
       <button *ngIf="selectedTransportType()" class="btn-clear" (click)="clearFilters()">
         ✕ Ver todos
       </button>
-    </div>
+    </header>
 
     <div class="transport-list">
       <article *ngFor="let transport of paginatedTransports(); trackBy: trackByTransportId" class="transport-item">
-        <div class="transport-item__header">
+        <header class="transport-item__header">
           <span class="transport-item__icon">{{ transport.icon }}</span>
           <div class="transport-item__info">
             <h4 class="transport-item__name">{{ transport.name }}</h4>
@@ -35,16 +35,16 @@
             <span class="price-amount">{{ transport.price }}€</span>
             <span class="price-label">por día</span>
           </div>
-        </div>
+        </header>
         <p class="transport-item__description">{{ transport.description }}</p>
-        <div class="transport-item__footer">
+        <footer class="transport-item__footer">
           <span class="transport-item__continent">📍 {{ transport.continent }}</span>
-        </div>
+        </footer>
       </article>
     </div>
 
     <!-- Paginación -->
-    <nav *ngIf="totalPages() > 1" class="pagination">
+    <nav *ngIf="totalPages() > 1" class="pagination" aria-label="Paginación de transportes">
       <button
         class="pagination__btn"
         (click)="prevPage()"
@@ -70,16 +70,16 @@
         Siguiente →
       </button>
     </nav>
-  </div>
+  </section>
 
-  <div *ngIf="allTransports().length === 0" class="no-results">
+  <section *ngIf="allTransports().length === 0" class="no-results" role="status" aria-live="polite">
     <p class="no-results__icon">🚗✈️🚌</p>
     <p class="no-results__message">
       Cargando transportes disponibles...
     </p>
-  </div>
+  </section>
 
-  <div *ngIf="allTransports().length > 0 && !hasResults()" class="no-results">
+  <section *ngIf="allTransports().length > 0 && !hasResults()" class="no-results" role="status" aria-live="polite">
     <p class="no-results__icon">🔍</p>
     <p class="no-results__message">
       No se encontraron transportes del tipo seleccionado
@@ -87,5 +87,5 @@
     <button class="btn-clear" (click)="clearFilters()">
       Ver todos los transportes
     </button>
-  </div>
+  </section>
 </main>
