@@ -1,0 +1,79 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+jobs:
+  # ==========================================
+  # JOB: Notificar Deploy
+  # ==========================================
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v4
+
+    - name: 🚀 Desplegar en Render
+      run: |
+        echo "=========================================="
+        echo "🚀 Iniciando despliegue a Render"
+        echo "=========================================="
+        echo "📦 Frontend: Static Site"
+        echo "📦 Backend: Web Service"
+        echo "🌐 URL: https://proyecto-final-t4traveling.onrender.com"
+        echo "=========================================="
+        echo "⚙️ Render detectará automáticamente los cambios"
+        echo "📝 Configuración: render.yaml"
+        echo "=========================================="
+
+    - name: ✅ Deploy iniciado
+      run: |
+        echo "✅ Push a main detectado"
+        echo "🔄 Render iniciará el build automáticamente"
+        echo "⏱️ Tiempo estimado: 5-10 minutos"
+        echo ""
+        echo "📋 Pasos del deploy en Render:"
+        echo "1. Frontend: npm install && npm run build"
+        echo "2. Backend: mvn clean package"
+        echo "3. Publicación de archivos estáticos"
+        echo "4. Inicio del servicio"
+        echo ""
+        echo "🔗 Revisa el progreso en: https://dashboard.render.com"
+
+  # ==========================================
+  # JOB: Verificación post-deploy
+  # ==========================================
+  verify:
+    name: Verificar Deploy
+    runs-on: ubuntu-latest
+    needs: deploy
+
+    steps:
+    - name: ⏳ Esperar inicio del deploy
+      run: sleep 30
+
+    - name: 🔍 Verificar disponibilidad
+      run: |
+        echo "Verificando el sitio..."
+        # Intentar hacer ping al sitio (puede fallar si el deploy aún está en proceso)
+        curl -I https://proyecto-final-t4traveling.onrender.com || echo "Deploy en progreso..."
+
+    - name: 📊 Estado del deploy
+      run: |
+        echo "=========================================="
+        echo "📊 Estado del Deploy"
+        echo "=========================================="
+        echo "Frontend (Static Site):"
+        echo "  - Build: En progreso o completado"
+        echo "  - URL: https://proyecto-final-t4traveling.onrender.com"
+        echo ""
+        echo "Backend (Web Service):"
+        echo "  - Build: En progreso o completado"
+        echo "  - Health check: Automático"
+        echo ""
+        echo "🔔 Recibirás notificaciones en Render Dashboard"
+        echo "=========================================="

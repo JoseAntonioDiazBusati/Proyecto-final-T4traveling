@@ -2,10 +2,28 @@
 
 [![Angular](https://img.shields.io/badge/Angular-21-red)](https://angular.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue)](https://www.typescriptlang.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0-brightgreen)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java-21-orange)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Build](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com)
 
-**Aplicación web moderna para la gestión y reserva de viajes** desarrollada con Angular 21 y las últimas tecnologías web.
+**Aplicación web moderna fullstack para la gestión y reserva de viajes** desarrollada con Angular 21, Spring Boot y las últimas tecnologías web.
+
+---
+
+## 🔄 CI/CD & Automatización
+
+Este proyecto utiliza **GitHub Actions** para automatización completa del ciclo de desarrollo:
+
+### 🤖 Workflows Activos
+
+- ✅ **CI/CD Pipeline** - Build y tests automáticos en cada push
+- ✅ **Deploy Automation** - Despliegue automático a Render en main
+- ✅ **Code Quality** - Análisis de calidad y accesibilidad
+- ✅ **Dependabot** - Actualizaciones automáticas de dependencias
+- ✅ **Auto Label** - Etiquetado automático de issues y PRs
+
+📚 **[Ver documentación completa de workflows](.github/README.md)**
 
 ---
 

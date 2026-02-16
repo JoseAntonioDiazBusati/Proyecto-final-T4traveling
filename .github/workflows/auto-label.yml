@@ -1,0 +1,162 @@
+name: Auto Label & Assign
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+jobs:
+  # ==========================================
+  # Auto-etiquetar Issues y PRs
+  # ==========================================
+  auto-label:
+    name: Auto Label
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🏷️ Etiquetar por tipo
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const title = context.payload.issue?.title || context.payload.pull_request?.title || '';
+          const body = context.payload.issue?.body || context.payload.pull_request?.body || '';
+          const labels = [];
+          
+          // Etiquetar por palabras clave en el título
+          if (title.toLowerCase().includes('bug')) labels.push('bug');
+          if (title.toLowerCase().includes('feat')) labels.push('enhancement');
+          if (title.toLowerCase().includes('fix')) labels.push('bug');
+          if (title.toLowerCase().includes('docs')) labels.push('documentation');
+          if (title.toLowerCase().includes('test')) labels.push('testing');
+          if (title.toLowerCase().includes('style')) labels.push('styling');
+          if (title.toLowerCase().includes('refactor')) labels.push('refactoring');
+          
+          // Etiquetar por área del proyecto
+          if (body.toLowerCase().includes('frontend') || body.toLowerCase().includes('angular')) {
+            labels.push('frontend');
+          }
+          if (body.toLowerCase().includes('backend') || body.toLowerCase().includes('spring')) {
+            labels.push('backend');
+          }
+          if (body.toLowerCase().includes('ci') || body.toLowerCase().includes('deploy')) {
+            labels.push('ci/cd');
+          }
+          if (body.toLowerCase().includes('accessibility') || body.toLowerCase().includes('a11y')) {
+            labels.push('accessibility');
+          }
+          
+          // Aplicar etiquetas
+          if (labels.length > 0) {
+            const issueNumber = context.issue.number;
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: labels
+            });
+            
+            console.log(`✅ Etiquetas aplicadas: ${labels.join(', ')}`);
+          }
+
+  # ==========================================
+  # Dar bienvenida a nuevos contribuidores
+  # ==========================================
+  welcome:
+    name: Welcome New Contributors
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 👋 Mensaje de bienvenida
+      uses: actions/github-script@v7
+      with:
+        script: |
+          // Verificar si es el primer issue/PR del usuario
+          const creator = context.payload.sender.login;
+          const issueNumber = context.issue.number;
+          
+          // Buscar issues/PRs anteriores del usuario
+          const { data: userIssues } = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            creator: creator,
+            state: 'all'
+          });
+          
+          // Si es el primero, dar la bienvenida
+          if (userIssues.length === 1) {
+            const message = `
+            👋 ¡Hola @${creator}! 
+            
+            Gracias por tu interés en **T4 Traveling**. Este es tu primer ${context.payload.issue ? 'issue' : 'pull request'} en el proyecto.
+            
+            📋 **Próximos pasos:**
+            ${context.payload.issue ? `
+            - Un mantenedor revisará tu issue pronto
+            - Por favor, proporciona toda la información necesaria
+            - Si es un bug, incluye pasos para reproducirlo
+            ` : `
+            - Asegúrate de que todos los tests pasen
+            - Los CI/CD workflows se ejecutarán automáticamente
+            - Un mantenedor revisará tu código pronto
+            `}
+            
+            🚀 **Recursos útiles:**
+            - [Documentación del proyecto](../README.md)
+            - [Guía de contribución](../docs/)
+            - [GitHub Actions](.github/README.md)
+            
+            ¡Bienvenido al equipo! 🎉
+            `;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: message
+            });
+          }
+
+  # ==========================================
+  # Verificar checklist en PRs
+  # ==========================================
+  pr-checklist:
+    name: PR Checklist Reminder
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+    - name: ✅ Verificar checklist
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const body = context.payload.pull_request.body || '';
+          const hasChecklist = body.includes('- [') || body.includes('- [ ]') || body.includes('- [x]');
+          
+          if (!hasChecklist) {
+            const message = `
+            📋 **Recordatorio de Checklist**
+            
+            Por favor, considera añadir una checklist a tu PR:
+            
+            \`\`\`markdown
+            ## Checklist
+            
+            - [ ] Tests añadidos/actualizados
+            - [ ] Documentación actualizada
+            - [ ] Build de frontend exitoso
+            - [ ] Build de backend exitoso
+            - [ ] Sin warnings de accesibilidad
+            - [ ] Código revisado por mí mismo
+            \`\`\`
+            
+            Esto ayuda a mantener la calidad del código y facilita las revisiones.
+            `;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });
+          }

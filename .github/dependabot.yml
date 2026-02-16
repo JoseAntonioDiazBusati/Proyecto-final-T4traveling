@@ -1,0 +1,76 @@
+# Configuración de Dependabot para T4 Traveling
+# Mantiene las dependencias actualizadas automáticamente
+
+version: 2
+updates:
+  # ==========================================
+  # Frontend - NPM (Angular + TypeScript)
+  # ==========================================
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "tu-usuario"  # Cambia por tu usuario de GitHub
+    assignees:
+      - "tu-usuario"
+    commit-message:
+      prefix: "chore(frontend)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "frontend"
+      - "npm"
+    ignore:
+      # Ignorar actualizaciones mayores de Angular (requieren migración manual)
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+
+  # ==========================================
+  # Backend - Maven (Spring Boot + Java)
+  # ==========================================
+  - package-ecosystem: "maven"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "tu-usuario"
+    assignees:
+      - "tu-usuario"
+    commit-message:
+      prefix: "chore(backend)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "backend"
+      - "maven"
+    ignore:
+      # Ignorar actualizaciones mayores de Spring Boot (requieren testing extensivo)
+      - dependency-name: "org.springframework.boot:*"
+        update-types: ["version-update:semver-major"]
+
+  # ==========================================
+  # GitHub Actions
+  # ==========================================
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "11:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "tu-usuario"
+    commit-message:
+      prefix: "chore(ci)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "ci/cd"
