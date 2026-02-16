@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: 🏷️ Etiquetar por tipo
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const title = context.payload.issue?.title || context.payload.pull_request?.title || '';
@@ -68,7 +68,7 @@ jobs:
 
     steps:
     - name: 👋 Mensaje de bienvenida
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           // Verificar si es el primer issue/PR del usuario
@@ -127,7 +127,7 @@ jobs:
 
     steps:
     - name: ✅ Verificar checklist
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const body = context.payload.pull_request.body || '';
