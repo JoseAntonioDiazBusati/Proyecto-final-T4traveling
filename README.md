@@ -23,7 +23,7 @@ Este proyecto utiliza **GitHub Actions** para automatización completa del ciclo
 - ✅ **Dependabot** - Actualizaciones automáticas de dependencias
 - ✅ **Auto Label** - Etiquetado automático de issues y PRs
 
-📚 **[Ver documentación completa de workflows](.github/README.md)**
+📚 **[Ver documentación completa de workflows](.github/workflows.md)**
 
 ---
 
