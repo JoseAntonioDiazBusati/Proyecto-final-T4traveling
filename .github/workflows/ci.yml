@@ -57,7 +57,7 @@ jobs:
         ls -lh dist/maquetar-proyecto/browser/ || ls -lh dist/ || true
 
     - name: 📤 Subir artefactos del build
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: frontend-build
         path: frontend/dist/
@@ -108,7 +108,7 @@ jobs:
         ls -lh target/*.jar || true
 
     - name: 📤 Subir artefactos del build
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: backend-build
         path: backend/target/*.jar
